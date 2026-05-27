@@ -13,8 +13,7 @@ cd /d "D:\Github_Area"
 echo Instante do envio: %date% as %time% > "%LOG_FILE%"
 echo --------------------------------------------------- >> "%LOG_FILE%"
 
-:: [INTELIGÊNCIA DO SCRIPT] Checa se a pasta oculta .git existe. 
-:: Se NÃO existir, ele roda os passos de recuperação sozinho!
+:: [INTELIGÊNCIA 1] Checa se a pasta oculta .git existe. Se nao existir, recupera.
 if not exist "D:\Github_Area\.git" (
     echo [AVISO] Pasta .git nao encontrada! Reconfigurando repositorio... >> "%LOG_FILE%"
     git init >> "%LOG_FILE%" 2>&1
@@ -23,9 +22,14 @@ if not exist "D:\Github_Area\.git" (
     git pull origin master >> "%LOG_FILE%" 2>&1
 )
 
-:: Executa os comandos padrão de envio
+:: Prepara os arquivos e cria o ponto de salvamento local
 git add . >> "%LOG_FILE%" 2>&1
 git commit -m "Atualizacao automatica via BAT" >> "%LOG_FILE%" 2>&1
+
+:: [INTELIGÊNCIA 2] Sincroniza com a nuvem ANTES de enviar para evitar rejeições
+git pull origin master --rebase >> "%LOG_FILE%" 2>&1
+
+:: Envia os dados atualizados de forma segura
 git push origin master >> "%LOG_FILE%" 2>&1
 
 echo ===================================================
