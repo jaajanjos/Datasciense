@@ -4,7 +4,7 @@ echo   INICIANDO O ENVIO DOS ARQUIVOS PARA O GITHUB...
 echo ===================================================
 
 :: Define o arquivo de log
-set LOG_FILE=D:\Github_Area\log_envio_github.txt
+set LOG_FILE=D:\Github_Area\99_Log\log_envio_github.txt
 
 :: Força o Windows a entrar na pasta correta
 cd /d "D:\Github_Area"
