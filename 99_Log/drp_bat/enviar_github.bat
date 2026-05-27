@@ -3,8 +3,18 @@ echo ===================================================
 echo   INICIANDO O ENVIO DOS ARQUIVOS PARA O GITHUB...
 echo ===================================================
 
+:: 1. Limpa a data (considera formato DD/MM/AAAA)
+set DATA_LIMPA=%DATE:~0,2%%DATE:~3,2%%DATE:~6,4%
+
+:: 2. Limpa a hora e substitui espaços por zero (caso seja antes das 10h)
+set HORA_ATUAL=%TIME: =0%
+set HORA_LIMPA=%HORA_ATUAL:~0,2%%HORA_ATUAL:~3,2%%HORA_ATUAL:~6,2%
+
+:: 3. Concatena tudo em uma única variável
+set NOME_ARQUIVO=log_envio_github_%DATA_LIMPA%_%HORA_LIMPA%.txt
+
 :: Define o arquivo de log
-set LOG_FILE=D:\Github_Area\99_Log\log_envio_github.txt
+set LOG_FILE=D:\Github_Area\99_Log\%NOME_ARQUIVO%.txt
 
 :: Força o Windows a entrar na pasta correta
 cd /d "D:\Github_Area"
