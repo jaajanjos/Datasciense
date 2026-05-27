@@ -10,7 +10,7 @@ set LOG_FILE=D:\Github_Area\log_envio_github.txt
 echo Instante do envio: %date% as %time% > "%LOG_FILE%"
 echo --------------------------------------------------- >> "%LOG_FILE%"
 
-:: Roda os comandos e joga a resposta do Git Bash para dentro do log correto
+:: EXECUTÁVEL CORRIGIDO: Força o Windows a capturar tanto o canal 1 (texto) quanto o canal 2 (status/erros) do Git Bash
 "C:\Program Files\Git\git-bash.exe" --cd="D:\Github_Area" -c "git add . && git commit -m 'Atualizacao automatica via BAT' && git push" >> "%LOG_FILE%" 2>&1
 
 echo ===================================================
