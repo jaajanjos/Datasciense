@@ -43,6 +43,6 @@ git pull origin master --rebase >> "%LOG_FILE%" 2>&1
 git push origin master >> "%LOG_FILE%" 2>&1
 
 echo ==========================================================================================
-echo   AGUARDE O FINAL DO PROCESSO  NÃO CANCELE ATE SER CONCLUIDO! FECHANDO EM 5 SEGUNDOS...
+echo   AGUARDE O FINAL DO PROCESSO NAO CANCELE ATE SER CONCLUIDO! FECHANDO EM 5 SEGUNDOS...
 echo ==========================================================================================
 timeout /t 5
