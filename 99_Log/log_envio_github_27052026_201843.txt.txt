@@ -1,2 +1,13 @@
 Instante do envio: 27/05/2026 as 20:18:43,76 
 --------------------------------------------------- 
+[master 17a040e] Atualizacao automatica via BAT
+ 6 files changed, 110 insertions(+), 1 deletion(-)
+ create mode 100644 0_Area_Execucao/Clientes - Copia.csv
+ create mode 100644 99_Log/drp_bat/.gitignore
+ create mode 100644 99_Log/drp_bat/enviar.sh
+ rename enviar_github.bat.res => 99_Log/drp_bat/enviar_github.bat (75%)
+ create mode 100644 99_Log/log_envio_github_27052026_201843.txt.txt
+error: cannot pull with rebase: You have unstaged changes.
+error: Please commit or stash them.
+To https://github.com/jaajanjos/Datasciense.git
+   aa2c4c3..17a040e  master -> master
