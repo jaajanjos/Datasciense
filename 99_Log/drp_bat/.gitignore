@@ -1,26 +1,5 @@
-# Ignorar instaladores pesados e zips
-*.exe
-*.zip
-*.ispac
-*.bak
-
-
-cat << 'EOF' > .gitignore
-# Ignorar instaladores pesados e zips
-*.exe
-*.zip
-*.ispac
-*.bak
-
-# Ignorar pastas ocultas temporárias do Visual Studio (SSIS)
+99_Log/
+99_Log/
 .vs/
-obj/
-bin/
-
-# Ignorar logs de execução e arquivos de checkpoint
-*.log
-*.vsidx
-.ipynb_checkpoints/
-
-# Opcional: Se quiser ignorar o log do próprio script
-log_envio_github.txt
+**/bin/
+**/obj/

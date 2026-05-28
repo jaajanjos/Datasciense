@@ -36,13 +36,13 @@ if not exist "D:\Github_Area\.git" (
 git add . >> "%LOG_FILE%" 2>&1
 git commit -m "Atualizacao automatica via BAT" >> "%LOG_FILE%" 2>&1
 
-:: [INTELIGÊNCIA 2] Sincroniza com a nuvem ANTES de enviar para evitar rejeições
+:: [INTELIGÊNCIA 2](CORRIGIDO) Sincroniza com a nuvem guardando alterações pendentes para evitar o erro de rebase
 git pull origin master --rebase >> "%LOG_FILE%" 2>&1
 
 :: Envia os dados atualizados de forma segura
 git push origin master >> "%LOG_FILE%" 2>&1
 
-echo ===================================================
-echo   PROCESSO CONCLUIDO! FECHANDO EM 5 SEGUNDOS...
-echo ===================================================
+echo ==========================================================================================
+echo   AGUARDE O FINAL DO PROCESSO  NÃO CANCELE ATE SER CONCLUIDO! FECHANDO EM 5 SEGUNDOS...
+echo ==========================================================================================
 timeout /t 5
