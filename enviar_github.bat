@@ -11,7 +11,7 @@ set HORA_ATUAL=%TIME: =0%
 set HORA_LIMPA=%HORA_ATUAL:~0,2%%HORA_ATUAL:~3,2%%HORA_ATUAL:~6,2%
 
 :: 3. Concatena tudo em uma única variável
-set NOME_ARQUIVO=log_envio_github_%DATA_LIMPA%_%HORA_LIMPA%.txt
+set NOME_ARQUIVO=log_envio_github_%DATA_LIMPA%_%HORA_LIMPA%
 
 :: Define o arquivo de log
 set LOG_FILE=D:\Github_Area\99_Log\%NOME_ARQUIVO%.txt
