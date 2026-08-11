@@ -1,7 +1,0 @@
-2. Introdução ao Power BI 0/5 aulas 35 min
-		1. O que é Business Intelligence (BI) 09:52
-		2. Qual o notebook ideal para usar o Power BI 08:29
-		3. Instalando o Power BI 03:59
-		4. Atualizações do Power BI 08:53
-		5. Ambiente e Lógica do Power BI 04:42
-	
