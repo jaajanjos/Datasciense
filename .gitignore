@@ -4,6 +4,7 @@
 **/bin/
 **/obj/
 .env*.csv
+*.csv
 *.xls
 *.xlsx
 *.bat
