@@ -1,5 +1,10 @@
-*.csv 
-*.xls 
-*.xlsx 
-*.bat 
-*.txt 
+99_Log/
+99_Log/
+.vs/
+**/bin/
+**/obj/
+.env*.csv
+*.xls
+*.xlsx
+*.bat
+*.txt
