@@ -3,6 +3,8 @@ echo ===================================================
 echo   INICIANDO O ENVIO DOS ARQUIVOS PARA O GITHUB...
 echo ===================================================
 
+
+
 :: 1. Limpa a data (considera formato DD/MM/AAAA)
 set DATA_LIMPA=%DATE:~0,2%%DATE:~3,2%%DATE:~6,4%
 
@@ -30,6 +32,7 @@ if not exist "D:\Github_Area\.git" (
     git checkout -b master >> "%LOG_FILE%" 2>&1
     git remote add origin https://github.com/jaajanjos/Datasciense.git >> "%LOG_FILE%" 2>&1
     git pull origin master >> "%LOG_FILE%" 2>&1
+	git rm -r --cached .env.local *.txt *.csv *.xls *.xlsx >> "%LOG_FILE%" 2>&1
 )
 
 :: Prepara os arquivos e cria o ponto de salvamento local
