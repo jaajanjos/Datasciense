@@ -1,0 +1,105 @@
+# ==============================================================================
+# .claudeignore - Modelo Ideal de Segurança e Proteção Anti-Raspagem (Windows)
+# ==============================================================================
+
+# ------------------------------------------------------------------------------
+# 1. SEGREDOS, CREDENCIAIS E CHAVES PRIVADAS
+# ------------------------------------------------------------------------------
+.env
+.env.*
+!.env.example
+!.env.template
+*.pem
+*.key
+*.ppk
+*.pfx
+*.kdbx
+*.crt
+*.cer
+id_rsa
+id_rsa.*
+id_ed25519
+id_ed25519.*
+secrets.json
+config/secrets.*
+config/database.yml
+appsettings*.json
+!appsettings.json
+!appsettings.Development.json
+
+# ------------------------------------------------------------------------------
+# 2. DADOS PESSOAIS, BACKUPS E BANCOS DE DADOS
+# ------------------------------------------------------------------------------
+/dados_pessoais/
+/backups/
+/backup/
+*.bak
+*.tmp
+*.temp
+*.swp
+*.sql
+*.sqlite
+*.sqlite3
+*.db
+*.mdb
+
+# ------------------------------------------------------------------------------
+# 3. PACOTES, DEPENDÊNCIAS E AMBIENTES VIRTUAIS (ECONOMIA DE TOKENS)
+# ------------------------------------------------------------------------------
+node_modules/
+vendor/
+.venv/
+venv/
+env/
+ENV/
+bin/
+obj/
+packages/
+.nuget/
+
+# ------------------------------------------------------------------------------
+# 4. COMPILAÇÃO, ARTEFATOS E IMAGENS DE DISCO
+# ------------------------------------------------------------------------------
+dist/
+build/
+out/
+target/
+.next/
+.nuxt/
+*.exe
+*.dll
+*.so
+*.dylib
+*.iso
+*.vhd
+*.vhdx
+
+# ------------------------------------------------------------------------------
+# 5. LOGS E TELEMETRIA
+# ------------------------------------------------------------------------------
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ------------------------------------------------------------------------------
+# 6. METADADOS DO SISTEMA E AMBIENTES DE DESENVOLVIMENTO
+# ------------------------------------------------------------------------------
+.git/
+.svn/
+.hg/
+.vscode/
+.idea/
+*.suo
+*.user
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+AppData/
+ntuser.dat*
+```[cite: 2]
+*.txt
+*.csv
+*.xlsx
+*.bat
