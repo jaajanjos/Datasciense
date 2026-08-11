@@ -40,7 +40,7 @@ git add . >> "%LOG_FILE%" 2>&1
 git commit -m "Atualizacao automatica via BAT" >> "%LOG_FILE%" 2>&1
 
 :: [INTELIGÊNCIA 2](CORRIGIDO) Sincroniza com a nuvem guardando alterações pendentes para evitar o erro de rebase
-	git rm -r --cached .env.local *.txt *.csv *.xls *.xlsx >> "%LOG_FILE%" 2>&1
+	git rm -r --cached *.txt *.csv *.xls *.xlsx >> "%LOG_FILE%" 2>&1
 git pull origin master --rebase >> "%LOG_FILE%" 2>&1
 
 :: Envia os dados atualizados de forma segura
