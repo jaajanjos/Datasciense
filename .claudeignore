@@ -35,6 +35,7 @@ appsettings*.json
 /backup/
 *.bak
 *.tmp
+*.mp4
 *.temp
 *.swp
 *.sql
