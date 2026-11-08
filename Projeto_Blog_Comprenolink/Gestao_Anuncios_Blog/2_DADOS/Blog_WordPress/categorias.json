@@ -1,0 +1,776 @@
+{
+  "_leia_me": "Árvore de categorias (máx. 2 níveis) e tags do blog. Cada produto do guia entra na 1ª subcategoria cujas palavras começam uma palavra do nome (ordem das categorias e subcategorias importa). Usado por gerar_esboco_categorias.py (esboço local) e publicar_categorias.py (produção). 'minimo_para_publicar' = nº mínimo de produtos para a página da categoria valer a pena no Google. 'chamada' = frase curta da lista 'Escolha por categoria' da Início. 'meta_descricao' = descrição para o Google (All in One SEO), até ~155 caracteres.",
+  "minimo_para_publicar": 3,
+  "categorias": [
+    {
+      "nome": "Tecnologia & Informática",
+      "slug": "tecnologia-e-informatica",
+      "emoji": "💻",
+      "intro": "Confira as melhores ofertas de notebooks, monitores, impressoras, celulares, smartwatches e periféricos gamer, selecionados no Mercado Livre.",
+      "chamada": "notebooks, celulares, impressoras e periféricos gamer",
+      "meta_descricao": "Notebook ASUS Ryzen 7, monitor LG 27\", impressora EcoTank, SSD NVMe, celulares e periféricos gamer: tecnologia com ótimo custo-benefício no Mercado Livre.",
+      "subcategorias": [
+        {
+          "nome": "Periféricos",
+          "palavras": [
+            "gamer",
+            "teclas",
+            "teclado",
+            "headset",
+            "webcam",
+            "mouse",
+            "caixa de som para pc",
+            "impressora",
+            "mini impressora"
+          ]
+        },
+        {
+          "nome": "Hardware & PCs",
+          "palavras": [
+            "ssd",
+            "notebook",
+            "monitor lg",
+            "memória ram",
+            "placa de vídeo",
+            "monitor gamer",
+            "monitor full hd",
+            "monitor curvo",
+            "monitor samsung"
+          ]
+        },
+        {
+          "nome": "Smartphones & Acessórios",
+          "palavras": [
+            "motorola",
+            "moto g",
+            "galaxy",
+            "iphone",
+            "smartphone",
+            "celular",
+            "power bank",
+            "carregador",
+            "smartwatch",
+            "relógio inteligente",
+            "kindle",
+            "tablet",
+            "xiaomi",
+            "redmi"
+          ]
+        }
+      ]
+    },
+    {
+      "nome": "Áudio & TV",
+      "slug": "audio-e-tv",
+      "emoji": "🎧",
+      "intro": "Som e imagem de qualidade para a sua casa: fones, caixas de som, soundbars, Smart TVs, receptores e telas de projeção com melhor custo-benefício do Mercado Livre.",
+      "chamada": "som e imagem de qualidade para a sua casa",
+      "meta_descricao": "JBL Go 5 e Boombox, caixas amplificadas, soundbar, Smart TVs Samsung e Philco Roku e receptor sem mensalidade: som e imagem com ofertas do Mercado Livre.",
+      "subcategorias": [
+        {
+          "nome": "Projeção",
+          "palavras": [
+            "tela de projeção",
+            "projetor"
+          ]
+        },
+        {
+          "nome": "TVs & Receptores",
+          "palavras": [
+            "smart tv",
+            "receptor",
+            "fire tv"
+          ]
+        },
+        {
+          "nome": "Fones & Caixas de Som",
+          "palavras": [
+            "fone",
+            "caixa de som",
+            "soundbar",
+            "caixa amplificada"
+          ]
+        }
+      ]
+    },
+    {
+      "nome": "Casa & Eletrodomésticos",
+      "slug": "casa-e-eletrodomesticos",
+      "emoji": "🏠",
+      "intro": "Praticidade na cozinha e segurança em casa: eletroportáteis, utensílios e itens inteligentes recomendados para facilitar o seu dia a dia.",
+      "chamada": "eletroportáteis, utensílios de cozinha e segurança",
+      "meta_descricao": "Air fryer, chaleira, pipoqueira, panela de pressão e câmera Wi-Fi: eletroportáteis e utensílios para facilitar sua rotina, com ofertas do Mercado Livre.",
+      "subcategorias": [
+        {
+          "nome": "Eletroportáteis",
+          "palavras": [
+            "air fryer",
+            "fritadeira",
+            "chaleira",
+            "pipoqueira",
+            "cozedor",
+            "mixer",
+            "churrasqueira",
+            "marmita elétrica",
+            "liquidificador",
+            "cafeteira",
+            "ventilador",
+            "aspirador de pó vertical",
+            "aspirador vertical",
+            "aspirador de pó sem fio"
+          ]
+        },
+        {
+          "nome": "Utensílios, Cozinha & Mesa",
+          "palavras": [
+            "panela",
+            "forma",
+            "escorredor",
+            "micro-ondas",
+            "assadeira",
+            "copo",
+            "garrafa",
+            "torneira",
+            "taça",
+            "pano de prato",
+            "panos de prato",
+            "kit festa",
+            "boleira"
+          ]
+        },
+        {
+          "nome": "Automação & Segurança",
+          "palavras": [
+            "câmera",
+            "echo dot",
+            "alexa",
+            "lâmpada inteligente",
+            "tomada inteligente"
+          ]
+        }
+      ]
+    },
+    {
+      "nome": "Bebê & Maternidade",
+      "slug": "bebe-e-maternidade",
+      "emoji": "🍼",
+      "intro": "Enxoval, roupinhas, sapatinhos, mantas, sacos de dormir, trocadores, naninhas e móbiles para os primeiros meses do bebê, selecionados no Mercado Livre.",
+      "chamada": "enxoval, roupinhas, sapatinhos e naninhas",
+      "meta_descricao": "Enxoval de bebê, saída maternidade, saco de dormir, trocador de fralda, naninhas e móbiles para berço: selecionados no Mercado Livre.",
+      "subcategorias": [
+        {
+          "nome": "Trocadores & Higiene",
+          "palavras": [
+            "trocador",
+            "kit higiene",
+            "kit cuidados"
+          ]
+        },
+        {
+          "nome": "Sapatinhos",
+          "palavras": [
+            "sapatinho",
+            "sapatilha",
+            "tênis bebê",
+            "botina",
+            "mocassim"
+          ]
+        },
+        {
+          "nome": "Roupinhas",
+          "palavras": [
+            "bodies",
+            "mijão",
+            "macacão",
+            "macacões",
+            "vestido bebê",
+            "regatas",
+            "kit roupa de bebê",
+            "roupa bebê",
+            "conjunto bebê",
+            "kit presente bebê"
+          ]
+        },
+        {
+          "nome": "Naninhas & Móbiles",
+          "palavras": [
+            "naninha",
+            "naninhas",
+            "móbile",
+            "mobile musical"
+          ]
+        },
+        {
+          "nome": "Enxoval & Mantas",
+          "palavras": [
+            "saída maternidade",
+            "saco de dormir",
+            "ninho para bebê",
+            "kit enxoval",
+            "manta bebê",
+            "cobertor enroladinho",
+            "bebê",
+            "bebe"
+          ]
+        }
+      ]
+    },
+    {
+      "nome": "Moda Infantil & Juvenil",
+      "slug": "moda-infantil-e-juvenil",
+      "emoji": "👕",
+      "intro": "Kits de conjuntos, moletons, macaquinhos, calcinhas e meias para meninas e meninos do infantil ao juvenil, selecionados no Mercado Livre.",
+      "chamada": "conjuntos, moletons e kits para meninas e meninos",
+      "meta_descricao": "Kits de roupa infantil e juvenil: conjuntos de verão, moletons, macaquinhos, calcinhas e meias para meninas e meninos, selecionados no Mercado Livre.",
+      "subcategorias": [
+        {
+          "nome": "Moletons",
+          "palavras": [
+            "moletom",
+            "moletons"
+          ]
+        },
+        {
+          "nome": "Calcinhas & Meias",
+          "palavras": [
+            "calcinha",
+            "calcinhas",
+            "meia",
+            "meias"
+          ]
+        },
+        {
+          "nome": "Meninas",
+          "palavras": [
+            "menina",
+            "infantil feminino",
+            "vestido de festa"
+          ]
+        },
+        {
+          "nome": "Meninos",
+          "palavras": [
+            "menino",
+            "juvenil masculino"
+          ]
+        },
+        {
+          "nome": "Mais Moda Infantil",
+          "palavras": [
+            "infantil",
+            "juvenil",
+            "kids"
+          ]
+        }
+      ]
+    },
+    {
+      "nome": "Casa, Cama & Decoração",
+      "slug": "casa-cama-e-decoracao",
+      "emoji": "🛋️",
+      "intro": "Conforto e estilo para todos os cantos da casa: enxoval de cama, cabeceiras, redes, espelhos e decoração de Natal com as melhores ofertas do Mercado Livre.",
+      "chamada": "conforto e estilo para todos os cantos da casa",
+      "meta_descricao": "Jogo de lençol 600 fios, coberta sherpa, travesseiro ergonômico, cabeceira e decoração de Natal: conforto e estilo para a casa com ofertas do Mercado Livre.",
+      "subcategorias": [
+        {
+          "nome": "Cama & Descanso",
+          "palavras": [
+            "cama box",
+            "colchão",
+            "cobertor",
+            "manta",
+            "rede de",
+            "travesseiro",
+            "lençol",
+            "fronha",
+            "colcha",
+            "cobre-leito",
+            "saia para cama",
+            "cabeceira",
+            "coberta",
+            "capas protetoras de travesseiro",
+            "jogo de toalhas",
+            "toalha",
+            "toalhas"
+          ]
+        },
+        {
+          "nome": "Decoração & Iluminação",
+          "palavras": [
+            "espelho",
+            "cortina de led",
+            "led",
+            "luminária",
+            "quadro",
+            "ursinho",
+            "natalino",
+            "enfeite",
+            "solitário",
+            "solitários",
+            "árvore de natal",
+            "pisca"
+          ]
+        }
+      ]
+    },
+    {
+      "nome": "Ferramentas & Utilidades",
+      "slug": "ferramentas-e-utilidades",
+      "emoji": "🔧",
+      "intro": "Ferramentas, reparos, limpeza e organização que resolvem a rotina da casa, com as melhores ofertas do Mercado Livre.",
+      "chamada": "ferramentas, limpeza e organização para a casa",
+      "meta_descricao": "Parafusadeiras, mini motosserra WAP, compressor Tramontina, jogo de bits Vonder, silicone e organizadores: ferramentas e utilidades com ofertas do Mercado Livre.",
+      "subcategorias": [
+        {
+          "nome": "Ferramentas Elétricas",
+          "palavras": [
+            "lavadora",
+            "furadeira",
+            "parafusadeira",
+            "serra",
+            "compressor",
+            "mini compressor",
+            "soprador",
+            "mini soprador",
+            "motosserra",
+            "mini motosserra",
+            "esmerilhadeira"
+          ]
+        },
+        {
+          "nome": "Ferramentas Manuais",
+          "palavras": [
+            "chave catraca",
+            "chave",
+            "caixa de ferramentas",
+            "alicate",
+            "martelo",
+            "jogo de bits",
+            "bits",
+            "trena",
+            "nível a laser",
+            "nivel a laser",
+            "kit nível"
+          ]
+        },
+        {
+          "nome": "Reparos & Vedação",
+          "palavras": [
+            "silicone",
+            "cola",
+            "veda"
+          ]
+        },
+        {
+          "nome": "Limpeza",
+          "palavras": [
+            "mop",
+            "lixeira",
+            "aspirador",
+            "vassoura"
+          ]
+        },
+        {
+          "nome": "Organização",
+          "palavras": [
+            "pote",
+            "tempero",
+            "organizador",
+            "caixa organizadora",
+            "arara"
+          ]
+        }
+      ]
+    },
+    {
+      "nome": "Esporte & Fitness",
+      "slug": "esporte-e-fitness",
+      "emoji": "💪",
+      "intro": "Treine em casa, vista-se para o treino, proteja as articulações e mantenha a suplementação em dia com os produtos fitness mais procurados no Mercado Livre.",
+      "chamada": "suplementos, treino em casa, moda fitness e esportes",
+      "meta_descricao": "Whey, creatina, bicicleta ergométrica, mini bike, leggings, maiô de natação e joelheiras entre selecionados no Mercado Livre. Treine melhor e veja as ofertas!",
+      "subcategorias": [
+        {
+          "nome": "Suplementos",
+          "palavras": [
+            "creatina",
+            "whey",
+            "pré-treino",
+            "colágeno em pó"
+          ]
+        },
+        {
+          "nome": "Treino em Casa",
+          "palavras": [
+            "halter",
+            "barra fixa",
+            "treino em casa",
+            "elástico",
+            "colchonete",
+            "kettlebell",
+            "bicicleta ergométrica",
+            "mini bike"
+          ]
+        },
+        {
+          "nome": "Moda Fitness",
+          "palavras": [
+            "legging",
+            "bermuda",
+            "top fitness",
+            "shorts",
+            "maiô",
+            "macaquinho",
+            "tênis masculino"
+          ]
+        },
+        {
+          "nome": "Proteção & Suporte",
+          "palavras": [
+            "joelheira",
+            "joelheiras",
+            "tornozeleira"
+          ]
+        },
+        {
+          "nome": "Esportes & Lazer",
+          "palavras": [
+            "bola",
+            "chuteira",
+            "raquete",
+            "bicicleta",
+            "mala mochila"
+          ]
+        }
+      ]
+    },
+    {
+      "nome": "Beleza & Saúde",
+      "slug": "beleza-e-saude",
+      "emoji": "🌸",
+      "intro": "Perfumes marcantes, skincare, colágeno, vitaminas, magnésio e ômega 3, cuidados pessoais e saúde no dia a dia, com ofertas selecionadas no Mercado Livre.",
+      "chamada": "perfumes, skincare, cuidados pessoais e saúde",
+      "meta_descricao": "Perfumes árabes, sérum de retinol, protetor solar FPS 70, magnésio dimalato, ômega 3 e colágeno: beleza e cuidado no dia a dia com ofertas do Mercado Livre.",
+      "subcategorias": [
+        {
+          "nome": "Perfumes",
+          "palavras": [
+            "perfume",
+            "colônia"
+          ]
+        },
+        {
+          "nome": "Skincare",
+          "palavras": [
+            "skincare",
+            "kokeshi",
+            "rosa mosqueta",
+            "protetor solar",
+            "sérum",
+            "gel hidratante",
+            "hidratante facial"
+          ]
+        },
+        {
+          "nome": "Magnésio",
+          "palavras": [
+            "magnésio",
+            "magnésios",
+            "dimagnésio",
+            "magnesio"
+          ]
+        },
+        {
+          "nome": "Vitaminas & Suplementos",
+          "palavras": [
+            "colágeno",
+            "vitamina b12",
+            "vitamina d",
+            "multivitamínico",
+            "ômega",
+            "multivitaminico",
+            "polivitamínico",
+            "ômega 3",
+            "cúrcuma",
+            "joint fix",
+            "vitamina",
+            "vitaminas",
+            "resveratrol",
+            "própolis",
+            "coenzima",
+            "licopeno",
+            "óleo de semente",
+            "kit 2 óleo de semente"
+          ]
+        },
+        {
+          "nome": "Cuidados Pessoais",
+          "palavras": [
+            "máquina de cortar",
+            "barbeador",
+            "barba",
+            "secador",
+            "chapinha",
+            "maquiagem",
+            "óleo extraordinário",
+            "leave-in",
+            "prancha",
+            "alisadora"
+          ]
+        },
+        {
+          "nome": "Saúde",
+          "palavras": [
+            "inalador",
+            "nebulizador",
+            "termômetro",
+            "medidor de pressão",
+            "oxímetro",
+            "monitor pressão",
+            "pressão arterial",
+            "aparelho de pressão"
+          ]
+        }
+      ]
+    }
+  ],
+  "tags": [
+    {
+      "tag": "black-friday",
+      "titulo": "Black Friday 2026: as ofertas que valem a pena",
+      "quando": "até 27/11/2026",
+      "meta_descricao": "Black Friday 2026: Smart TVs, celulares, air fryer, cama box, smartwatch e lavadora selecionados no Mercado Livre. Confira as ofertas antes que acabem!",
+      "palavras": [
+        "smart tv",
+        "galaxy",
+        "moto g24",
+        "jbl",
+        "lavadora",
+        "churrasqueira",
+        "logitech",
+        "power bank",
+        "air fryer",
+        "cama box baú",
+        "smartwatch",
+        "whey",
+        "câmera",
+        "miniled",
+        "boombox",
+        "parafusadeira",
+        "caixa amplificada",
+        "notebook asus",
+        "impressora multifuncional",
+        "bicicleta ergométrica",
+        "tablet",
+        "notebook acer",
+        "notebook lenovo",
+        "redmi",
+        "soundbar",
+        "projetor",
+        "fire tv",
+        "airfryer",
+        "aspirador",
+        "cafeteira"
+      ],
+      "slug": "black-friday",
+      "rotulo": "Black Friday",
+      "emoji": "🔥",
+      "intro": "Separamos as ofertas que mais valem a pena acompanhar na Black Friday 2026 (até 27/11/2026): Produtos selecionados no Mercado Livre. Clique em \"Ver preço\" para conferir o valor do dia no site oficial.",
+      "campanha_ate": "2026-11-30",
+      "faixa": "Black Friday 2026: veja a seleção de ofertas que valem a pena acompanhar",
+      "botao": "Ver ofertas da Black Friday",
+      "aviso_fim": "A Black Friday 2026 acabou, mas os produtos continuam à venda no Mercado Livre. Aproveite e veja também os presentes de Natal:",
+      "destaques": [
+        "smart tv samsung 55",
+        "notebook asus",
+        "caixa de som jbl boombox 4",
+        "samsung galaxy a17",
+        "air fryer",
+        "cama box baú",
+        "lavadora vonder",
+        "parafusadeira de impacto",
+        "fone jbl tune",
+        "smartwatch"
+      ],
+      "titulo_top": "🔥 Top 10 da Black Friday",
+      "titulo_resto": "Mais ofertas por categoria",
+      "html_apos_aviso": "<div class=\"cnl-contagem\" style=\"background:#111827;color:#fff;border-radius:12px;padding:14px 18px;margin:0 0 18px;text-align:center\"><div style=\"font-size:13px;color:#ffd54a;font-weight:700;letter-spacing:.04em\">🔥 BLACK FRIDAY 2026</div><div id=\"cnl-contagem-texto\" style=\"font-size:20px;font-weight:800;margin:4px 0\">A Black Friday 2026 é em 27/11/2026.</div><a href=\"#desconto-real\" style=\"color:#ffd54a;font-weight:700;font-size:14px\">Como saber se o desconto é real ↓</a></div><script>(function(){var alvo=new Date(\"2026-11-27T00:00:00-03:00\").getTime(),fim=new Date(\"2026-12-01T00:00:00-03:00\").getTime();function t(){var el=document.getElementById(\"cnl-contagem-texto\");if(!el)return;var n=Date.now();if(n<alvo){var s=Math.floor((alvo-n)/1000),d=Math.floor(s/86400),h=Math.floor(s%86400/3600),m=Math.floor(s%3600/60);el.textContent=(d===1?\"Falta 1 dia\":\"Faltam \"+d+\" dias\")+\", \"+h+\" h e \"+m+\" min para a Black Friday (27/11/2026)\";}else if(n<fim){el.textContent=\"É Black Friday! Confira os produtos abaixo no Mercado Livre.\";}else{el.textContent=\"A Black Friday 2026 terminou. Veja também os presentes de Natal.\";}}t();setInterval(t,60000);})();</script>",
+      "html_antes_guia": "<h2 id=\"desconto-real\" class=\"wp-block-heading\">✅ Como saber se o desconto é real</h2><p>Na Black Friday tem oferta boa e tem \"desconto\" que não é. Antes de comprar, faça este checklist de 2 minutos:</p><ol><li><strong>Compare com os dias anteriores.</strong> Anote o valor do produto agora (ou tire um print) e confira de novo na semana da Black Friday. Se o valor \"de\" riscado no anúncio estiver muito acima do que você viu antes, desconfie.</li><li><strong>Olhe o total, não só o valor em destaque.</strong> Some frete, parcelas e juros. Às vezes o pagamento à vista ou o frete grátis compensa mais.</li><li><strong>Confira o vendedor.</strong> Veja a reputação, as avaliações recentes e se é loja oficial. Leia também as notas baixas: elas mostram os problemas reais.</li><li><strong>Veja o produto exato.</strong> Modelo, voltagem, capacidade, cor e o que vem na caixa. Compare com a descrição do fabricante.</li><li><strong>Cheque garantia e prazo de entrega.</strong> Para presente de Natal, confira a data de entrega antes de fechar a compra.</li><li><strong>Cupom só vale se o total final cair.</strong> Faça a conta com o cupom e a forma de pagamento escolhidos.</li></ol><p>Dica: salve o anúncio nos favoritos do Mercado Livre e acompanhe o valor até a hora de comprar. Os valores e o estoque mudam o tempo todo.</p><h2 id=\"canal-whatsapp\" class=\"wp-block-heading\">💬 Entre no nosso Canal do WhatsApp</h2><p>Receba os achados do Mercado Livre direto no celular, sem precisar abrir o blog. É grátis e você sai quando quiser.</p><p><a href=\"https://whatsapp.com/channel/0029Vb9eTLd3rZZlBFjs8J3A\" target=\"_blank\" rel=\"noopener\" style=\"display:inline-block;background:#25D366;color:#073b1d;font-weight:700;padding:12px 22px;border-radius:10px;text-decoration:none\">Entrar no Canal do WhatsApp →</a></p><h2 id=\"alertas\" class=\"wp-block-heading\">🔔 Receba os alertas de Black Friday e Natal</h2><p>Deixe seu e-mail e avisamos quando houver ofertas e novidades. Sem spam: você pode sair quando quiser. Usamos seus dados só para isso — veja a <a href=\"https://comprenolink.net/politica-de-privacidade/\">Política de Privacidade</a>.</p>[fluentform id=\"4\"]"
+    },
+    {
+      "tag": "natal-presentes",
+      "titulo": "Presentes de Natal 2026: ideias que agradam",
+      "quando": "dezembro",
+      "palavras": [
+        "perfume",
+        "jbl",
+        "fone bluetooth",
+        "mixer",
+        "espelho",
+        "assadeira",
+        "caixa de som",
+        "cortina de led",
+        "smartwatch",
+        "kit skincare",
+        "kit kokeshi",
+        "máquina de cortar",
+        "pipoqueira",
+        "ursinho",
+        "taças",
+        "boombox",
+        "jogo de lençol",
+        "fronhas de cetim",
+        "sérum",
+        "óleo extraordinário",
+        "solitários",
+        "naninha",
+        "manta bebê personalizada",
+        "pisca",
+        "árvore de natal",
+        "khamrah",
+        "yara",
+        "secador",
+        "prancha",
+        "barbeador",
+        "jogo de toalhas"
+      ],
+      "slug": "presentes-de-natal",
+      "rotulo": "Presentes de Natal",
+      "emoji": "🎄",
+      "intro": "Ideias de presentes de Natal para todos os gostos: perfumes, fones e caixas de som JBL, skincare, enxoval e decoração, selecionados no Mercado Livre. Clique em \"Ver preço\" para conferir o valor do dia no site oficial.",
+      "meta_descricao": "Presentes de Natal 2026: perfumes árabes, JBL Go 5 e Boombox, kits de skincare, smartwatch, jogo de lençol e decoração natalina com ofertas do Mercado Livre.",
+      "a_partir_de": "2026-11-03",
+      "campanha_ate": "2026-12-25",
+      "faixa": "Presentes de Natal 2026: ideias que agradam, separadas por categoria",
+      "botao": "Ver presentes de Natal",
+      "destaques": [
+        "caixa de som jbl boombox 4",
+        "perfume árabe sabah",
+        "perfume árabe asad",
+        "smartwatch",
+        "fone jbl tune",
+        "caixa de som jbl go 5",
+        "kit skincare principia",
+        "máquina de cortar",
+        "jogo de lençol",
+        "cortina de led"
+      ],
+      "titulo_top": "🎄 Top 10 presentes de Natal",
+      "titulo_resto": "Mais presentes por categoria",
+      "html_antes_guia": "<h2 id=\"prazo-entrega\" class=\"wp-block-heading\">📦 Compre a tempo: confira o prazo de entrega</h2><p>Presente de Natal que chega atrasado não ajuda ninguém. Antes de fechar a compra:</p><ul><li><strong>Veja a data estimada de entrega</strong> no anúncio, informando o seu CEP. Ela muda conforme o vendedor e a sua região.</li><li><strong>Não deixe para a última semana.</strong> Em dezembro as entregas costumam demorar mais.</li><li><strong>Prefira compras com entrega mais rápida</strong> quando o presente tiver data certa para chegar.</li><li><strong>Confira o vendedor, as avaliações e a garantia</strong> antes de comprar.</li></ul><p>Os valores, o estoque e os prazos mudam o tempo todo: confirme tudo no Mercado Livre na hora da compra.</p><h2 id=\"canal-whatsapp\" class=\"wp-block-heading\">💬 Entre no nosso Canal do WhatsApp</h2><p>Receba os achados do Mercado Livre direto no celular, sem precisar abrir o blog. É grátis e você sai quando quiser.</p><p><a href=\"https://whatsapp.com/channel/0029Vb9eTLd3rZZlBFjs8J3A\" target=\"_blank\" rel=\"noopener\" style=\"display:inline-block;background:#25D366;color:#073b1d;font-weight:700;padding:12px 22px;border-radius:10px;text-decoration:none\">Entrar no Canal do WhatsApp →</a></p><h2 id=\"alertas\" class=\"wp-block-heading\">🔔 Receba os alertas de Black Friday e Natal</h2><p>Deixe seu e-mail e avisamos quando houver ofertas e novidades. Sem spam: você pode sair quando quiser. Usamos seus dados só para isso — veja a <a href=\"https://comprenolink.net/politica-de-privacidade/\">Política de Privacidade</a>.</p>[fluentform id=\"4\"]"
+    },
+    {
+      "tag": "treino-em-casa",
+      "titulo": "Treino em casa",
+      "quando": "ano todo (pico em janeiro)",
+      "palavras": [
+        "creatina",
+        "halter",
+        "barra fixa",
+        "copo térmico",
+        "treino em casa",
+        "whey",
+        "legging",
+        "garrafa térmica",
+        "bicicleta ergométrica",
+        "mini bike"
+      ]
+    },
+    {
+      "tag": "gamer",
+      "titulo": "Setup gamer",
+      "quando": "ano todo",
+      "palavras": [
+        "gamer",
+        "teclas",
+        "logitech",
+        "monitor"
+      ]
+    },
+    {
+      "tag": "apartamento",
+      "titulo": "Achados para apartamento",
+      "quando": "ano todo",
+      "palavras": [
+        "churrasqueira",
+        "mop",
+        "micro-ondas",
+        "mixer",
+        "air fryer",
+        "lixeira",
+        "câmera",
+        "arara",
+        "cabeceira",
+        "mini bike"
+      ]
+    },
+    {
+      "tag": "cozinha-pratica",
+      "titulo": "Cozinha prática",
+      "quando": "ano todo",
+      "palavras": [
+        "cozedor",
+        "mixer",
+        "micro-ondas",
+        "pote",
+        "tempero",
+        "assadeira",
+        "air fryer",
+        "chaleira",
+        "escorredor",
+        "panela",
+        "forma",
+        "pipoqueira",
+        "marmita"
+      ]
+    },
+    {
+      "tag": "casa-inteligente",
+      "titulo": "Casa inteligente",
+      "quando": "ano todo",
+      "palavras": [
+        "câmera",
+        "lixeira inteligente",
+        "echo dot",
+        "alexa",
+        "lâmpada inteligente",
+        "caixa de som inteligente"
+      ]
+    },
+    {
+      "tag": "volta-as-aulas",
+      "titulo": "Volta às aulas",
+      "quando": "janeiro e fevereiro",
+      "palavras": [
+        "galaxy",
+        "moto g04",
+        "power bank",
+        "carregador",
+        "mouse gamer sem fio",
+        "garrafa térmica",
+        "marmita",
+        "fone bluetooth",
+        "notebook",
+        "impressora",
+        "mini impressora de etiquetas"
+      ]
+    },
+    {
+      "tag": "verao",
+      "titulo": "Verão",
+      "quando": "dezembro a março",
+      "palavras": [
+        "copo térmico",
+        "churrasqueira",
+        "lavadora",
+        "rede de",
+        "bermuda",
+        "garrafa térmica",
+        "caixa amplificada",
+        "boombox",
+        "protetor solar",
+        "maiô"
+      ]
+    }
+  ]
+}
