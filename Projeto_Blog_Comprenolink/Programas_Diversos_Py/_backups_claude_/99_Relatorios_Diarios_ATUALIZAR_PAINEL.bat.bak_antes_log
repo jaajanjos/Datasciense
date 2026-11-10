@@ -1,0 +1,54 @@
+@echo off
+chcp 65001 >nul
+title Atualizar Painel de Controle - comprenolink.net
+setlocal
+set "PASTA=%~dp0"
+set "PY=%~dp0..\python"
+set "XLSX=%~dp0Painel de  Controle de Acesso.xlsx"
+for /f %%i in ('powershell -NoProfile -Command "Get-Date -Format yyyy-MM-dd_HH\hmm"') do set "CARIMBO=%%i"
+set "PDF=%~dp0Painel_conversao_performance_%CARIMBO%.pdf"
+
+echo ============================================================
+echo  PAINEL DE CONVERSAO E PERFORMANCE - comprenolink.net
+echo ============================================================
+echo.
+echo [1/5] Verificando no Mercado Livre se os anuncios do guia estao ativos, pausados ou removidos (cerca de 1 min)...
+if defined PAINEL_SEM_VERIFICAR (
+  echo  Pulado: PAINEL_SEM_VERIFICAR definido. Sera usada a ultima verificacao.
+) else (
+  python "%PY%\6_verificar_anuncios.py" --pausa 2
+  if errorlevel 1 echo  Aviso: nao foi possivel verificar agora ^(sem internet?^). Sera usada a ultima verificacao.
+)
+echo.
+echo [2/5] Lendo relatorios HTML, vendas e situacao dos anuncios, montando a planilha...
+python "%PY%\4_atualizar_painel_controle.py" "%PASTA:~0,-1%"
+if errorlevel 1 (
+  echo.
+  echo  ERRO ao montar o painel. Se a planilha estiver aberta, feche o Excel e rode de novo.
+  pause
+  exit /b 1
+)
+echo.
+echo [3/5] Recalculando no Excel e exportando o PDF do painel...
+set "EXCEL_OK=1"
+powershell -NoProfile -ExecutionPolicy Bypass -File "%PY%\5_recalcular_exportar_painel.ps1" "%XLSX%" "%PDF%"
+if errorlevel 1 (
+  set "EXCEL_OK="
+  echo  Aviso: o Excel nao conseguiu recalcular/exportar. A planilha sera recalculada ao abrir.
+)
+echo.
+echo [4/5] Limpando arquivos antigos ^(vao para a Lixeira; quantos manter: aba Metas^)...
+if defined PAINEL_SEM_LIMPEZA (
+  echo  Pulado: PAINEL_SEM_LIMPEZA definido.
+) else if not defined EXCEL_OK (
+  echo  Pulado: o PDF de hoje nao foi gerado, nada sera apagado.
+) else (
+  python "%PY%\7_limpar_historico.py" "%PASTA:~0,-1%"
+)
+echo.
+echo [5/5] Abrindo o painel...
+if not defined PAINEL_NAO_ABRIR start "" "%XLSX%"
+echo.
+echo Pronto. Para incluir novos dados basta salvar o novo relatorio_acessos_anuncios_*.html
+echo nesta pasta (e as vendas do ML Afiliados em D:\mercado_livre\99_Relatorios_Diarios\vendas_afiliados) e rodar este .bat.
+if not defined PAINEL_NAO_ABRIR timeout /t 8 >nul
