@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-Validação da organização da pasta Manutenção_Blog e do pacote do outro PC.
+Validação da organização da pasta Gestao_Anuncios_Blog e do pacote do outro PC.
 
 Confere se cada arquivo está no lugar certo, se os programas funcionam e se nenhuma senha
 foi parar onde não deve. NÃO publica nada no site: o único acesso à internet é uma leitura

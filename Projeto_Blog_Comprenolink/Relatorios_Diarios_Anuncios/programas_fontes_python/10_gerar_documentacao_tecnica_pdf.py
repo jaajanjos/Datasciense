@@ -75,7 +75,7 @@ def diagrama_infra():
     zona(d, 5, 130, 250, 165, "INTERNET / USUÁRIOS", colors.HexColor("#8A6D00"))
     zona(d, 270, 130, 250, 165, "HOSPEDAGEM HOSTINGER (comprenolink.net)", colors.HexColor("#1B7F3B"))
     zona(d, 535, 130, 220, 165, "MERCADO LIVRE (externo)", colors.HexColor("#B26A00"))
-    zona(d, 5, 2, 750, 120, "MINI PC SVR_RYZEN · Windows 11 Pro · Ryzen 5 7430U · 32 GB · D:\\mercado_livre",
+    zona(d, 5, 2, 750, 120, "MINI PC SVR_RYZEN · Windows 11 Pro · Ryzen 5 7430U · 32 GB · D:\\Projeto_Blog_Comprenolink",
          colors.HexColor("#5B2C83"))
     caixa(d, 15, 205, 230, 70, "Visitante (celular / PC)", [
         "Vem de TikTok, Instagram, WhatsApp, bio...", "Link com utm_source/medium/campaign",
@@ -92,9 +92,9 @@ def diagrama_infra():
         "Sem API/login (captcha = Não verificado)"], LARANJA)
     caixa(d, 545, 137, 200, 58, "Painel ML Afiliados", [
         "Vendas e comissões (CSV/XLSX)", "Exportação MANUAL pelo dono"], LARANJA)
-    caixa(d, 15, 10, 175, 92, "1- Gera_Relatorio", [
+    caixa(d, 15, 10, 175, 92, "programas_fontes_python (.exe)", [
         "1_relatorio_acessos_anuncios.exe", "(PyInstaller: 3_ + 6_ embutido)", "config_rastreio.json (site+chave)",
-        "dados_acessos\\ (cópias brutas)"], ROXO)
+        "..\\dados_acessos (cópias brutas)"], ROXO)
     caixa(d, 205, 10, 200, 92, "programas_fontes_python", [
         "ATUALIZAR_PAINEL.bat (orquestrador)", "3_ 4_ 6_ 7_ (.py · Python 3.14)", "5_ 8_ (.ps1 · PowerShell)",
         "9_ 10_ (geram a documentação)"], ROXO)
@@ -201,7 +201,7 @@ STACK = [
 ]
 
 WP = [
-    ["Snippet", "10_Rastreamento_anuncios\\1_snippet_wordpress_rastreador.php (320 linhas) · instalado em Snippets > "
+    ["Snippet", "Planejamentos\\Andamento\\Rastreamento_anuncios\\1_snippet_wordpress_rastreador.php (320 linhas) · instalado em Snippets > "
      "\"Rastreador de anúncios\" · roda em todo o site"],
     ["Tabela", "wp_rastreio_acessos: id, criado_em, tipo (visita/clique), visitante, sessao, pagina, origem, meio, "
      "campanha, conteudo, referencia, app, dispositivo, sistema, navegador, ip_hash, produto, link · índice em "
@@ -277,7 +277,7 @@ FORMATOS = [
     ["vendas_historico\\historico_vendas.csv", "; · UTF-8 com BOM · 1 linha/pedido",
      "pedido; data; produto; loja; campanha; status; estado_ml; qtd; valor; comissao; fonte; primeira_vez; "
      "atualizado_em"],
-    ["1- Gera_Relatorio\\dados_acessos", "acessos_AAAAMMDD_HHMM.json/.csv · compras_atribuidas_*.csv",
+    ["Relatorios_Diarios_Anuncios\\dados_acessos", "acessos_AAAAMMDD_HHMM.json/.csv · compras_atribuidas_*.csv",
      "id; criado_em; tipo; visitante; sessao; pagina; origem; meio; campanha; conteudo; referencia; app; "
      "dispositivo; sistema; navegador; produto; link"],
     ["_historico_relatorios\\relatorio_acessos_anuncios_AAAA-MM-DD_HHhMM.html", "HTML autônomo (CSS embutido)",
@@ -290,7 +290,7 @@ FORMATOS = [
 BUILD = [
     ["Instalar dependências", "python -m pip install openpyxl reportlab pyinstaller"],
     ["Recompilar o .exe (após mudar 3_ ou 6_)", "Clique duplo em programas_fontes_python\\11_compilar_exe_relatorio.bat "
-     "(PyInstaller --onefile; guarda o .exe antigo em _backups_claude_30out e instala o novo em 1- Gera_Relatorio). "
+     "(PyInstaller --onefile; guarda o .exe antigo em _backups_claude_ e instala o novo em Relatorios_Diarios_Anuncios\\programas_fontes_python). "
      "Depois rodar 12_gerar_documentacao_exe_pdf.py. Detalhes: DOCUMENTACAO_EXECUTAVEL_*.pdf"],
     ["Instalar/reinstalar o rastreador", "WordPress > Snippets > Adicionar novo > colar o .php > trocar "
      "RASTREIO_CHAVE pela mesma chave do config_rastreio.json > Executar em todo o site > Salvar e ativar > "
@@ -300,7 +300,7 @@ BUILD = [
     ["Regerar documentação", "python 9_gerar_documentacao_pdf.py  ·  python 10_gerar_documentacao_tecnica_pdf.py  ·  "
      "python 12_gerar_documentacao_exe_pdf.py"],
     ["Recuperar", "Planilha: _backup_painel · arquivos limpos: Lixeira · versões anteriores dos scripts e do .exe: "
-     "0- Pendencias\\99_Programas_PY\\_backups_claude_30out (mover_painel_08-11 = estado antes da mudança de pasta)"],
+     "Programas_Diversos_Py\\_backups_claude_ (mover_painel_08-11 = estado antes da mudança de pasta)"],
 ]
 
 SEGURANCA = [
@@ -314,8 +314,8 @@ SEGURANCA = [
      "400 dias e exportação a 100.000 linhas."],
     ["Ponto único de falha", "Tudo roda no mini PC; o histórico permanente está em CSV/XLSX locais — incluir "
      "Relatorios_Diarios_Anuncios no backup regular."],
-    ["Caminhos fixos", "3_ usa D:/mercado_livre/Relatorios_Diarios_Anuncios fixo (o .exe roda de outra pasta). "
-     "Os demais calculam a partir da própria pasta (RELAT = pasta de cima, BASE = D:\\mercado_livre). Renomear "
+    ["Caminhos fixos", "3_ usa D:/Projeto_Blog_Comprenolink/Relatorios_Diarios_Anuncios fixo (o .exe roda de outra pasta). "
+     "Os demais calculam a partir da própria pasta (RELAT = pasta de cima, BASE = D:\\Projeto_Blog_Comprenolink). Renomear "
      "pastas exige ajustar 3_ e recompilar."],
 ]
 
@@ -323,7 +323,7 @@ SEGURANCA = [
 NECESSARIOS = [
     ["ATUALIZAR_PAINEL.bat, 3_ a 8_ (.py/.ps1)", "SIM", "programas_fontes_python",
      "Os programas do painel. Precisam estar juntos: o .bat chama 5_–8_ pela própria pasta; 4_ importa 3_; 3_ importa 6_."],
-    ["config_rastreio.json", "SIM", "programas_fontes_python (FONTE ÚNICA, copiado em 08/11/2026 de 1- Gera_Relatorio)",
+    ["config_rastreio.json", "SIM", "programas_fontes_python (FONTE ÚNICA, copiado em 08/11/2026 de 1- Gera_Relatorio (pasta antiga; hoje Relatorios_Diarios_Anuncios\\programas_fontes_python))",
      "Site, página do guia, páginas antigas, janela de compra, chave da API. Lido pelo 3_ (relatório) e pelo 6_ "
      "(página do guia), inclusive quando rodam dentro do .exe. É a ÚNICA cópia (sem reserva desde 08/11/2026). "
      "Se faltar, o relatório para com aviso \"Não encontrei o config_rastreio.json\"."],
@@ -331,23 +331,23 @@ NECESSARIOS = [
      "Recriam o .exe. O .spec é registro do último build."],
     ["9_, 10_, 12_ (geradores de PDF)", "Só para documentar", "programas_fontes_python",
      "Precisam das fontes Arial do Windows (C:\\Windows\\Fonts) e do reportlab."],
-    ["1_relatorio_acessos_anuncios.exe", "SIM (relatório diário)", "1- Gera_Relatorio (fica lá)",
+    ["1_relatorio_acessos_anuncios.exe", "SIM (relatório diário)", "Relatorios_Diarios_Anuncios\\programas_fontes_python (fica lá)",
      "O dono usa por lá; o .exe procura o config primeiro em programas_fontes_python."],
 ]
 
-# Validação de 08/11/2026: comparação por nome e SHA-256 de todos os arquivos da pasta com D:\mercado_livre
+# Validação de 08/11/2026: comparação por nome e SHA-256 de todos os arquivos da pasta com D:\Projeto_Blog_Comprenolink
 VALIDACAO = [
-    ["10_Rastreamento_anuncios\\relatorio_acessos_anuncios.exe", "Cópia antiga (21/10) do .exe do relatório, "
+    ["Planejamentos\\Andamento\\Rastreamento_anuncios\\relatorio_acessos_anuncios.exe", "Cópia antiga (21/10) do .exe do relatório, "
      "idêntica ao backup _ANTES_02nov; gravava nos caminhos antigos", "Enviado à Lixeira"],
-    ["anuncios_status\\links_anuncios_2026-10-29_06h48.csv", "Idêntico a 10_Rastreamento_anuncios\\links_anuncios.csv "
+    ["anuncios_status\\links_anuncios_2026-10-29_06h48.csv", "Idêntico a Planejamentos\\Andamento\\Rastreamento_anuncios\\links_anuncios.csv "
      "(pertence ao gerador de links; nenhum programa do painel lia)", "Enviado à Lixeira"],
-    ["1- Gera_Relatorio\\config_rastreio.json", "Reserva idêntica ao config de programas_fontes_python",
+    ["1- Gera_Relatorio (pasta antiga; hoje Relatorios_Diarios_Anuncios\\programas_fontes_python)\\config_rastreio.json", "Reserva idêntica ao config de programas_fontes_python",
      "Enviado à Lixeira; .exe testado e lê só o de programas_fontes_python"],
-    ["python\\__pycache__\\3_/4_/6_/7_*.pyc", "Cache dos scripts que saíram de D:\\mercado_livre\\python",
+    ["python\\__pycache__\\3_/4_/6_/7_*.pyc", "Cache dos scripts que saíram de D:\\Projeto_Blog_Comprenolink\\python (pasta antiga; hoje Projeto_Blog_Comprenolink\\Relatorios_Diarios_Anuncios\\programas_fontes_python)",
      "Enviado à Lixeira"],
-    ["0- Pendencias\\99_Programas_PY\\_backups_claude_30out\\...", "Backups de versões ANTERIORES (conteúdo "
+    ["Programas_Diversos_Py\\_backups_claude_\\...", "Backups de versões ANTERIORES (conteúdo "
      "diferente do atual)", "Mantidos de propósito (recuperação)"],
-    ["10_Rastreamento_anuncios\\config_rastreio.json", "Config do gerador de links (outra rotina, conteúdo "
+    ["Planejamentos\\Andamento\\Rastreamento_anuncios\\config_rastreio.json", "Config do gerador de links (outra rotina, conteúdo "
      "diferente)", "Mantido"],
     ["Gera_Estrutura_Diretorio - Copia.bat (raiz)", "Mesmo nome, conteúdo diferente (lista a raiz)", "Mantido"],
 ]
@@ -356,17 +356,17 @@ NAO_NECESSARIOS = [
     ["Planilha, PDFs, CSVs, HTMLs (anuncios_status, vendas_*, historico_*, _historico_relatorios, _backup_painel)",
      "São DADOS, não programas. Ficam nas subpastas de Relatorios_Diarios_Anuncios; os programas acham pela pasta "
      "de cima (RELAT)."],
-    ["1- Gera_Relatorio\\dados_acessos", "Cópias brutas geradas pelo relatório (o 3_ grava sempre lá, rodando como "
+    ["Relatorios_Diarios_Anuncios\\dados_acessos", "Cópias brutas geradas pelo relatório (o 3_ grava sempre lá, rodando como "
      ".exe ou .py). Dados, não execução."],
-    ["10_Rastreamento_anuncios\\config_rastreio.json", "Versão antiga, usada pelo gerador de links (outra rotina). "
+    ["Planejamentos\\Andamento\\Rastreamento_anuncios\\config_rastreio.json", "Versão antiga, usada pelo gerador de links (outra rotina). "
      "Não é lida pelo painel."],
-    ["10_Rastreamento_anuncios\\1_snippet_wordpress_rastreador.php", "Roda no WordPress (Hostinger), não no PC. "
+    ["Planejamentos\\Andamento\\Rastreamento_anuncios\\1_snippet_wordpress_rastreador.php", "Roda no WordPress (Hostinger), não no PC. "
      "É a fonte do rastreador, para reinstalar se preciso."],
-    ["9_Manutenção_Blog\\2_DADOS\\Blog_WordPress\\backups\\pagina_*", "Opcional: o 6_ lê para preencher o código de "
+    ["Gestao_Anuncios_Blog\\2_DADOS\\Blog_WordPress\\backups\\pagina_*", "Opcional: o 6_ lê para preencher o código de "
      "catálogo; sem eles a verificação funciona e só a coluna catalogo_no_blog fica vazia."],
     ["Bibliotecas Python (openpyxl, reportlab, PyInstaller)", "Instaladas no Python da máquina (pip), não são "
      "arquivos do projeto."],
-    ["D:\\mercado_livre\\python (2_gerar_links, gerar_relatorio_blog_v4, test_blog_seo, __pycache__)",
+    ["2_gerar_links_anuncios, 3_gerar_relatorio_blog_v4, 4_test_blog_seo (.py/.exe/.spec, nesta mesma pasta)",
      "Outras rotinas (links e SEO). Não fazem parte do painel."],
     ["__pycache__ em programas_fontes_python", "Criado sozinho pelo Python; pode ser apagado sem problema."],
 ]
@@ -445,7 +445,7 @@ def montar():
     st.append(Spacer(1, 0.4 * cm))
     st.append(P("Validação de duplicatas (08/11/2026)", "h2"))
     st.append(P("Todos os arquivos de Relatorios_Diarios_Anuncios foram comparados por nome e por conteúdo (SHA-256) "
-                "com toda a estrutura D:\\mercado_livre. Resultado: nenhuma duplicata dentro da pasta; fora dela, o "
+                "com toda a estrutura D:\\Projeto_Blog_Comprenolink. Resultado: nenhuma duplicata dentro da pasta; fora dela, o "
                 "que foi encontrado e o que foi feito:"))
     st.append(tabela(["Arquivo encontrado", "O que era", "Ação"], VALIDACAO, [8.0, 11.5, 7.0]))
     doc.build(st, onFirstPage=rodape, onLaterPages=rodape)

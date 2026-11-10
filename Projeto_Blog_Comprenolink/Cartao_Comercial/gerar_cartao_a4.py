@@ -11,7 +11,7 @@ from reportlab.graphics.shapes import Drawing
 from reportlab.graphics import renderPDF
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
-LOGO = r"D:\mercado_livre\3- DIVULGAÇÃO_WHATSAPP_INSTAGRAM\09_LOGO\logo_horizontal.png"
+LOGO = r"D:\Projeto_Blog_Comprenolink\Logo\logo_horizontal.png"
 pdfmetrics.registerFont(TTFont("Arial", r"C:\Windows\Fonts\arial.ttf"))
 pdfmetrics.registerFont(TTFont("Arial-Bold", r"C:\Windows\Fonts\arialbd.ttf"))
 

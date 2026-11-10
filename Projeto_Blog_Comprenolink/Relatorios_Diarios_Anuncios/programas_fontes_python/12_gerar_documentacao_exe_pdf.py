@@ -30,10 +30,11 @@ tec = importlib.import_module("10_gerar_documentacao_tecnica_pdf")
 P, tabela, HOJE, PASTA_DOCS = base.P, base.tabela, base.HOJE, base.PASTA_DOCS
 AZUL, AZUL_CLARO, LARANJA = base.AZUL, base.AZUL_CLARO, base.LARANJA
 VERDE, AMAR, ROXO = tec.VERDE, tec.AMAR, tec.ROXO
-EXE = "D:/mercado_livre/Relatorios_Diarios_Anuncios/programas_fontes_python/1_relatorio_acessos_anuncios.exe"
+
+EXE = "D:/Projeto_Blog_Comprenolink/Relatorios_Diarios_Anuncios/programas_fontes_python/1_relatorio_acessos_anuncios.exe"
 SPEC = os.path.join(AQUI, "1_relatorio_acessos_anuncios.spec")
 BUILD = os.path.join(os.environ.get("TEMP", ""), "build_1_relatorio", "work", "1_relatorio_acessos_anuncios")
-BKP = "D:/mercado_livre/Relatorios_Diarios_Anuncios/programas_fontes_python/_backups_claude_"
+BKP = "D:/Projeto_Blog_Comprenolink/Programas_Diversos_Py/_backups_claude_"
 SAIDA = os.path.join(PASTA_DOCS, HOJE.strftime("DOCUMENTACAO_EXECUTAVEL_1_RELATORIO_ACESSOS_%d_%m_%Y.pdf"))
 MONO = ParagraphStyle("mono", fontName="Courier", fontSize=7.3, leading=8.8, backColor=colors.HexColor("#F4F6F8"),
                       borderPadding=5, borderColor=colors.HexColor("#B0B8C4"), borderWidth=0.4)
@@ -97,7 +98,7 @@ def diagrama_metodo():
         ("3. PYZ", ["bytecode .pyc", "comprimido (zlib)", "de 700+ módulos"], ROXO),
         ("4. PKG", ["PYZ + DLLs + .pyd", "+ python314.dll", "+ base_library.zip"], ROXO),
         ("5. EXE", ["bootloader run.exe", "+ PKG anexado", "= 1 arquivo só"], VERDE),
-        ("6. Instalar", ["copiar para", "1- Gera_Relatorio", "(backup do antigo)"], LARANJA),
+        ("6. Instalar", ["copiar para", "Relatorios_Diarios_Anuncios\\programas_fontes_python", "(backup do antigo)"], LARANJA),
     ]
     w, gap = 112, 17
     for i, (t, ls, cor) in enumerate(passos):
@@ -152,10 +153,6 @@ def diagrama_estrutura(tam_exe, c):
     return d
 
 
-"D:/mercado_livre/Relatorios_Diarios_Anuncios/programas_fontes_python/1_relatorio_acessos_anuncios.exe"
-
-
-
 def montar():
     tam, data, h = dados_exe()
     v = versoes()
@@ -169,15 +166,15 @@ def montar():
           P("Como o executável foi gerado: arquivos que o compõem, método, comando e recursos utilizados", "sub"),
           Spacer(1, 4), P(f"Versão de {HOJE:%d/%m/%Y}", "sub"), Spacer(1, 0.8 * cm)]
     st.append(tabela(["Item", "Valor"], [
-        ["Arquivo", "D:\\mercado_livre\\Relatorios_Diarios_Anuncios\\programas_fontes_python\\1_relatorio_acessos_anuncios.exe"],
-        ["O que é", "Versão \"clique duplo\" do 1_relatorio_acessos_anuncios.py: gera o relatório HTML de acessos e "
+        ["Arquivo", "D:\\Projeto_Blog_Comprenolink\\Relatorios_Diarios_Anuncios\\programas_fontes_python\\1_relatorio_acessos_anuncios.exe"],
+        ["O que é", "Versão \"clique duplo\" do 3_relatorio_acessos_anuncios.py: gera o relatório HTML de acessos e "
                     "vendas por anúncio sem precisar ter Python instalado"],
         ["Tamanho / data", f"{mb(tam)} ({tam:,} bytes) · compilado em {data:%d/%m/%Y %H:%M}".replace(",", ".")],
         ["SHA-256", h],
         ["Ferramenta", f"PyInstaller {v['PyInstaller']} · modo --onefile · console (janela preta)"],
         ["Interpretador embutido", f"Python {v['python']} 64 bits (python314.dll)"],
-        ["Código-fonte", "D:\\mercado_livre\\Relatorios_Diarios_Anuncios\\programas_fontes_python\\"
-                         "1_relatorio_acessos_anuncios.py + 7_verificar_anuncios.py"],
+        ["Código-fonte", "D:\\Projeto_Blog_Comprenolink\\Relatorios_Diarios_Anuncios\\programas_fontes_python\\"
+                         "3_relatorio_acessos_anuncios.py + 6_verificar_anuncios.py"],
         ["Como recompilar", "Clique duplo em programas_fontes_python\\11_compilar_exe_relatorio.bat"],
     ], [5.0, 21.5]))
     st.append(PageBreak())
@@ -187,7 +184,7 @@ def montar():
     st.append(P("Só <b>dois</b> arquivos .py do projeto entram no .exe. O resto são bibliotecas Python e DLLs que o "
                 "PyInstaller encontrou seguindo os import."))
     st.append(tabela(["Componente", "Como entra no .exe", "Para que serve no relatório"], [
-        ["1_relatorio_acessos_anuncios.py (1.225 linhas)", "Script de ENTRADA (PYSOURCE): é o que roda ao dar clique "
+        ["3_relatorio_acessos_anuncios.py (1.225 linhas)", "Script de ENTRADA (PYSOURCE): é o que roda ao dar clique "
          "duplo", "Todo o relatório: baixa os acessos do WordPress, filtra o guia, cruza vendas, gera o HTML"],
         ["6_verificar_anuncios.py (227 linhas)", "Import OCULTO (--hidden-import): o 3_ o carrega com "
          "importlib.import_module(\"6_verificar_anuncios\"), que o PyInstaller não enxerga sozinho; vai no PYZ como "
@@ -206,7 +203,7 @@ def montar():
          "e mercadolivre.com.br"],
         ["Bootloader run.exe do PyInstaller", "Cabeça do .exe", "Extrai e inicia o Python embutido"],
         ["config_rastreio.json", "NÃO entra no .exe. Lido na hora de rodar, de programas_fontes_python (única cópia; "
-         "a de 1- Gera_Relatorio foi removida em 08/11/2026)",
+         "a de 1- Gera_Relatorio (pasta antiga; hoje Relatorios_Diarios_Anuncios\\programas_fontes_python) foi removida em 08/11/2026)",
          "Site, página do guia, chave da API, janela de compra. Pode ser editado sem recompilar"],
     ], [6.5, 9.5, 10.5]))
     if c:
@@ -232,7 +229,7 @@ def montar():
         ["Execução", "Clique duplo → bootloader extrai em %TEMP%\\_MEIxxxxxx → carrega python314.dll → roda o 3_ "
                      "com sys.frozen=True → ao fechar, apaga a pasta temporária."],
         ["Diferença rodando como .exe", "No 3_: PASTA = pasta do .exe (por isso config_rastreio.json e dados_acessos "
-         "ficam em 1- Gera_Relatorio); saída do HTML em caminho fixo D:/mercado_livre/Relatorios_Diarios_Anuncios/"
+         "ficam em Relatorios_Diarios_Anuncios\\programas_fontes_python); saída do HTML em caminho fixo D:/Projeto_Blog_Comprenolink/Relatorios_Diarios_Anuncios/"
          "_historico_relatorios; o 6_ embutido recebe os caminhos da estrutura oficial (v.BASE, v.PASTA)."],
     ], [5.0, 21.5]))
     st.append(PageBreak())
@@ -240,7 +237,7 @@ def montar():
     # 3. comando
     st.append(P("3. Comando de compilação e significado de cada parâmetro", "h1"))
     st.append(Preformatted(
-        "cd D:\\mercado_livre\\Relatorios_Diarios_Anuncios\\programas_fontes_python\n"
+        "cd D:\\Projeto_Blog_Comprenolink\\Relatorios_Diarios_Anuncios\\programas_fontes_python\n"
         "python -m PyInstaller --onefile --noconfirm --clean --name 1_relatorio_acessos_anuncios --paths . "
         "--hidden-import 6_verificar_anuncios\n"
         "       --distpath %TEMP%\\build_1_relatorio\\dist --workpath %TEMP%\\build_1_relatorio\\work "
@@ -257,7 +254,7 @@ def montar():
         ["--hidden-import 6_verificar_anuncios", "Força a inclusão de um módulo", "O 3_ importa o 6_ por importlib "
          "(nome começa com número), invisível para a análise"],
         ["--distpath / --workpath / --specpath", "Onde ficam o .exe, os temporários e o .spec",
-         "Em %TEMP%, para não sujar a pasta dos fontes nem a de 1- Gera_Relatorio"],
+         "Em %TEMP%, para não sujar a pasta dos fontes nem a de Relatorios_Diarios_Anuncios\\programas_fontes_python"],
         ["3_relatorio_acessos_anuncios.py", "Script de entrada", "É o programa principal"],
     ], [6.5, 9.0, 11.0]))
     st.append(PageBreak())
@@ -288,21 +285,21 @@ def montar():
 
     st.append(P("6. Histórico de compilações", "h1"))
     st.append(tabela(["Data", "Motivo", "Cópia do .exe anterior"], [
-        ["09/2026", "1ª versão (relatorio_acessos_anuncios.exe, em 10_Rastreamento_anuncios; a cópia de 21/10 que "
+        ["09/2026", "1ª versão (relatorio_acessos_anuncios.exe, em 10_Rastreamento_anuncios (pasta antiga; hoje Planejamentos\\Andamento\\Rastreamento_anuncios); a cópia de 21/10 que "
                     "ainda estava lá foi para a Lixeira em 08/11/2026)",
-         "10_Rastreamento_anuncios\\_exe_antigos_2026-09"],
-        ["21/10/2026", "Renomeado para 1_relatorio_acessos_anuncios.exe e levado para 1- Gera_Relatorio",
+         "10_Rastreamento_anuncios (pasta antiga; hoje Planejamentos\\Andamento\\Rastreamento_anuncios)\\_exe_antigos_2026-09"],
+        ["21/10/2026", "Renomeado para 1_relatorio_acessos_anuncios.exe e levado para 1- Gera_Relatorio (pasta antiga; hoje Relatorios_Diarios_Anuncios\\programas_fontes_python)",
          "_backups_claude_\\1_relatorio_acessos_anuncios_ANTES_02nov.exe"],
         ["02/11/2026", "HTML passa a ser gravado em _historico_relatorios; vendas lidas da pasta certa; 6_verificar "
                        "embutido (--paths python --hidden-import 6_verificar_anuncios); quadros \"fora do ar\" e "
                        "\"Substituição\"", "(mesma cópia acima)"],
         ["08/11/2026 10h18", "Fontes movidos para programas_fontes_python; caminho fixo trocado de "
-                             "99_Relatorios_Diarios para Relatorios_Diarios_Anuncios",
+                             "99_Relatorios_Diarios (nome antigo) para Relatorios_Diarios_Anuncios",
          "_backups_claude_\\mover_painel_08-11\\1_relatorio_acessos_anuncios_ANTES_08nov.exe"],
         ["08/11/2026 10h29", "Teste do novo 11_compilar_exe_relatorio.bat (mesmo código, build reprodutível)",
          "_backups_claude_\\1_relatorio_acessos_anuncios_ANTES_2026-11-08_10h29.exe"],
         ["08/11/2026 10h33", "config_rastreio.json passa a ser lido de programas_fontes_python (fonte única); "
-                             "dados_acessos sempre em 1- Gera_Relatorio. Testado com dados reais (relatório 10h34)",
+                             "dados_acessos sempre em 1- Gera_Relatorio (pasta antiga; hoje Relatorios_Diarios_Anuncios\\programas_fontes_python). Testado com dados reais (relatório 10h34)",
          "_backups_claude_\\1_relatorio_acessos_anuncios_ANTES_2026-11-08_10h33.exe"],
     ], [3.5, 15.0, 8.0]))
     st.append(Spacer(1, 0.4 * cm))
@@ -312,7 +309,7 @@ def montar():
                                    "--arquivo, --vendas, --verificar-anuncios, --sem-verificar-anuncios"],
         ["Relatório de exemplo", "--demo gera um HTML com dados fictícios em _historico_relatorios (apagar depois)"],
         ["Caminho certo", "Depois de rodar, o HTML novo deve aparecer em Relatorios_Diarios_Anuncios\\"
-                          "_historico_relatorios; NÃO deve surgir a pasta antiga 99_Relatorios_Diarios"],
+                          "_historico_relatorios; NÃO deve surgir a pasta antiga 99_Relatorios_Diarios (pasta antiga; hoje Relatorios_Diarios_Anuncios)"],
         ["Integridade", "certutil -hashfile <exe> SHA256 deve bater com o SHA-256 da capa deste documento"],
     ], [5.0, 21.5]))
     st.append(PageBreak())
@@ -328,10 +325,10 @@ def montar():
          "pelo openpyxl e não usados. Opcional: --exclude-module numpy --exclude-module PIL reduziria bastante o .exe "
          "(não aplicado; testar a leitura de .xlsx de vendas antes)."],
         ["Antivírus", "Executáveis PyInstaller às vezes são marcados como suspeitos por heurística. Se acontecer, "
-         "liberar o arquivo de 1- Gera_Relatorio no Windows Defender."],
+         "liberar o arquivo de Relatorios_Diarios_Anuncios\\programas_fontes_python no Windows Defender."],
         ["config_rastreio.json", "Precisa ficar na mesma pasta do .exe. Contém a chave secreta da API: não "
          "compartilhar."],
-        ["Caminho fixo", "O HTML vai para D:/mercado_livre/Relatorios_Diarios_Anuncios/_historico_relatorios. Se a "
+        ["Caminho fixo", "O HTML vai para D:/Projeto_Blog_Comprenolink/Relatorios_Diarios_Anuncios/_historico_relatorios. Se a "
          "pasta for renomeada, ajustar PASTA_SAIDA_HTML/PASTA_VENDAS/PASTA_STATUS no 3_ e recompilar."],
         ["Primeira execução mais lenta", "O bootloader extrai ≈ 60 MB em %TEMP% a cada abertura (1–3 s)."],
     ], [5.5, 21.0], fundo=LARANJA))

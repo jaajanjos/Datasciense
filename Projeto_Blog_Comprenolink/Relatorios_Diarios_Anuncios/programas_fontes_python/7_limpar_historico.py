@@ -9,7 +9,7 @@ O que sai (vai para a LIXEIRA do Windows, dá para recuperar):
   - relatorio_*.html da pasta principal ......... saem quando já existe a cópia idêntica em _historico_relatorios
   - _backup_painel\\Painel_*.xlsx ............... ficam os últimos N
   - anuncios_status\\status_anuncios_*.csv ...... ficam os últimos N (o historico_status_anuncios.csv fica sempre)
-  - 1- Gera_Relatorio\\dados_acessos ............ cópias brutas dos últimos N dias (cada uma já tem os 30 dias)
+  - Relatorios_Diarios_Anuncios\\dados_acessos ............ cópias brutas dos últimos N dias (cada uma já tem os 30 dias)
 Nunca mexe em: a planilha, historico_quadros.csv, historico_vendas.csv, historico_status_anuncios.csv,
 vendas_afiliados e conversao_e_performance_do_blog_*.pdf.
 
@@ -24,13 +24,13 @@ import subprocess
 import sys
 
 RELAT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # Relatorios_Diarios_Anuncios
-BASE = os.path.dirname(RELAT)  # D:/mercado_livre
+BASE = os.path.dirname(RELAT)  # D:/Projeto_Blog_Comprenolink
 args = [a for a in sys.argv[1:] if not a.startswith("--")]
 SIMULAR = "--simular" in sys.argv
 PASTA = args[0] if args else RELAT
 ARQ = os.path.join(PASTA, "Painel de  Controle de Acesso.xlsx")
 PASTA_DADOS_BRUTOS = (os.environ.get("PAINEL_PASTA_BRUTOS")  # cópias do gerador de relatório
-                      or os.path.join(BASE, "1- Gera_Relatorio", "dados_acessos"))
+                      or os.path.join(RELAT, "dados_acessos"))
 PADRAO = {"pdf": 3, "html": 3, "backup": 5, "status": 3, "dados": 3}
 ROTULOS = {"pdf": "Limpeza: manter PDFs do painel", "html": "Limpeza: manter relatórios HTML",
            "backup": "Limpeza: manter backups da planilha", "status": "Limpeza: manter verificações de anúncios",

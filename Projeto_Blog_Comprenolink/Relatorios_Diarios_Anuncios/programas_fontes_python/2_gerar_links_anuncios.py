@@ -19,13 +19,13 @@ from urllib.parse import urlencode, urlsplit, urlunsplit, parse_qsl
 
 # No .exe (PyInstaller) a pasta é a do próprio executável
 PASTA = os.path.dirname(sys.executable if getattr(sys, "frozen", False) else os.path.abspath(__file__))
-# Config: ao lado do script/.exe; se não houver, usa o da pasta exe_gera_relatorio
+# Config: ao lado do script/.exe; se não houver, usa o de Planejamentos\Andamento\Rastreamento_anuncios
 CONFIG = os.path.join(PASTA, "config_rastreio.json")
 if not os.path.exists(CONFIG):
-    CONFIG = os.path.join(os.path.dirname(PASTA), "exe_gera_relatorio", "config_rastreio.json")
+    CONFIG = os.path.join(os.path.dirname(os.path.dirname(PASTA)), "Planejamentos", "Andamento", "Rastreamento_anuncios", "config_rastreio.json")
 # Todos os links levam para esta página (config 'pagina_blog')
 PAGINA_PADRAO = "https://comprenolink.net/melhores-produtos-mercado-livre-2026/"
-# Saída em D:\mercado_livre (pasta acima), com data/hora da geração no nome
+# Saída em D:\Projeto_Blog_Comprenolink\Relatorios_Diarios_Anuncios (pasta acima), com data/hora da geração no nome
 PASTA_SAIDA = os.path.dirname(PASTA)
 AGORA = datetime.now()
 SAIDA_HTML = os.path.join(PASTA_SAIDA, AGORA.strftime("links_anuncios_%Y-%m-%d_%Hh%M.html"))

@@ -8,7 +8,7 @@ from bs4 import BeautifulSoup
 
 # Configurações de Entrada e Saída
 BLOG_URL = "https://comprenolink.net/melhores-produtos-mercado-livre-2026/"
-OUTPUT_DIR = r"D:\mercado_livre"
+OUTPUT_DIR = r"D:\Projeto_Blog_Comprenolink"
 OUTPUT_FILE = os.path.join(OUTPUT_DIR, "relatorio_anuncios_blog.html")
 
 HEADERS = {

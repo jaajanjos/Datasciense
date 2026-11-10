@@ -13,7 +13,7 @@ from gerar_manual_pdf import (AMARELO, AZUL, CINZA, LINHA, VERDE, VERMELHO, P, b
                               lista, passo, peq, tela)
 
 PASTA = os.path.dirname(os.path.abspath(__file__))
-RAIZ = os.path.normpath(os.path.join(PASTA, "..", ".."))  # pasta Manutenção_Blog
+RAIZ = os.path.normpath(os.path.join(PASTA, "..", ".."))  # pasta Gestao_Anuncios_Blog
 SAIDA = os.path.join(RAIZ, "PROCESSO_DE_ATUALIZACAO_MANUTENCAO.pdf")  # sempre na raiz, junto dos atalhos
 TITULO = "Processo de Atualização - Manutenção dos Blogs"
 
@@ -53,7 +53,7 @@ def montar():
     s += [P("1. Visão geral", h1),
           P("Existem dois lugares onde os painéis rodam. Cada um tem a <b>sua própria senha de aplicativo</b> do WordPress, "
             "guardada só na pasta de dados daquele computador."), Spacer(1, 6),
-          tabela([["", "Este PC (Manutenção_Blog)", "Outro PC (pacote)"],
+          tabela([["", "Este PC (Gestao_Anuncios_Blog)", "Outro PC (pacote)"],
                   ["Programas", "CentralBlog.exe (todos os botões) + .py em 1_PROGRAMAS", "PainelBlog.exe + painel das máquinas (.html)"],
                   ["Senha", "2_DADOS\\Blog_WordPress\\wp_credenciais.json (senha \"Painel Blog\")",
                    "2_DADOS\\Blog_WordPress\\wp_credenciais.json do pacote (senha \"Painel Blog PC2\")"],
@@ -68,7 +68,7 @@ def montar():
                   ["4_PACOTE_OUTRO_PC.zip", "Instalação do ZERO num PC que ainda não tem o painel. Vai sem senha."],
                   ["4_ATUALIZAR_OUTRO_PC.zip", "ATUALIZAÇÃO do outro PC: só programas, sem a pasta 2_DADOS, com o ATUALIZAR_AQUI.bat."],
                   ["3_DOCUMENTACAO\\RELATORIO_VALIDACAO_*.txt", "Resultado de cada validação."],
-                  ["PROCESSO_DE_ATUALIZACAO_MANUTENCAO.pdf (raiz)", "Este documento. Fica sempre na raiz da Manutenção_Blog."]],
+                  ["PROCESSO_DE_ATUALIZACAO_MANUTENCAO.pdf (raiz)", "Este documento. Fica sempre na raiz da Gestao_Anuncios_Blog."]],
                  [6.4, 10.0]),
           Spacer(1, 10),
           caixa("Regra de ouro", [
@@ -206,7 +206,7 @@ def montar():
           P("O PainelBlog.exe grava a senha na pasta 2_DADOS ao lado dele. Aberto de dentro de 4_PACOTE_OUTRO_PC neste PC, "
             "a senha foi parar no pacote, e o zip feito em seguida levou a senha junto."),
           P("Correção definitiva", h2),
-          lista(["O painel do pacote, quando está dentro da Manutenção_Blog, usa o 2_DADOS <b>principal</b>. "
+          lista(["O painel do pacote, quando está dentro da Gestao_Anuncios_Blog, usa o 2_DADOS <b>principal</b>. "
                  "Copiado para o outro PC, usa o 2_DADOS dele (sem mudança lá).",
                  "O GERAR_EXE.bat faz todos os passos sozinho, limpa senha do pacote e valida no fim.",
                  "Novo 4_ATUALIZAR_OUTRO_PC.zip: atualização do outro PC sem risco de apagar senha ou backup.",
@@ -224,7 +224,7 @@ def montar():
           P("gerenciar_blog.py - escolha da pasta de dados", h2),
           lista(["<b>BLOG_WP_DADOS</b> (variável definida pelo CentralBlog) tem prioridade.",
                  "<b>pasta_dados_de(pasta_programa)</b>: se a pasta acima de 1_PROGRAMAS se chama 4_PACOTE_OUTRO_PC e a pasta "
-                 "de cima tem 2_DADOS\\Blog_WordPress, usa essa (pacote dentro da Manutenção_Blog). Senão usa "
+                 "de cima tem 2_DADOS\\Blog_WordPress, usa essa (pacote dentro da Gestao_Anuncios_Blog). Senão usa "
                  "..\\..\\2_DADOS\\Blog_WordPress e, sem ela, a própria pasta do programa.",
                  "Testado em 3 cenários: pasta principal, pacote neste PC e pacote solto (outro PC)."]),
           P("montar_pacote.py", h2),

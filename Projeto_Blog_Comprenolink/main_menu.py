@@ -9,6 +9,7 @@ RELATORIOS_DIR = BASE_DIR / "Relatorios_Diarios_Anuncios"
 PROGRAMAS_DIR = RELATORIOS_DIR / "programas_fontes_python"
 BACKUP_DIR = RELATORIOS_DIR / "_backup_painel"
 GESTAO_BLOG_DIR = BASE_DIR / "Gestao_Anuncios_Blog"
+ATUALIZA_ANUNCIOS_DIR = RELATORIOS_DIR / "atualiza_automatica_py_anuncios"
 
 def rotacionar_backups(max_backups=5):
     if not BACKUP_DIR.exists(): return
@@ -110,6 +111,14 @@ def menu_gestao_blog():
             input("\nENTER...")
         elif op_b == "0": break
 
+def menu_atualizacao_anuncios():
+    menu_py = ATUALIZA_ANUNCIOS_DIR / "menu_atualiza.py"
+    if menu_py.exists():
+        subprocess.run([sys.executable, "-X", "utf8", str(menu_py)], cwd=ATUALIZA_ANUNCIOS_DIR)
+    else:
+        print(f"[ERRO] {menu_py} nao encontrado.")
+        input("\nENTER...")
+
 def exibir_menu():
     while True:
         os.system("cls" if os.name == "nt" else "clear")
@@ -122,7 +131,8 @@ def exibir_menu():
         print(" [3] Executar Limpeza e Manutencao de Historicos")
         print(" [4] Gestao e Compilacao de Executaveis (.exe^)")
         print(" [5] Gestao de Anuncios e Manutencao do Blog")
-        print(" [6] Ver Log da Ultima Execucao")
+        print(" [6] Automação Diaria de Anuncios (Substituição IA^)")
+        print(" [7] Ver Log da Ultima Execucao")
         print(" [0] Sair")
         print("="*60)
         op = input("Opcao: ").strip()
@@ -136,7 +146,8 @@ def exibir_menu():
             input("\nENTER...")
         elif op == "4": menu_compilacao()
         elif op == "5": menu_gestao_blog()
-        elif op == "6":
+        elif op == "6": menu_atualizacao_anuncios()
+        elif op == "7":
             log = RELATORIOS_DIR / "log_painel.txt"
             if log.exists():
                 print("\n".join(log.read_text(encoding="utf-8", errors="ignore").splitlines()[-30:]))

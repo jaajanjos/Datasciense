@@ -4,7 +4,7 @@ Atualiza o "Painel de  Controle de Acesso.xlsx" (pasta Relatorios_Diarios_Anunci
 
 Lê TODOS os relatorio_acessos_anuncios_*.html da pasta (cada um vira um "quadro"),
 usa o mais recente para campanhas/produtos/visitantes/perfil, lê as vendas exportadas
-do ML Afiliados em D:\\mercado_livre\\vendas_afiliados (CSV/XLSX) e remonta o painel
+do ML Afiliados em D:\\Projeto_Blog_Comprenolink\\Relatorios_Diarios_Anuncios\\vendas_afiliados (CSV/XLSX) e remonta o painel
 com fórmulas e gráficos.
 
 O que você digitar na planilha é preservado ao atualizar:
@@ -36,7 +36,7 @@ from openpyxl.worksheet.pagebreak import Break
 from openpyxl.worksheet.table import Table, TableStyleInfo
 
 RELAT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # Relatorios_Diarios_Anuncios
-BASE = os.path.dirname(RELAT)  # D:/mercado_livre
+BASE = os.path.dirname(RELAT)  # D:/Projeto_Blog_Comprenolink
 PASTA = sys.argv[1] if len(sys.argv) > 1 else RELAT
 PASTA_VENDAS = os.environ.get("PAINEL_PASTA_VENDAS") or os.path.join(RELAT, "vendas_afiliados")
 ARQ = os.path.join(PASTA, "Painel de  Controle de Acesso.xlsx")
@@ -455,7 +455,7 @@ METAS_PADRAO = [
     ("Limpeza: manter verificações de anúncios avulsas (últimas N)", 3, "0",
      "O histórico completo continua em anuncios_status\\historico_status_anuncios.csv."),
     ("Limpeza: manter cópias brutas de acessos dos últimos N dias", 3, "0",
-     "Pasta 1- Gera_Relatorio\\dados_acessos; cada cópia já contém os últimos 30 dias."),
+     "Pasta Relatorios_Diarios_Anuncios\\dados_acessos; cada cópia já contém os últimos 30 dias."),
 ]
 
 ANALISE_22_10 = [
@@ -468,7 +468,7 @@ ANALISE_22_10 = [
     ("Ponto de atenção 2", "Publique os vídeos do TikTok e o link na bio com os links UTM já gerados: tráfego externo real = 0."),
     ("Ponto de atenção 3", "Links internos da home (utm_source=site) aparecem como 'Divulgação'; o painel os classifica como Interno."),
     ("Ponto de atenção 4", "A tabela 'Escolha rápida' recebe a maior parte dos cliques, mas o rastreio não grava qual produto foi clicado."),
-    ("Ponto de atenção 5", "Exporte as vendas do ML Afiliados para D:\\mercado_livre\\vendas_afiliados para medir a conversão real."),
+    ("Ponto de atenção 5", "Exporte as vendas do ML Afiliados para D:\\Projeto_Blog_Comprenolink\\Relatorios_Diarios_Anuncios\\vendas_afiliados para medir a conversão real."),
 ]
 
 
@@ -483,7 +483,7 @@ ANALISE_23_10A = [
     ("Ponto de atenção 2", "Publicar os vídeos do TikTok e o link na bio: tráfego externo real = 0."),
     ("Ponto de atenção 3", "Marcar seus acessos/testes na aba Visitantes (Ignorar = S) e não clicar nos próprios links de afiliado."),
     ("Ponto de atenção 4", "Rodar o ATUALIZAR_PAINEL.bat pelo menos 1 vez por dia: anúncios de terceiros podem ser pausados a qualquer momento."),
-    ("Ponto de atenção 5", "Exportar as vendas do ML Afiliados para D:\\mercado_livre\\vendas_afiliados para medir a conversão real."),
+    ("Ponto de atenção 5", "Exportar as vendas do ML Afiliados para D:\\Projeto_Blog_Comprenolink\\Relatorios_Diarios_Anuncios\\vendas_afiliados para medir a conversão real."),
 ]
 
 
@@ -502,7 +502,7 @@ ANALISE_23_10B = [
                            "#acao01 para ver só o público real."),
     ("Ponto de atenção 4", "Publique os outros vídeos e o link na bio, e rode o ATUALIZAR_PAINEL.bat 1 vez por dia: anúncios "
                            "de terceiros podem ser pausados a qualquer momento."),
-    ("Ponto de atenção 5", "Exporte as vendas do ML Afiliados para D:\\mercado_livre\\vendas_afiliados para medir a conversão real."),
+    ("Ponto de atenção 5", "Exporte as vendas do ML Afiliados para D:\\Projeto_Blog_Comprenolink\\Relatorios_Diarios_Anuncios\\vendas_afiliados para medir a conversão real."),
 ]
 
 
@@ -522,7 +522,7 @@ ANALISE_23_10C = [
                            "#acao01 para ver só o público real."),
     ("Ponto de atenção 4", "Publique os outros vídeos e o link na bio, e rode o ATUALIZAR_PAINEL.bat 1 vez por dia: anúncios "
                            "de terceiros podem ser pausados a qualquer momento."),
-    ("Ponto de atenção 5", "Exporte as vendas do ML Afiliados para D:\\mercado_livre\\vendas_afiliados para medir a conversão real."),
+    ("Ponto de atenção 5", "Exporte as vendas do ML Afiliados para D:\\Projeto_Blog_Comprenolink\\Relatorios_Diarios_Anuncios\\vendas_afiliados para medir a conversão real."),
 ]
 
 
@@ -541,7 +541,7 @@ ANALISE_23_10D = [
                            "novo código de visitante (coluna Sugestão = provável teste) para os números reais não se misturarem."),
     ("Ponto de atenção 4", "Publique os outros vídeos e o link na bio: só 1 visita veio de campanha externa até agora. Rode o "
                            "ATUALIZAR_PAINEL.bat 1 vez por dia (anúncios de terceiros podem ser pausados a qualquer momento)."),
-    ("Ponto de atenção 5", "Exporte as vendas do ML Afiliados para D:\\mercado_livre\\vendas_afiliados para medir a conversão real."),
+    ("Ponto de atenção 5", "Exporte as vendas do ML Afiliados para D:\\Projeto_Blog_Comprenolink\\Relatorios_Diarios_Anuncios\\vendas_afiliados para medir a conversão real."),
 ]
 
 
@@ -559,7 +559,7 @@ ANALISE_23_10E = [
     ("Ponto de atenção 3", "Testes já marcados (Ignorar = S) continuam excluídos automaticamente. Só um código NOVO de "
                            "visitante precisa ser marcado (veja a coluna Sugestão da aba Visitantes)."),
     ("Ponto de atenção 4", "Publique os outros vídeos e o link na bio: só 1 visita veio de campanha externa até agora."),
-    ("Ponto de atenção 5", "Exporte as vendas do ML Afiliados para D:\\mercado_livre\\vendas_afiliados para medir a conversão real."),
+    ("Ponto de atenção 5", "Exporte as vendas do ML Afiliados para D:\\Projeto_Blog_Comprenolink\\Relatorios_Diarios_Anuncios\\vendas_afiliados para medir a conversão real."),
 ]
 
 
@@ -571,7 +571,7 @@ ANALISE_27_10A = [
      "81% celular, e a 1ª visita de busca orgânica (Yahoo). No painel oficial do ML Afiliados (180 dias, todos os links): "
      "116 cliques, 12 ordens, 2 compradores, R$ 172,00 de ganho estimado, 7 vendas não efetivadas. Guia com 165 produtos, "
      "161 ativos no ML."),
-    ("Ponto de atenção 1", "Exportar a lista de vendas do ML Afiliados (19 vendas) para D:\\mercado_livre\\vendas_afiliados: só "
+    ("Ponto de atenção 1", "Exportar a lista de vendas do ML Afiliados (19 vendas) para D:\\Projeto_Blog_Comprenolink\\Relatorios_Diarios_Anuncios\\vendas_afiliados: só "
                            "1 está no histórico. Com a lista completa o painel mostra o que foi aprovado, pendente e cancelado."),
     ("Ponto de atenção 2", "4 anúncios fora do ar: itens 43 Garrafa Térmica 900 ml (pausado), 50 Lixeira Inteligente 16 L "
                            "(removido), 64 Kit 4 Ursinhos Natalinos (pausado, produto de Natal!) e 85 Sérum Vitamina C para Olhos "
@@ -594,7 +594,7 @@ ANALISE_27_10B = [
      "R$ 172,00 de ganho estimado. Guia com 165 produtos, 161 ativos no ML."),
     ("Ponto de atenção 1", "A 1ª venda veio de um conhecido: o próximo marco é a 1ª venda de um visitante desconhecido "
                            "(TikTok, Instagram, WhatsApp ou busca). Continue divulgando os links UTM."),
-    ("Ponto de atenção 2", "Exportar a lista de vendas do ML Afiliados (19 vendas) para D:\\mercado_livre\\vendas_afiliados: só "
+    ("Ponto de atenção 2", "Exportar a lista de vendas do ML Afiliados (19 vendas) para D:\\Projeto_Blog_Comprenolink\\Relatorios_Diarios_Anuncios\\vendas_afiliados: só "
                            "1 está no histórico."),
     ("Ponto de atenção 3", "4 anúncios fora do ar: itens 43 Garrafa Térmica 900 ml (pausado), 50 Lixeira Inteligente 16 L "
                            "(removido), 64 Kit 4 Ursinhos Natalinos (pausado, produto de Natal!) e 85 Sérum Vitamina C para Olhos "
@@ -616,7 +616,7 @@ ANALISE_PADRAO = [
      "do ML Afiliados (180 dias, todos os links): 116 cliques, 12 ordens, 2 compradores, R$ 172,00 de ganho estimado."),
     ("Ponto de atenção 1", "A busca orgânica já traz comprador: vale reforçar o SEO do guia (títulos e descrições dos produtos "
                            "de cozinha/casa, que é onde está a venda e os cliques reais)."),
-    ("Ponto de atenção 2", "Exportar a lista de vendas do ML Afiliados (19 vendas) para D:\\mercado_livre\\vendas_afiliados: só "
+    ("Ponto de atenção 2", "Exportar a lista de vendas do ML Afiliados (19 vendas) para D:\\Projeto_Blog_Comprenolink\\Relatorios_Diarios_Anuncios\\vendas_afiliados: só "
                            "1 está no histórico. Com a lista completa, o painel liga cada venda ao visitante que clicou."),
     ("Ponto de atenção 3", "4 anúncios fora do ar: itens 43 Garrafa Térmica 900 ml (pausado), 50 Lixeira Inteligente 16 L "
                            "(removido), 64 Kit 4 Ursinhos Natalinos (pausado, produto de Natal!) e 85 Sérum Vitamina C para Olhos "
@@ -1141,7 +1141,7 @@ def montar(rels, vendas, preservado, avisos, anuncios=None, hist_anuncios=None):
     ws.conditional_formatting.add(st, CellIsRule(operator="equal", formula=['"Cancelada"'], fill=FILL_RUIM))
     ws.cell(1, 16, "Como preencher").font = F_SEC
     ajuda = ["1. No painel ML Afiliados > Vendas, exporte o relatório (CSV ou Excel) e salve em",
-             "   D:\\mercado_livre\\vendas_afiliados. Ao atualizar, as vendas entram aqui sozinhas.",
+             "   D:\\Projeto_Blog_Comprenolink\\Relatorios_Diarios_Anuncios\\vendas_afiliados. Ao atualizar, as vendas entram aqui sozinhas.",
              "2. Histórico permanente: Relatorios_Diarios_Anuncios\\vendas_historico\\historico_vendas.csv",
              "   (1 linha por nº do pedido; exportar de novo só ATUALIZA o estado, nunca duplica).",
              "3. Para lançar à mão: linha nova com Fonte = manual (é preservada). Se depois a",
@@ -1632,7 +1632,7 @@ def montar(rels, vendas, preservado, avisos, anuncios=None, hist_anuncios=None):
         ("2. Feche esta planilha no Excel e dê dois cliques em ATUALIZAR_PAINEL.bat (mesma pasta).", F_N),
         ("3. O painel usa 1 relatório por dia (o último do dia) e grava as métricas de cada dia em historico_consolidado\\historico_quadros.csv. "
          "Depois de cada atualização, o .bat manda para a Lixeira os PDFs, HTMLs, backups e verificações antigos (quantos manter: aba Metas).", F_N),
-        ("4. Vendas: exporte o relatório de vendas/ganhos do ML Afiliados (CSV ou Excel) para D:\\mercado_livre\\vendas_afiliados e atualize.", F_N),
+        ("4. Vendas: exporte o relatório de vendas/ganhos do ML Afiliados (CSV ou Excel) para D:\\Projeto_Blog_Comprenolink\\Relatorios_Diarios_Anuncios\\vendas_afiliados e atualize.", F_N),
         ("5. Anúncios: o .bat também abre o link de afiliado de cada produto do guia e registra se o anúncio está ativo, pausado ou "
          "removido (abas Anuncios e Anuncios_Hist). O ML não informa publicamente o motivo; o painel mostra o aviso do ML e uma causa provável.", F_N),
         ("", F_N),

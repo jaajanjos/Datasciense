@@ -16,7 +16,7 @@ Uso:
 COMPRAS:
   * Possível compra (estimativa): pontuação de intenção por visitante, calculada pelos cliques.
   * Compra confirmada: exporte o relatório de vendas do painel Mercado Livre Afiliados (CSV ou XLSX)
-    para D:\\mercado_livre\\vendas_afiliados\\ — cada venda é cruzada com os cliques (produto + horário)
+    para D:\\Projeto_Blog_Comprenolink\\Relatorios_Diarios_Anuncios\\vendas_afiliados\\ — cada venda é cruzada com os cliques (produto + horário)
     para descobrir de qual anúncio ela veio.
 """
 import argparse
@@ -40,12 +40,12 @@ from difflib import SequenceMatcher
 PASTA = os.path.dirname(sys.executable if getattr(sys, "frozen", False) else os.path.abspath(__file__))
 # Config (cópia única): programas_fontes_python\config_rastreio.json (os outros caminhos são só tolerância)
 PASTA_FONTES = "D:/Projeto_Blog_Comprenolink/Relatorios_Diarios_Anuncios/programas_fontes_python"
-PASTA_GERA = "D:/mercado_livre/1- Gera_Relatorio"
+PASTA_GERA = "D:/Projeto_Blog_Comprenolink/Relatorios_Diarios_Anuncios"  # antiga pasta Gera_Relatorio do .exe
 CONFIG = next((c for c in (os.path.join(PASTA_FONTES, "config_rastreio.json"),
                            os.path.join(PASTA, "config_rastreio.json"),
                            os.path.join(PASTA_GERA, "config_rastreio.json")) if os.path.exists(c)),
               os.path.join(PASTA_FONTES, "config_rastreio.json"))
-# Cópias brutas dos acessos: sempre em 1- Gera_Relatorio\dados_acessos (o 7_limpar_historico limpa lá)
+# Cópias brutas dos acessos: sempre em Relatorios_Diarios_Anuncios\dados_acessos (o 7_limpar_historico limpa lá)
 PASTA_DADOS = os.path.join(PASTA_GERA, "dados_acessos")
 # Relatório HTML: sempre no histórico do painel diário (lido pelo ATUALIZAR_PAINEL.bat)
 PASTA_SAIDA_HTML = "D:/Projeto_Blog_Comprenolink/Relatorios_Diarios_Anuncios/_historico_relatorios"
@@ -610,7 +610,7 @@ def verificar_anuncios_agora():
         print(f"   ⚠️ Verificador de anúncios não encontrado ({e}); será usada a última verificação.")
         return False
     # no .exe o __file__ do módulo fica numa pasta temporária: aponta os caminhos para a estrutura oficial
-    v.BASE = "D:/mercado_livre"
+    v.BASE = "D:/Projeto_Blog_Comprenolink"
     v.PASTA, v.HISTORICO = PASTA_STATUS, HIST_STATUS
     if os.path.exists(CONFIG):
         v.CONFIG = CONFIG

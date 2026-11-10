@@ -107,11 +107,11 @@ INVENTARIO = [
      "Lê a página pública do guia, pega cada produto e abre o link de afiliado (meli.la). Registra: Ativo, Pausado, "
      "Removido ou Não verificado, nº do anúncio (MLB), catálogo, título, preço, aviso do ML e causa provável. "
      "Não burla captcha nem login.",
-     "Página do guia no blog; backups da página em 9_Manutenção_Blog\\2_DADOS\\Blog_WordPress\\backups; "
+     "Página do guia no blog; backups da página em Gestao_Anuncios_Blog\\2_DADOS\\Blog_WordPress\\backups; "
      "config_rastreio.json (desta pasta).",
      "anuncios_status\\status_anuncios_AAAA-MM-DD_HHhMM.csv + linha no historico_status_anuncios.csv."],
     ["3_relatorio_acessos_anuncios.py", "Python. Código-fonte do <b>1_relatorio_acessos_anuncios.exe</b> "
-     "(pasta 1- Gera_Relatorio).",
+     "(pasta Relatorios_Diarios_Anuncios\\programas_fontes_python).",
      "Mostrar, de graça e com dados do próprio WordPress, quem visitou o guia, de qual anúncio/campanha veio, "
      "em quais produtos clicou e quais vendas aprovadas do ML vieram do guia.",
      "Baixa os acessos do plugin de rastreio (wp-json/rastreio/v1/dados), filtra só a página do guia, calcula "
@@ -119,7 +119,7 @@ INVENTARIO = [
      "última verificação tiver mais de 12 h e gera o relatório HTML com os quadros \"Anúncios fora do ar\" e "
      "\"Substituição\". O .py também é importado pelo 4_ para montar o quadro de substituição.",
      "config_rastreio.json (desta pasta); vendas_afiliados; anuncios_status.",
-     "_historico_relatorios\\relatorio_acessos_anuncios_*.html; cópias brutas em 1- Gera_Relatorio\\dados_acessos "
+     "_historico_relatorios\\relatorio_acessos_anuncios_*.html; cópias brutas em Relatorios_Diarios_Anuncios\\dados_acessos "
      "(acessos_*.json/csv, compras_atribuidas_*.csv)."],
     ["4_atualizar_painel_controle.py", "Python. Etapa 2 do .bat.",
      "Um relatório HTML mostra só um momento. O painel junta <b>todos os dias</b> numa planilha com fórmulas, "
@@ -150,9 +150,9 @@ INVENTARIO = [
      "docs_relatorio_diario_anuncio\\DOCUMENTACAO_TECNICA_INFRA_*.pdf"],
     ["11_compilar_exe_relatorio.bat", "Arquivo de lote (não é Python). Clique duplo quando mudar o 3_ ou o 6_.",
      "O 1_relatorio_acessos_anuncios.exe leva uma cópia do código; mudar o .py não muda o .exe.",
-     "Compila com PyInstaller --onefile (3_ + 6_), guarda o .exe anterior em _backups_claude_30out, instala o novo "
-     "em 1- Gera_Relatorio, testa --help e mostra o SHA-256.", "3_ e 6_ desta pasta.",
-     "1- Gera_Relatorio\\1_relatorio_acessos_anuncios.exe + 1_relatorio_acessos_anuncios.spec (nesta pasta)."],
+     "Compila com PyInstaller --onefile (3_ + 6_), guarda o .exe anterior em _backups_claude_, instala o novo "
+     "em Relatorios_Diarios_Anuncios\\programas_fontes_python, testa --help e mostra o SHA-256.", "3_ e 6_ desta pasta.",
+     "Relatorios_Diarios_Anuncios\\programas_fontes_python\\1_relatorio_acessos_anuncios.exe + 1_relatorio_acessos_anuncios.spec (nesta pasta)."],
     ["1_relatorio_acessos_anuncios.spec", "Texto de configuração do PyInstaller (gerado pelo 11_).",
      "Registro exato de como o .exe foi montado.", "Não se executa; serve de referência.", "—", "—"],
     ["12_gerar_documentacao_exe_pdf.py", "Python. Rodar depois de recompilar o .exe.",
@@ -166,7 +166,7 @@ ORDEM = [
      "Painel ML Afiliados → exportar vendas (CSV/XLSX)",
      "Salvar o arquivo em Relatorios_Diarios_Anuncios\\vendas_afiliados.", "1 a 2 min"],
     ["1", "1ª tarefa do dia (ou quando quiser ver os acessos)", "Dono: clique duplo",
-     "1- Gera_Relatorio\\1_relatorio_acessos_anuncios.exe (fonte: 3_relatorio_acessos_anuncios.py)",
+     "Relatorios_Diarios_Anuncios\\programas_fontes_python\\1_relatorio_acessos_anuncios.exe (fonte: 3_relatorio_acessos_anuncios.py)",
      "Baixa acessos do WordPress, verifica anúncios se a última verificação tiver >12 h (6_ embutido), cruza "
      "vendas e grava o HTML do dia em _historico_relatorios.", "1 a 12 min"],
     ["2", "Logo depois do relatório", "Dono: clique duplo",
@@ -191,10 +191,10 @@ ORDEM = [
 
 HISTORICO = [
     ["21/10/2026", "Base do rastreio", "Fontes do relatório de acessos, gerador de links e SEO; compilados em "
-     ".exe (1- Gera_Relatorio)."],
+     ".exe (Relatorios_Diarios_Anuncios\\programas_fontes_python)."],
     ["22/10/2026", "Recalcular e exportar", "Criado 5_recalcular_exportar_painel.ps1: Excel calcula e gera PDF."],
     ["23/10/2026", "1º painel de conversão", "Primeiro PDF conversao_e_performance_do_blog_2026-10-23.pdf."],
-    ["29/10/2026", "Links dos anúncios", "Lista de links dos anúncios (gerador de links, em 10_Rastreamento_anuncios)."],
+    ["29/10/2026", "Links dos anúncios", "Lista de links dos anúncios (gerador de links, em Planejamentos\\Andamento\\Rastreamento_anuncios)."],
     ["30/10/2026", "Reorganização das pastas", "Caminhos dos .py ajustados à nova estrutura; criados "
      "7_limpar_historico.py (Lixeira, retenção na aba Metas) e 8_rodar_com_log.ps1 (log_painel.txt)."],
     ["02/11/2026", "Relatório no lugar certo + verificador", "HTML passa a ser gravado em _historico_relatorios; "
@@ -202,11 +202,17 @@ HISTORICO = [
      "\"Substituição\" no relatório e no painel; aba Resumo_ML."],
     ["03 a 07/11/2026", "Uso diário", "Painéis e status gerados diariamente (17 relatórios, 19 vendas no histórico)."],
     ["08/11/2026", "Pasta programas_fontes_python", "A pedido do dono, .bat e scripts do painel (3_ a 8_) saem de "
-     "D:\\mercado_livre\\python e vão para Relatorios_Diarios_Anuncios\\programas_fontes_python. Todos os caminhos "
+     "da antiga pasta python (na raiz do projeto) e vão para Relatorios_Diarios_Anuncios\\programas_fontes_python. Todos os caminhos "
      "trocados de 99_Relatorios_Diarios (nome antigo, não existe mais) para Relatorios_Diarios_Anuncios. "
-     ".exe do relatório recompilado com o caminho novo (antigo guardado em 99_Programas_PY\\_backups_claude_30out\\"
+     ".exe do relatório recompilado com o caminho novo (antigo guardado em Programas_Diversos_Py\\_backups_claude_\\"
      "mover_painel_08-11). Teste completo: 5 etapas OK, 642 s, 213 anúncios (4 fora do ar). Criada esta "
      "documentação."],
+    ["09/11/2026", "Projeto em D:\\Projeto_Blog_Comprenolink", "O dono moveu todo o projeto para "
+     "D:\\Projeto_Blog_Comprenolink (a pasta antiga não existe mais). Caminhos de todos os programas ajustados "
+     "(original de cada arquivo em old_bkp\\, na mesma pasta); dados_acessos passa a ser "
+     "Relatorios_Diarios_Anuncios\\dados_acessos; o .exe fica em programas_fontes_python e foi recompilado. "
+     "Cópias duplicadas e não usadas (1_relatorio .py, 5_atualizar, 6_recalcular, 7_verificar, 8_limpar) "
+     "guardadas em programas_fontes_python\\old_bkp; os programas em uso continuam 3_, 4_, 5_, 6_, 7_ e 8_."],
 ]
 
 PASTAS = [
@@ -222,7 +228,7 @@ PASTAS = [
     ["anuncios_status", "Situação dos anúncios a cada verificação + histórico permanente.", "6_", "3_ e 4_"],
     ["_backup_painel", "Cópia da planilha antes de cada atualização.", "4_", "Dono (recuperar)"],
     ["docs_relatorio_diario_anuncio", "Esta documentação.", "9_", "Dono"],
-    ["..\\1- Gera_Relatorio", ".exe do relatório, config_rastreio.json (site + chave), dados_acessos (brutos).",
+    ["..\\Relatorios_Diarios_Anuncios\\programas_fontes_python", ".exe do relatório, config_rastreio.json (site + chave), dados_acessos (brutos).",
      "PyInstaller / 3_", "3_, 6_, 7_"],
 ]
 
@@ -256,14 +262,14 @@ ATENCAO = [
     ["Mudou o 3_ ou o 6_?", "Recompilar o .exe: clique duplo em 11_compilar_exe_relatorio.bat (compila, guarda o antigo e instala) "
      "e depois rodar o 12_gerar_documentacao_exe_pdf.py."],
     ["config_rastreio.json", "Fica em programas_fontes_python (fonte única: site, página do guia, chave da API). "
-     "É a única cópia (a de 1- Gera_Relatorio foi removida em 08/11/2026): não apagar nem mover."],
+     "É a única cópia (a de 1- Gera_Relatorio (pasta antiga; hoje Relatorios_Diarios_Anuncios\\programas_fontes_python) foi removida em 08/11/2026): não apagar nem mover."],
     ["Não separar os arquivos", "O 4_ importa o 3_ e o 3_ importa o 6_; o .bat chama 5_, 6_, 7_ e 8_ na mesma "
      "pasta. Todos devem ficar juntos em programas_fontes_python."],
     ["Limites do ML", "O ML não mostra o MOTIVO de pausa/remoção (só ao vendedor) e pode pedir verificação de robô; "
      "nesses casos o anúncio fica \"Não verificado\". O script não burla isso (evita bloqueio)."],
     ["Lixeira", "A limpeza manda para a Lixeira do Windows: dá para recuperar até esvaziá-la."],
-    ["Fora desta pasta", "Em D:\\mercado_livre\\python ficaram 2_gerar_links_anuncios.py, "
-     "gerar_relatorio_blog_v4 e test_blog_seo.py (outras rotinas: links e SEO), que não fazem parte do painel."],
+    ["Fora desta pasta", "Nenhum programa: desde 09/11/2026 o 2_gerar_links_anuncios, o 3_gerar_relatorio_blog_v4 e o "
+     "4_test_blog_seo (outras rotinas: links e SEO) ficam nesta mesma pasta, mas não fazem parte do painel."],
 ]
 
 
@@ -276,7 +282,7 @@ def montar():
     st = []
     st += [Spacer(1, 3.2 * cm), P("Relatório Diário de Anúncios", "titulo"), Spacer(1, 6),
            P("Documentação dos programas da pasta <b>programas_fontes_python</b>", "sub"), Spacer(1, 4),
-           P("D:\\mercado_livre\\Relatorios_Diarios_Anuncios · comprenolink.net", "sub"), Spacer(1, 4),
+           P("D:\\Projeto_Blog_Comprenolink\\Relatorios_Diarios_Anuncios · comprenolink.net", "sub"), Spacer(1, 4),
            P(f"Versão de {HOJE:%d/%m/%Y}", "sub"), Spacer(1, 1.2 * cm)]
     st.append(tabela(["Em uma frase"], [[
         "Todo dia o dono gera o <b>relatório de acessos</b> (.exe) e depois dá clique duplo no "
@@ -295,7 +301,7 @@ def montar():
 
     st.append(P("1. Para que serve cada arquivo", "h1"))
     st.append(P("O número no início do nome segue a numeração original do projeto (o 2_gerar_links_anuncios.py, de "
-                "outra rotina, ficou em D:\\mercado_livre\\python). <b>Por que existe</b> = o problema que o arquivo "
+                "outra rotina, ficou em D:\\Projeto_Blog_Comprenolink\\Relatorios_Diarios_Anuncios\\programas_fontes_python). <b>Por que existe</b> = o problema que o arquivo "
                 "resolve; <b>o que faz na prática</b> = o que acontece quando ele roda."))
     st.append(tabela(["Arquivo", "Tipo / quem chama", "Por que existe", "O que faz na prática", "Lê", "Grava"],
                      INVENTARIO, [3.6, 3.4, 5.0, 7.0, 3.7, 3.8]))
@@ -322,7 +328,7 @@ def montar():
     st.append(PageBreak())
 
     st.append(P("4. Pastas e arquivos de dados", "h1"))
-    st.append(P("Todas dentro de D:\\mercado_livre\\Relatorios_Diarios_Anuncios, exceto a última linha."))
+    st.append(P("Todas dentro de D:\\Projeto_Blog_Comprenolink\\Relatorios_Diarios_Anuncios, exceto a última linha."))
     st.append(tabela(["Pasta / arquivo", "O que guarda", "Quem grava", "Quem lê"], PASTAS, [7.0, 11.0, 4.3, 4.2]))
     st.append(PageBreak())
 

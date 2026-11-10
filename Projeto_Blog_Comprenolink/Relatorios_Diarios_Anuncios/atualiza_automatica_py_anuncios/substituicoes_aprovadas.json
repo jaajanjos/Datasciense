@@ -1,0 +1,46 @@
+{
+  "gerado_em": "2026-11-09 09:46",
+  "situacao_geral": "parcial",
+  "substituicoes": [
+    {
+      "item": 78,
+      "link_antigo": "https://www.mercadolivre.com.br/social/r20250720181444?matt_word=r20250720181444&matt_tool=65808735&forceInApp=true&ref=BA61uYf21O5NKbqCXXH4G74wSB6LJfZOUYb9mZf2TevCaAR5V6OtGPHdGLoWB1ttTaeMOooYfubP5mEc%2B1SCtmS%2BgygGWaeEpCK4YtDe5UiXkv8v3h7HkfRVH1lCYtnn9FhBWf41yg8O99t6Xfi5EH6I0JjrDpC2t%2FafM2Lau2jw%2B1sztOjc%2FqEui45ObPcD9pGbbWRu%2Br4hfNu6JLKd4DvnMfB%2FrkXf0VWHVy2oo9ulya8a7ux8R7fi0srBbhJZSR2x",
+      "nome": "Vitamina B12 Maxinutri Mastigável 60 Comprimidos",
+      "selo": "MercadoLíder Platinum",
+      "desc": "Vitamina B12 Metilcobalamina mastigável, sabor frutas vermelhas, caixa com 60 comprimidos.",
+      "beneficios": [
+        "Vendido por MercadoLíder Platinum, um dos melhores do site",
+        "Frete grátis e entrega rápida (Full)",
+        "Sem glúten e sem lactose"
+      ],
+      "ideal": [
+        "Quem busca reposição de vitamina B12 no dia a dia",
+        "Quem prefere comprimido mastigável em vez de cápsula"
+      ],
+      "link": "https://meli.la/1QAZi1g",
+      "titulo_anuncio": "Vitamina B12 Metilcobalamina 9,9mcg Mastigável 60 Maxinutri Frutas Vermelhas",
+      "preco": "R$ 34,90",
+      "imagem": "https://http2.mlstatic.com/D_NQ_NP_895337-MLB118169358673_092026-O-vitamina-b12-metilcobalamina-99mcg-mastigavel-60-maxinutri.webp",
+      "anuncio_mlb": "MLB7614788484",
+      "url_final": "https://www.mercadolivre.com.br/vitamina-b12-metilcobalamina-99mcg-mastigavel-60-maxinutri/up/MLBU5158365520",
+      "vendedor": "Bem Estar Store",
+      "politica": "MercadoLíder Platinum · Full · frete grátis · +5 mil vendas",
+      "conferido": "meli.la aberto: anúncio ativo (sem aviso de pausado/revisão), destino MLB7614788484 diferente do antigo MLB6788570804, preço à vista R$ 34,90 conferido na página do anúncio"
+    }
+  ],
+  "nao_substituidos": [
+    {
+      "item": 51,
+      "motivo": "Candidato bom identificado (loja oficial HIVI, anúncio ativo MLB6976945992, diferente do antigo, R$ 54,50, link https://meli.la/1MJmeyP já gerado e conferido) mas não foi possível confirmar com segurança a URL da imagem principal do anúncio antes do limite de uso da sessão ser atingido — o link coletado via JavaScript bateu com uma imagem genérica repetida em outras páginas, não com a foto do produto. Necessário reabrir o anúncio e coletar a imagem correta antes de aprovar."
+    },
+    {
+      "item": 191,
+      "motivo": "Busca interrompida pelo limite de uso da sessão. O catálogo MLB19795010 (busca_mesmo_produto) só tinha ofertas Internacionais (EUA, com custo de importação) ou revendedores nacionais sem selo MercadoLíder/sem avaliações visíveis na lista agregada; a armadilha do catálogo (gerar link sempre cai no anúncio antigo pausado) também se aplicaria aqui. Processamento de busca_mesmo_tipo não concluído."
+    },
+    {
+      "item": 196,
+      "motivo": "Anúncio e catálogo originais não existem mais (perfil de afiliado vazio) e não havia busca_mesmo_produto informada. Processamento de busca_mesmo_tipo (tênis Olympikus Veloz) não iniciado por falta de tempo/limite de uso da sessão."
+    }
+  ],
+  "validado_em": "2026-11-09 09:56"
+}

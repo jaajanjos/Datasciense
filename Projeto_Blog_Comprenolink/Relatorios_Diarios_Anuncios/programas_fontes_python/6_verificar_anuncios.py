@@ -30,13 +30,13 @@ import urllib.request
 from datetime import datetime
 
 RELAT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # Relatorios_Diarios_Anuncios
-BASE = os.path.dirname(RELAT)  # D:/mercado_livre
+BASE = os.path.dirname(RELAT)  # D:/Projeto_Blog_Comprenolink
 PASTA = os.path.join(RELAT, "anuncios_status")
 HISTORICO = os.path.join(PASTA, "historico_status_anuncios.csv")
-# Config (cópia única) nesta pasta; o caminho de 1- Gera_Relatorio é só tolerância
+# Config (cópia única) nesta pasta (programas_fontes_python)
 CONFIG = os.path.join(os.path.dirname(os.path.abspath(__file__)), "config_rastreio.json")
 if not os.path.exists(CONFIG):
-    CONFIG = os.path.join(BASE, "1- Gera_Relatorio", "config_rastreio.json")
+    CONFIG = os.path.join(RELAT, "programas_fontes_python", "config_rastreio.json")
 UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
       "Chrome/130.0 Safari/537.36")
 COLUNAS = ["verificado_em", "item", "nome_no_blog", "titulo_card", "link_afiliado", "status", "aviso_ml",
@@ -106,7 +106,7 @@ def itens_do_blog(t):
 
 def catalogo_dos_backups():
     """affiliate_url -> (código do catálogo, título completo), lido do backup mais novo da página no WordPress."""
-    pasta = os.path.join(BASE, "9_Manutenção_Blog", "2_DADOS", "Blog_WordPress", "backups")
+    pasta = os.path.join(BASE, "Gestao_Anuncios_Blog", "2_DADOS", "Blog_WordPress", "backups")
     mapa = {}
     try:
         arquivos = sorted((os.path.join(pasta, a) for a in os.listdir(pasta) if a.startswith("pagina_")),

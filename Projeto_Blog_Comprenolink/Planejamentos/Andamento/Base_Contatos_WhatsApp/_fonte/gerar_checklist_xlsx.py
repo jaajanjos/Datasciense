@@ -1,0 +1,316 @@
+# -*- coding: utf-8 -*-
+"""Gera checklist_execucao_30_dias.xlsx v2 (convites a mao, atracao, pre-requisitos e plano de 30 dias de 06/11 a 05/12/2026).
+ATENCAO: gerar de novo SOBRESCREVE as marcacoes. Se ja houver dados, copie o arquivo antes (a pasta _backups guarda uma copia)."""
+import os, shutil, datetime
+from openpyxl import Workbook
+from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
+from openpyxl.worksheet.datavalidation import DataValidation
+from openpyxl.formatting.rule import FormulaRule
+
+PASTA = os.path.dirname(os.path.dirname(os.path.abspath(__file__))).replace("\\", "/")
+SAIDA = PASTA + "/checklist_execucao_30_dias.xlsx"
+VERDE = "0B3D2E"
+f_tit = Font(name="Arial", size=15, bold=True, color=VERDE)
+f_cab = Font(name="Arial", size=10, bold=True, color="FFFFFF")
+f_txt = Font(name="Arial", size=10)
+f_neg = Font(name="Arial", size=10, bold=True)
+p_cab = PatternFill("solid", fgColor=VERDE)
+p_in = PatternFill("solid", fgColor="FFF4C2")
+p_auto = PatternFill("solid", fgColor="F2F2F2")
+p_ok = PatternFill("solid", fgColor="C6EFCE")
+p_no = PatternFill("solid", fgColor="FFC7CE")
+p_mar = PatternFill("solid", fgColor="DDEBF7")
+p_gray = PatternFill("solid", fgColor="D9D9D9")
+fino = Side(style="thin", color="BBBBBB")
+borda = Border(left=fino, right=fino, top=fino, bottom=fino)
+cen = Alignment(horizontal="center", vertical="center", wrap_text=True)
+esq = Alignment(horizontal="left", vertical="center", wrap_text=True)
+wb = Workbook()
+
+
+def titulo(ws, t, sub=None):
+    ws["A1"] = t
+    ws["A1"].font = f_tit
+    if sub:
+        ws["A2"] = sub
+        ws["A2"].font = Font(name="Arial", size=9, italic=True, color="555555")
+
+
+def cab(ws, linha, titulos, larguras):
+    for i, (t, w) in enumerate(zip(titulos, larguras), start=1):
+        c = ws.cell(row=linha, column=i, value=t)
+        c.font, c.fill, c.alignment, c.border = f_cab, p_cab, cen, borda
+        ws.column_dimensions[chr(64 + i)].width = w
+    ws.row_dimensions[linha].height = 34
+
+
+def corpo(ws, linha, valores, centros=(), entradas=(), altura=None):
+    for i, v in enumerate(valores, start=1):
+        c = ws.cell(row=linha, column=i, value=v)
+        c.font, c.border = f_txt, borda
+        c.alignment = cen if i in centros else esq
+        if i in entradas:
+            c.fill = p_in
+    if altura:
+        ws.row_dimensions[linha].height = altura
+
+
+def lista(ws, itens, rango):
+    d = DataValidation(type="list", formula1='"' + ",".join(itens) + '"', allow_blank=True, showErrorMessage=True,
+                       errorTitle="Valor inválido", error="Escolha um item da lista.")
+    ws.add_data_validation(d)
+    d.add(rango)
+
+
+# ------------------------------------------------------------ LEIA-ME
+ws = wb.active
+ws.title = "LEIA-ME"
+titulo(ws, "Checklist de execução: 30 dias a partir de 06/11/2026", "v2 de 04/11/2026. Complementa processo_crescimento_canal_whatsapp.pdf, regras_execução.pdf e Base_Contatos_WhatsApp.xlsx (mesma pasta).")
+txt = [
+    ("Situação", "A automação de convites foi CANCELADA por risco de bloqueio do WhatsApp. Não há envio automático nem em massa. Convites só à mão, pelo celular do dono, para quem ele conhece. A atração (Status, bio, Reels, Comente CANAL) roda todo dia."),
+    ("Como usar", "Pré-requisitos: marque cada item como OK. Plano 30 dias: todo dia às 20:30 preencha V ou X nas 3 validações, o total de convites enviados, avisos, saídas e entraram. O resumo e o balanço se calculam sozinhos."),
+    ("Cores", "AMARELO = você preenche. CINZA = fórmula, não digitar por cima. VERDE = OK. VERMELHO = problema ou acima do teto. AZUL = marco do plano."),
+    ("Abas", "Pre-requisitos | Rotina diaria | Comandos | Plano 30 dias | Balanco | Nao executar."),
+    ("Regra de ouro", "Só se convida à mão quem aparece com PODE ENVIAR = SIM na aba Hoje (Conhecido aprovado por você), até o teto do dia (5 na 1ª semana, depois 9), entre 9h e 20h. Qualquer aviso do WhatsApp: parar os convites por 7 dias e avisar o Claude."),
+    ("Datas", "Datas e metas são estimativas e podem ser ajustadas nas revisões de segunda. Se não houver contatos aprovados, a atração continua e os convites esperam."),
+]
+for i, (k, v) in enumerate(txt, start=4):
+    ws.cell(row=i, column=1, value=k).font = f_neg
+    c = ws.cell(row=i, column=2, value=v)
+    c.font, c.alignment = f_txt, esq
+    ws.cell(row=i, column=1).alignment = esq
+    ws.row_dimensions[i].height = 48
+ws.column_dimensions["A"].width = 18
+ws.column_dimensions["B"].width = 120
+
+# ------------------------------------------------------------ Pre-requisitos
+wp = wb.create_sheet("Pre-requisitos")
+titulo(wp, "Pré-requisitos (marcar até 05/11)", "Para começar os convites à mão e a atração, todos precisam estar OK.")
+req = [
+    ("Contatos aprovados como Conhecido na aba Base (só quem você conhece), com número 55 + DDD + número", "Dono e Claude"),
+    ("Limite do dia = 9 na aba Parametros (já ajustado em 04/11)", "Claude"),
+    ("Texto M1 revisado pelo dono na aba Mensagens, com variações de saudação", "Dono"),
+    ("Celular com WhatsApp Business, internet e bateria, pronto para enviar à mão", "Dono"),
+    ("PC ligado, aplicativo do Claude aberto e Chrome com WhatsApp Web e Instagram logados (para a divulgação das 19:12)", "Dono"),
+    ("Texto do \"Comente CANAL\" e da resposta do ManyChat colados (ação G1, qui 05/11 10:20)", "Dono e Claude"),
+    ("Teste do ManyChat com outra conta feito (11/11)", "Dono"),
+    ("Formulário do blog no ar com os campos WhatsApp e consentimento (feito em 04/11)", "Claude"),
+    ("Arquivo agenda_crescimento_canal_whatsapp.ics importado na agenda do dono", "Dono"),
+    ("Microsoft 365 com Excel para computador; planilha fechada quando o importador rodar", "Dono"),
+    ("Regra de risco lida: nada de envio em massa; parar 7 dias ao primeiro aviso do WhatsApp", "Dono"),
+]
+cab(wp, 6, ["Nº", "Condição", "Quem", "Status", "Data conferida", "Observações"], [6, 90, 16, 14, 16, 40])
+for i, (c, q) in enumerate(req, start=1):
+    ok = i in (2, 8)
+    corpo(wp, 6 + i, [i, c, q, "OK" if ok else "Pendente", datetime.date(2026, 11, 4) if ok else None, None], centros=(1, 3, 4, 5), entradas=(4, 5, 6), altura=32)
+    wp.cell(row=6 + i, column=5).number_format = "dd/mm/yyyy"
+n0, n1 = 7, 6 + len(req)
+wp["A3"] = "Itens OK"
+wp["A3"].font = f_neg
+wp["B3"] = f'=COUNTIF(D{n0}:D{n1},"OK")&" de {len(req)}"'
+wp["B4"] = f'=IF(COUNTIF(D{n0}:D{n1},"OK")={len(req)},"LIBERADO PARA INICIAR","NÃO LIBERADO: faltam "&({len(req)}-COUNTIF(D{n0}:D{n1},"OK"))&" item(ns)")'
+for a in ("B3", "B4"):
+    wp[a].font, wp[a].fill, wp[a].alignment, wp[a].border = f_neg, p_auto, esq, borda
+wp["A4"] = "Situação"
+wp["A4"].font = f_neg
+wp.conditional_formatting.add(f"D{n0}:D{n1}", FormulaRule(formula=[f'D{n0}="OK"'], fill=p_ok))
+wp.conditional_formatting.add(f"D{n0}:D{n1}", FormulaRule(formula=[f'D{n0}="Pendente"'], fill=p_no))
+wp.conditional_formatting.add("B4", FormulaRule(formula=['LEFT(B4,3)="LIB"'], fill=p_ok))
+wp.conditional_formatting.add("B4", FormulaRule(formula=['LEFT(B4,3)="NÃO"'], fill=p_no))
+lista(wp, ["Pendente", "OK"], f"D{n0}:D{n1}")
+wp["A{}".format(n1 + 2)] = "Atenção: o risco de bloqueio nunca é zero. Convite só à mão, só para quem você conhece, e parar ao primeiro aviso. Não existe envio automático neste plano."
+wp["A{}".format(n1 + 2)].font = Font(name="Arial", size=9, italic=True, color="9C0006")
+wp.freeze_panes = "A7"
+
+# ------------------------------------------------------------ Rotina diaria
+wr = wb.create_sheet("Rotina diaria")
+titulo(wr, "Quando executa (rotina diária)")
+cab(wr, 3, ["Horário", "Quem", "O que", "Duração"], [16, 18, 100, 12])
+rot = [
+    ("10:00", "Dono", "Convites à mão (até 5 por dia na 1ª semana, depois até 9), da lista que o Claude prepara. 3 min ou mais entre mensagens.", "15 min"),
+    ("19:12", "Claude", "Divulgação diária (Status, Canal e Story) com a chamada \"Entre no Canal\". Outro processo, mesmo Chrome.", "-"),
+    ("19:20", "Dono", "Responder as pessoas que escreveram.", "5 min"),
+    ("20:30", "Dono", "Fechar o dia: anotar enviados, saídas e entradas. Marcar V ou X na aba Plano 30 dias.", "2 min"),
+    ("Segunda, 10:30", "Claude e dono", "Revisão semanal: seguidores do Canal, importação do formulário, saídas e ritmo.", "15 min"),
+    ("Quinta, 10:30", "Dono", "Aprovar contatos pessoais novos (Conhecido).", "5 min"),
+    ("Dia 1, 10:30", "Dono", "Revisão mensal de consentimentos e exclusões.", "20 min"),
+]
+for i, r in enumerate(rot, start=4):
+    corpo(wr, i, list(r), centros=(1, 2, 4), altura=22)
+
+# ------------------------------------------------------------ Comandos
+wc = wb.create_sheet("Comandos")
+titulo(wc, "Comandos que o dono pode usar", "Escreva no chat com o Claude (convenção combinada em 04/11/2026).")
+cab(wc, 4, ["Escreva", "O que acontece", "Quando usar"], [48, 90, 30])
+cmd = [
+    ("preparar lista de hoje", "O Claude monta a lista do dia (PODE ENVIAR = SIM) com o texto de cada pessoa. Quem envia é você, à mão.", "Todo dia, até 10:00"),
+    ("enviei: Nome1, Nome2", "Você informa o que enviou e o Claude registra na aba Envios (Enviado por = Dono).", "Depois dos convites"),
+    ("relatório do dia", "Lista enviados, respostas, saídas, avisos e saldo do limite.", "Às 20:30"),
+    ("importar formulário", "O Claude simula a importação e mostra quem entraria. Só grava depois do seu OK.", "Toda segunda"),
+    ("ler seguidores do Canal", "Lê o número no WhatsApp Web e anota na aba Canal da Base.", "Toda segunda"),
+    ("aprovar contatos: Nome1, Nome2", "Muda para Conhecido quem você conhece. Só você decide quem.", "Quinta, 10:30"),
+    ("cadastrar contato: Nome, 55DDDnúmero, origem, consentimento", "Cadastra na aba Base com a data e a prova.", "Ao aprovar um contato novo"),
+    ("excluir contato: Nome", "Apaga os dados do contato (pedido de exclusão) e registra a data.", "Quando alguém pedir"),
+    ("parar convites", "Registra a parada de 7 dias (aviso do WhatsApp, denúncia ou 2 pedidos de saída).", "Se algo parecer errado"),
+    ("reduzir ritmo / manter ritmo", "Registra sua decisão semanal sobre o teto do dia (5 ou 9).", "Segunda, na revisão"),
+    ("gerar agenda", "Gera de novo o arquivo .ics com as rotinas.", "Se mudar datas ou horários"),
+]
+for i, r in enumerate(cmd, start=5):
+    corpo(wc, i, list(r), altura=34)
+    wc.cell(row=i, column=1).font = f_neg
+r0 = 5 + len(cmd) + 1
+wc.cell(row=r0, column=1, value="No terminal (pasta D:\\Projeto_Blog_Comprenolink\\Planejamentos\\Andamento\\Base_Contatos_WhatsApp\\_fonte)").font = f_neg
+cab(wc, r0 + 1, ["Comando", "Para que serve", "Cuidado"], [48, 90, 30])
+term = [
+    ("python -X utf8 importar_leads_formulario.py", "Simula a importação do formulário do blog. Não grava nada.", "Seguro"),
+    ("python -X utf8 importar_leads_formulario.py --gravar", "Grava na Base quem informou o WhatsApp e marcou a caixa. Faz backup antes.", "Feche o Excel antes"),
+    ("python -X utf8 gerar_agenda_crescimento.py", "Regenera o agenda_crescimento_canal_whatsapp.ics.", "Seguro"),
+    ("python -X utf8 gerar_base_contatos.py", "Recria a planilha Base do zero e APAGA os dados.", "Só com cópia feita antes"),
+]
+for i, r in enumerate(term, start=r0 + 2):
+    corpo(wc, i, list(r), altura=26)
+    wc.cell(row=i, column=1).font = Font(name="Consolas", size=9)
+wc.cell(row=r0 + 5, column=3).fill = p_no
+
+# ------------------------------------------------------------ Plano 30 dias
+wl = wb.create_sheet("Plano 30 dias")
+titulo(wl, "Plano de 30 dias (10/11/2026 a 09/12/2026)", "Semana 1: até 5 convites à mão por dia (06 a 12/11) | depois: até 9 por dia, se a semana 1 fechou sem aviso. Sem convites em 27/11 (Black Friday).")
+tit = ["Data", "Dia", "Fase", "Teto do dia", "Lista do Claude", "Dono: além da rotina e marcos", "10:00 convites feitos", "19:20 respostas", "20:30 dia fechado", "Convites enviados", "Avisos do WhatsApp", "Pediram para sair", "Entraram no Canal", "Resultado do dia", "Observações"]
+lar = [12, 6, 8, 9, 26, 56, 11, 11, 11, 10, 9, 10, 10, 18, 40]
+for i, (t, w) in enumerate(zip(tit, lar), start=1):
+    c = wl.cell(row=14, column=i, value=t)
+    c.font, c.fill, c.alignment, c.border = f_cab, p_cab, cen, borda
+    wl.column_dimensions[chr(64 + i)].width = w
+wl.row_dimensions[14].height = 44
+dias = ["seg", "ter", "qua", "qui", "sex", "sáb", "dom"]
+D = datetime.date
+extras = {
+    D(2026, 11, 6): "10:00 primeiros convites à mão, até 5. INÍCIO DA SEMANA 1",
+    D(2026, 11, 9): "10:30 revisão semanal: importar formulário, ler seguidores do Canal e decidir o teto. Aprovar contatos",
+    D(2026, 11, 11): "Teste do ManyChat com outra conta (agenda)",
+    D(2026, 11, 13): "Se a semana 1 fechou sem aviso: teto de 9 por dia",
+    D(2026, 11, 16): "10:30 revisão semanal. Manter ou reduzir o ritmo. Aprovar contatos",
+    D(2026, 11, 23): "10:30 revisão semanal. Manter ou reduzir o ritmo. Aprovar contatos",
+    D(2026, 11, 26): "Já existe lembrete às 20:00 da Black Friday (outra pendência)",
+    D(2026, 11, 27): "PAUSA nos convites: dia D da Black Friday. Foco em publicar e responder",
+    D(2026, 11, 30): "10:30 revisão semanal. Conferir meta do Canal (20 seguidores, estimativa) e definir a meta nova. Aprovar contatos",
+    D(2026, 12, 1): "10:30 revisão mensal de consentimentos e exclusões (20 min)",
+    D(2026, 12, 4): "Post e Reels de 04/12 (outro processo)",
+    D(2026, 12, 5): "BALANÇO DOS 30 DIAS (aba Balanco). Decidir: continuar, ajustar ou usar a plataforma oficial",
+}
+P0 = 15
+for i in range(30):
+    r = P0 + i
+    d = D(2026, 11, 6) + datetime.timedelta(days=i)
+    if d < D(2026, 11, 13):
+        fase, teto, claude = "S1", 5, "lista de até 5"
+    else:
+        fase, teto, claude = "S2+", 9, "lista de até 9"
+    if d == D(2026, 11, 27):
+        fase, teto, claude = "PAUSA", 0, "sem convites"
+    dono = extras.get(d, "")
+    if not dono and d.weekday() == 0:
+        dono = "10:30 revisão semanal e aprovar contatos (15 min)"
+    if not dono and d.weekday() == 3:
+        dono = "10:30 aprovar contatos pessoais novos (5 min)"
+    corpo(wl, r, [d, dias[d.weekday()], fase, teto, claude, dono or "só a rotina diária", None, None, None, None, None, None, None, None, None],
+          centros=(1, 2, 3, 4, 7, 8, 9, 10, 11, 12, 13, 14), entradas=(7, 8, 9, 10, 11, 12, 13, 15), altura=30)
+    wl.cell(row=r, column=1).number_format = "dd/mm/yyyy"
+    wl.cell(row=r, column=14, value=f'=IF(COUNTA(G{r}:J{r})=0,"",IF(J{r}>D{r},"ACIMA DO TETO",IF(AND(G{r}="V",H{r}="V",I{r}="V"),"OK","VER")))').fill = p_auto
+    wl.cell(row=r, column=14).font = f_neg
+    if d in extras and any(k in extras[d] for k in ("INÍCIO", "BALANÇO", "PAUSA", "revisão", "retomar")):
+        for col in (1, 2, 3, 4, 5, 6):
+            wl.cell(row=r, column=col).fill = p_gray if d == D(2026, 11, 27) else p_mar
+P1 = P0 + 29
+lista(wl, ["V", "X"], f"G{P0}:I{P1}")
+dn = DataValidation(type="custom", formula1=f"=AND(ISNUMBER(J{P0}),J{P0}>=0,J{P0}<=D{P0})", allow_blank=True, showErrorMessage=True,
+                    errorTitle="Acima do teto", error="O total de envios não pode passar do teto do dia. Se passou, registre o problema na observação e avise o Claude.")
+wl.add_data_validation(dn)
+dn.add(f"J{P0}:J{P1}")
+dnum = DataValidation(type="whole", operator="greaterThanOrEqual", formula1="0", allow_blank=True, showErrorMessage=True, errorTitle="Valor inválido", error="Digite um número inteiro, 0 ou maior.")
+wl.add_data_validation(dnum)
+dnum.add(f"K{P0}:M{P1}")
+wl.conditional_formatting.add(f"G{P0}:I{P1}", FormulaRule(formula=[f'G{P0}="V"'], fill=p_ok))
+wl.conditional_formatting.add(f"G{P0}:I{P1}", FormulaRule(formula=[f'G{P0}="X"'], fill=p_no))
+wl.conditional_formatting.add(f"N{P0}:N{P1}", FormulaRule(formula=[f'N{P0}="OK"'], fill=p_ok))
+wl.conditional_formatting.add(f"N{P0}:N{P1}", FormulaRule(formula=[f'OR(N{P0}="VER",N{P0}="ACIMA DO TETO")'], fill=p_no))
+wl.conditional_formatting.add(f"J{P0}:J{P1}", FormulaRule(formula=[f'AND(ISNUMBER(J{P0}),J{P0}>D{P0})'], fill=p_no))
+# resumo (topo)
+resumo = [
+    ("Dias com resultado OK", f'=COUNTIF(N{P0}:N{P1},"OK")'),
+    ("Dias com problema (VER ou acima do teto)", f'=COUNTIF(N{P0}:N{P1},"VER")+COUNTIF(N{P0}:N{P1},"ACIMA DO TETO")'),
+    ("Total de envios", f'=SUM(J{P0}:J{P1})'),
+    ("Entraram no Canal", f'=SUM(M{P0}:M{P1})'),
+    ("Pediram para sair", f'=SUM(L{P0}:L{P1})'),
+    ("Alertas", f'=SUM(K{P0}:K{P1})'),
+]
+for i, (k, f) in enumerate(resumo, start=4):
+    wl.cell(row=i, column=1, value=k).font = f_neg
+    wl.merge_cells(start_row=i, start_column=1, end_row=i, end_column=3)
+    c = wl.cell(row=i, column=4, value=f)
+    c.font, c.fill, c.alignment, c.border = f_neg, p_auto, cen, borda
+wl.freeze_panes = f"C{P0}"
+
+# ------------------------------------------------------------ Balanco
+wbl = wb.create_sheet("Balanco")
+titulo(wbl, "Balanço dos 30 dias (05/12/2026)", "Os resultados vêm da aba Plano 30 dias. Preencha só o amarelo.")
+cab(wbl, 4, ["Indicador", "Resultado", "Meta ou regra", "Situação"], [46, 16, 62, 22])
+PL = "'Plano 30 dias'!"
+bal = [
+    ("Convites à mão no total", f"={PL}D6", "Dentro do teto do dia (5 na semana 1, depois 9)", None),
+    ("Contatos que entraram no Canal", f"={PL}D7", "Meta da semana revista a cada segunda", None),
+    ("Taxa de entrada (entraram ÷ convites)", f'=IF(B5=0,"",B6/B5)', "Acima de 15% (estimativa); abaixo de 5% revisar texto e origem", '=IF(B7="","",IF(B7>=0.15,"OK",IF(B7<0.05,"REVISAR","ATENÇÃO")))'),
+    ("Pedidos para sair (% dos convites)", f'=IF(B5=0,"",{PL}D8/B5)', "Até 5% dos convites", '=IF(B8="","",IF(B8<=0.05,"OK","ACIMA DE 5%"))'),
+    ("Avisos do WhatsApp e alertas", f"={PL}D9", "0", '=IF(B9=0,"OK","REVISAR")'),
+    ("Dias fechados com OK", f"={PL}D4", "Todos, menos os dias sem PC ligado", None),
+    ("Dias com problema", f"={PL}D5", "0", '=IF(B11=0,"OK","REVISAR")'),
+    ("Seguidores do Canal em 05/12", None, "A nova meta definida em 30/11", None),
+]
+for i, (k, f, m, s) in enumerate(bal, start=5):
+    corpo(wbl, i, [k, f, m, s], centros=(2, 4), altura=26)
+    wbl.cell(row=i, column=1).font = f_neg
+    wbl.cell(row=i, column=2).fill = p_auto
+    wbl.cell(row=i, column=4).fill = p_auto
+wbl.cell(row=12, column=2).fill = p_in
+wbl["B7"].number_format = "0.0%"
+wbl["B8"].number_format = "0.0%"
+wbl.conditional_formatting.add("D5:D12", FormulaRule(formula=['D5="OK"'], fill=p_ok))
+wbl.conditional_formatting.add("D5:D12", FormulaRule(formula=['AND(D5<>"",D5<>"OK")'], fill=p_no))
+wbl["A14"] = "Decisão do dono em 05/12"
+wbl["A14"].font = f_neg
+wbl["B14"].fill, wbl["B14"].border, wbl["B14"].alignment = p_in, borda, cen
+wbl.merge_cells("B14:C14")
+lista(wbl, ["Continuar como está", "Ajustar o plano", "Avaliar plataforma oficial (paga)"], "B14")
+wbl["A15"] = "Observações"
+wbl["A15"].font = f_neg
+wbl.merge_cells("B15:D15")
+wbl["B15"].fill, wbl["B15"].border = p_in, borda
+wbl.row_dimensions[15].height = 60
+wbl["B15"].alignment = esq
+
+# ------------------------------------------------------------ Nao executar
+wn = wb.create_sheet("Nao executar")
+titulo(wn, "Quando NÃO executar")
+cab(wn, 3, ["Situação", "O que fazer"], [60, 90])
+nao = [
+    ("Qualquer pedido de envio em massa ou automático", "Não fazer. Não existe esse caminho neste plano. O Claude avisa o risco e propõe a alternativa."),
+    ("Contato que você não conhece pessoalmente", "Não convidar. Fica como Não perguntado na Base."),
+    ("Aviso, verificação ou limite do WhatsApp", "Parar os convites por 7 dias e avisar o Claude. Não contornar."),
+    ("2 ou mais pedidos de saída no mesmo dia, ou 1 denúncia", "Parar os convites do dia e rever a lista."),
+    ("Mais de 5 convites na 1ª semana ou mais de 9 por dia", "Parar. O teto não pode ser passado."),
+    ("Fora das 9h às 20h ou em 27/11", "Nenhum convite."),
+    ("Mesma mensagem copiada para todos", "Trocar nome e saudação em cada envio."),
+]
+for i, r in enumerate(nao, start=4):
+    corpo(wn, i, list(r), altura=26)
+    wn.cell(row=i, column=1).font = f_neg
+
+for w in wb.worksheets:
+    w.sheet_view.showGridLines = False
+    w.sheet_properties.tabColor = VERDE if w.title in ("Plano 30 dias", "Pre-requisitos", "Balanco") else "999999"
+wb.active = 3
+if os.path.exists(SAIDA):
+    os.makedirs(PASTA + "/_backups", exist_ok=True)
+    shutil.copy2(SAIDA, PASTA + "/_backups/checklist_execucao_30_dias_" + datetime.datetime.now().strftime("%d-%m-%Y_%Hh%M") + ".xlsx")
+wb.save(SAIDA)
+print("OK:", SAIDA)

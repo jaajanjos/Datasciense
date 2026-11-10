@@ -11,7 +11,7 @@ from reportlab.lib.units import cm
 from reportlab.platypus import (KeepTogether, PageBreak, Paragraph, SimpleDocTemplate, Spacer, Table, TableStyle)
 
 PASTA = os.path.dirname(os.path.abspath(__file__))
-RAIZ = os.path.normpath(os.path.join(PASTA, "..", ".."))  # pasta Manutenção_Blog
+RAIZ = os.path.normpath(os.path.join(PASTA, "..", ".."))  # pasta Gestao_Anuncios_Blog
 SAIDA = os.path.join(RAIZ, "3_DOCUMENTACAO", "Blog_WordPress", "Manual_Manutencao_Blog.pdf")
 
 AZUL = colors.HexColor("#0B5FA5")

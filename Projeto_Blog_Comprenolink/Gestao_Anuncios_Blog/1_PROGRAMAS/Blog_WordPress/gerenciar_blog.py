@@ -32,10 +32,10 @@ PASTA = os.path.dirname(sys.executable if getattr(sys, "frozen", False) else os.
 
 
 def pasta_dados_de(pasta_programa):
-    # Estrutura Manutenção_Blog: programas em 1_PROGRAMAS\Blog_WordPress, dados em 2_DADOS\Blog_WordPress.
+    # Estrutura Gestao_Anuncios_Blog: programas em 1_PROGRAMAS\Blog_WordPress, dados em 2_DADOS\Blog_WordPress.
     # O pacote do outro PC (4_PACOTE_OUTRO_PC) tem a mesma estrutura. Sem ela, os dados ficam ao lado do programa.
     base = os.path.normpath(os.path.join(pasta_programa, "..", ".."))
-    # Pacote ainda dentro da Manutenção_Blog (neste PC): usa o 2_DADOS principal, para a senha e os
+    # Pacote ainda dentro da Gestao_Anuncios_Blog (neste PC): usa o 2_DADOS principal, para a senha e os
     # backups nunca irem parar no pacote (e no .zip). Copiado para o outro PC, o pacote usa o próprio 2_DADOS.
     principal = os.path.join(os.path.dirname(base), "2_DADOS", "Blog_WordPress")
     if os.path.basename(base).upper() == "4_PACOTE_OUTRO_PC" and os.path.isdir(principal):

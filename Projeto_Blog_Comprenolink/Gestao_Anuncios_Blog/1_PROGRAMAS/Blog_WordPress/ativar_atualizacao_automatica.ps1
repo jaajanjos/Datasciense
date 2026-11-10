@@ -1,5 +1,5 @@
 # Cria (ou recria) a tarefa do Agendador que roda atualizar_categorias_auto.py a cada 3 horas.
-# Rodar pelo atalho 6_ATIVAR_ATUALIZACAO_AUTOMATICA.bat (na raiz da Manutencao_Blog).
+# Rodar pelo atalho 6_ATIVAR_ATUALIZACAO_AUTOMATICA.bat (na raiz da Gestao_Anuncios_Blog).
 $nome = "Atualizar categorias blog comprenolink"
 $script = Join-Path $PSScriptRoot "atualizar_categorias_auto.py"
 $py = (Get-Command pythonw.exe -ErrorAction SilentlyContinue).Source

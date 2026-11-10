@@ -18,7 +18,7 @@ import sys
 import threading
 import webbrowser
 
-# Pasta Manutenção_Blog: onde está o .exe, ou a pasta acima de 1_PROGRAMAS quando roda pelo .py
+# Pasta Gestao_Anuncios_Blog: onde está o .exe, ou a pasta acima de 1_PROGRAMAS quando roda pelo .py
 if getattr(sys, "frozen", False):
     RAIZ = os.path.dirname(sys.executable)
 else:
