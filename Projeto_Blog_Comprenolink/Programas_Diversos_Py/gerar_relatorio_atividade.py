@@ -401,6 +401,9 @@ ATIVIDADES = [
      "Agendados e conferidos no calendário depois de recarregar: Smartwatch T900 Ultra ter 10/11 19:05; Fone JBL Tune 730 qua 11/11 12:00 (Air Fryer 19:00/19:05 intacta); Caixa JBL Go 5 qui 12/11 19:05. Nenhuma data já agendada foi alterada. O anúncio pago (11 a 13/11) é por categoria Tecnologia, sem produto específico: sem conflito. "
      "Posts do feed apagados (só os de imagem, endereço /p/): JBL Boombox 4, Notebook ASUS Vivobook 15, Smart TV Samsung 55\" MiniLED + Soundbar; os 3 Reels ficaram no perfil. Perfil agora: 6 itens (Bem-vindo fixado, Galaxy A17 Reels + post, e os 3 Reels). Cópias dos vídeos no scratchpad apagadas.", "",
      "Pendente: 3 pacotes NOVOS (só Reels) para 09/12, 11/12 e 14/12, prontos até 30/11 (pedir à conversa Ajustes no WhatsApp e Instagram)"),
+    ("10/11", "20:32 a 20:50", "Instagram (aprovado pelo dono): publiquei o post \"Bem-vindo\" novo no feed e agendei a arte Black Friday para 20/11 às 12:00", EX,
+     "Antes conferi o perfil e o calendário: não havia Bem-vindo novo e 20/11 12:00 estava livre (só 19:00 e 19:05). Bem-vindo: arte post_boas_vindas.png + legenda_boas_vindas.txt, legenda digitada (845 caracteres), publicado agora; perfil passou a 8 publicações. Black Friday: V2_BLACK_FRIDAY_feed_1080x1350.jpg + LEGENDA_V2_BLACK_FRIDAY_instagram.txt (659 caracteres, sem preço nem \"mais vendido\"), agendado e conferido no calendário: sex 20/11 12:00. NÃO fixei nem apaguei nada: o dono fixa o novo Bem-vindo e apaga o antigo e o post repetido do Galaxy A17. O Story da Black Friday o dono posta no celular. Cópias no scratchpad apagadas. O anúncio 2/3 (Meta) não foi tratado por mim nesta execução.", "",
+     "Dono: fixar o novo Bem-vindo e apagar o antigo + post Galaxy A17. Qua 11/11 após 20h: capas dos Destaques (item 3). Depois: 3 pacotes novos de Reels (item 4)"),
 ]
 
 FALTA_AGENDAR = [

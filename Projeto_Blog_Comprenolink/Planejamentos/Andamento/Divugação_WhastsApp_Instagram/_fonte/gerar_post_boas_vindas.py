@@ -30,7 +30,7 @@ def imagem(cats):
     y = H * .255
     d.text((W / 2, y), "Bem-vindo ao Compre no Link!", font=fonte("arialbd.ttf", int(W * .062)), fill=AMARELO, anchor="mm")
     y += H * .055
-    for linha in ("Os mais vendidos e bem avaliados do Mercado Livre,", "organizados por categoria para você escolher."):
+    for linha in ("Produtos selecionados do Mercado Livre,", "organizados por categoria para você escolher."):
         d.text((W / 2, y), linha, font=fonte("arial.ttf", int(W * .036)), fill=BRANCO, anchor="mm")
         y += H * .033
     # categorias em 2 colunas
@@ -77,7 +77,7 @@ def legenda(cats):
     return "\n".join([
         "👋 Bem-vindo ao Compre no Link!",
         "",
-        "Aqui eu reúno os produtos mais vendidos e bem avaliados do Mercado Livre e organizo tudo por categoria no blog comprenolink.net, para você escolher sem perder tempo.",
+        "Aqui eu reúno produtos selecionados do Mercado Livre e organizo tudo por categoria no blog comprenolink.net, para você escolher sem perder tempo.",
         "",
         "📂 Categorias: " + ", ".join(cats) + ".",
         "",
