@@ -1,0 +1,25 @@
+<!-- TEMPLATE DE ARTIGO - TERCEIRA VERSÃO CORRIGIDA -->
+<!-- O WordPress gera o H1 pelo título da página. Não inserir H1 neste conteúdo. -->
+<!-- Política fixa: sem preço; sem “mais vendido”, “melhor...”, “líder” (exceto MercadoLíder), “oferta do mês” ou “garantido”. -->
+<style>
+.cnl-art{--azul:#3483FA;--azul-esc:#2968C8;--amarelo:#FFE600;--tinta:#1F2A44;--cinza:#6B7280;--borda:#E5E7EB;--fundo:#F5F6F8;font-family:Inter,Arial,sans-serif;font-size:16px;line-height:1.55;color:var(--tinta)}
+.cnl-aviso{font-size:13px;color:var(--cinza);background:var(--fundo);border-left:4px solid var(--amarelo);padding:10px 12px;border-radius:8px}
+.cnl-tabela-wrap{overflow-x:auto;margin:18px 0}.cnl-comp{width:100%;border-collapse:collapse;min-width:620px}.cnl-comp th{background:var(--tinta);color:#fff;text-align:left;padding:10px}.cnl-comp td{padding:10px;border-bottom:1px solid var(--borda);vertical-align:middle}
+.cnl-cta{display:inline-block;background:var(--azul);color:#fff!important;font-weight:700;padding:11px 16px;border-radius:10px;text-decoration:none}.cnl-cta:hover,.cnl-cta:focus{background:var(--azul-esc)}
+.cnl-review{border:1px solid var(--borda);border-radius:14px;padding:18px;margin:20px 0}.cnl-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.cnl-fonte{font-size:13px;color:var(--cinza)}
+@media(max-width:640px){.cnl-grid{grid-template-columns:1fr}.cnl-cta{display:block;width:100%;box-sizing:border-box;text-align:center}}
+</style>
+<article class="cnl-art">
+<p class="cnl-aviso"><strong>Transparência:</strong> este artigo contém links de afiliado do Mercado Livre. Se você comprar por eles, o blog pode receber uma comissão, sem custo adicional para você.</p>
+<p>{{INTRODUÇÃO: situação do comprador + necessidade + o que será comparado}}</p>
+<h2>Comparação rápida</h2>
+<div class="cnl-tabela-wrap"><table class="cnl-comp"><thead><tr><th>Produto</th><th>Diferença objetiva</th><th>Indicado para</th><th>Ver anúncio</th></tr></thead><tbody>
+<tr><td><a href="#produto-1">{{NOME_CURTO}}</a></td><td>{{FATO_VERIFICÁVEL}}</td><td>{{PERFIL_DE_USO}}</td><td><a class="cnl-cta" href="{{LINK_AFILIADO}}" target="_blank" rel="sponsored nofollow noopener">Ver no Mercado Livre</a></td></tr>
+</tbody></table></div>
+<h2>Como escolher</h2><ul><li>{{CRITÉRIO_1}}</li><li>{{CRITÉRIO_2}}</li><li>{{CRITÉRIO_3}}</li></ul>
+<section class="cnl-review" id="produto-1"><h2>{{NOME_COMPLETO}}</h2><p class="cnl-fonte">Base da análise: {{ANÚNCIO, FABRICANTE OU RÓTULO}}. Não afirmar teste prático quando ele não ocorreu.</p><div class="cnl-grid"><div><h3>Pontos fortes</h3><ul><li>{{PONTO_FORTE_1}}</li><li>{{PONTO_FORTE_2}}</li></ul></div><div><h3>Pontos de atenção</h3><ul><li>{{ATENÇÃO_1}}</li><li>{{ATENÇÃO_2}}</li></ul></div></div><p><strong>Faz sentido para:</strong> {{PÚBLICO_E_CENÁRIO}}</p><p><a class="cnl-cta" href="{{LINK_AFILIADO}}" target="_blank" rel="sponsored nofollow noopener">Conferir anúncio no Mercado Livre</a></p></section>
+<h2>Perguntas frequentes</h2><h3>{{PERGUNTA_1}}</h3><p>{{RESPOSTA_VISÍVEL_E_FACTUAL}}</p><h3>{{PERGUNTA_2}}</h3><p>{{RESPOSTA_VISÍVEL_E_FACTUAL}}</p>
+<p class="cnl-aviso">Disponibilidade, condições, vendedor e entrega podem mudar. Confirme as informações na página do anúncio.</p>
+</article>
+<!-- Se FAQPage for usado, o JSON-LD deve reproduzir exatamente perguntas e respostas visíveis. -->
+<!-- Rodar verificar_sem_preco.py antes e depois de qualquer futura publicação. -->

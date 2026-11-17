@@ -1,0 +1,60 @@
+<!-- TEMPLATE comprenolink.net - Artigo de alta conversão (modelo 15/11/2026) -->
+<!-- REGRAS DO BLOG: sem preço em lugar nenhum; sem "mais vendido", "melhor ...", "líder" (exceto o status real MercadoLíder),
+     "oferta do mês", "garantido". Selo = fato do título do anúncio ou em branco. "Entrega Full" só apos conferir no anúncio. -->
+<style>
+.cnl-art{--cnl-azul:#3483FA;--cnl-azul-esc:#2968C8;--cnl-amarelo:#FFE600;--cnl-tinta:#1F2A44;--cnl-cinza:#6B7280;--cnl-borda:#E5E7EB;--cnl-fundo:#F5F6F8;--cnl-verde:#00A650}
+.cnl-art .cnl-aviso-afiliado{font-size:13px;color:var(--cnl-cinza);background:var(--cnl-fundo);border-left:4px solid var(--cnl-amarelo);padding:8px 12px;border-radius:8px;margin:0 0 16px}
+.cnl-art .cnl-tabela-wrap{overflow-x:auto;margin:18px 0}
+.cnl-art table.cnl-comp{width:100%;border-collapse:collapse;font-size:15px;min-width:560px}
+.cnl-art .cnl-comp th{background:var(--cnl-tinta);color:#fff;text-align:left;padding:10px;font-weight:600}
+.cnl-art .cnl-comp td{padding:10px;border-bottom:1px solid var(--cnl-borda);vertical-align:middle}
+.cnl-art .cnl-selo{display:inline-block;background:var(--cnl-amarelo);color:var(--cnl-tinta);font-weight:800;font-size:12px;padding:3px 8px;border-radius:999px}
+.cnl-art .cnl-full{display:inline-block;background:var(--cnl-verde);color:#fff;font-weight:800;font-size:12px;padding:3px 8px;border-radius:999px;margin-left:6px}
+.cnl-art .cnl-cta{display:inline-block;background:var(--cnl-azul);color:#fff!important;font-weight:800;padding:10px 16px;border-radius:10px;text-decoration:none;white-space:nowrap}
+.cnl-art .cnl-cta:hover{background:var(--cnl-azul-esc)}
+.cnl-art .cnl-review{border:1px solid var(--cnl-borda);border-radius:16px;padding:18px;margin:18px 0;background:#fff}
+.cnl-art .cnl-pc{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.cnl-art .cnl-pros li::before{content:"\2713 ";color:var(--cnl-verde);font-weight:800}
+.cnl-art .cnl-contras li::before{content:"\2212 ";color:var(--cnl-cinza);font-weight:800}
+.cnl-art ul.cnl-pros,.cnl-art ul.cnl-contras{list-style:none;padding-left:0}
+@media(max-width:640px){.cnl-art .cnl-pc{grid-template-columns:1fr}}
+</style>
+<div class="cnl-art">
+  <!-- 1. Aviso de transparência (topo, discreto) -->
+  <p class="cnl-aviso-afiliado">Transparência: este artigo tem links de afiliado do Mercado Livre. Se você comprar por eles, o blog pode receber uma comissão, sem custo extra para você.</p>
+
+  <!-- 2. Introdução curta focada na necessidade do comprador (2 a 3 linhas) -->
+  <p>{{DOR_DO_COMPRADOR: situação + o que a pessoa quer resolver + o que o artigo entrega}}</p>
+
+  <!-- 3. Tabela comparativa rápida (acima da dobra) -->
+  <div class="cnl-tabela-wrap"><table class="cnl-comp">
+    <thead><tr><th>Produto</th><th>Destaque</th><th>Indicação ideal</th><th>Ver</th></tr></thead>
+    <tbody>
+      <tr><td><a href="#produto-1">{{NOME_CURTO_1}}</a></td><td><span class="cnl-selo">{{SELO_FATO_DO_TITULO_OU_VAZIO}}</span></td><td>{{PARA_QUEM_1}}</td>
+          <td><a class="cnl-cta" href="{{LINK_AFILIADO_1}}" target="_blank" rel="nofollow sponsored noopener">Ver no Mercado Livre</a></td></tr>
+      <!-- repetir 3 a 5 linhas -->
+    </tbody></table></div>
+
+  <!-- 4. Bloco de review por produto -->
+  <article class="cnl-review" id="produto-1">
+    <h2>{{NOME_DO_PRODUTO_1}}</h2>
+    <p><span class="cnl-selo">{{SELO_FATO}}</span> <span class="cnl-full">Entrega Full</span><!-- apagar o Full se não confirmado --></p>
+    <div class="cnl-pc">
+      <div><h3>Pontos fortes</h3><ul class="cnl-pros"><li>{{PRO_1}}</li><li>{{PRO_2}}</li></ul></div>
+      <div><h3>Pontos de atenção</h3><ul class="cnl-contras"><li>{{CONTRA_1}}</li></ul></div>
+    </div>
+    <p><strong>Para quem e indicado:</strong> {{PARA_QUEM}}</p>
+    <p><a class="cnl-cta" href="{{LINK_AFILIADO_1}}" target="_blank" rel="nofollow sponsored noopener">Ver no Mercado Livre</a></p>
+  </article>
+
+  <!-- 5. Como escolher (3 a 5 critérios objetivos) e 6. FAQ -->
+  <h2>Perguntas frequentes</h2>
+  <h3>{{PERGUNTA_1}}</h3><p>{{RESPOSTA_1 - direta, 40 a 60 palavras}}</p>
+  <h3>{{PERGUNTA_2}}</h3><p>{{RESPOSTA_2}}</p>
+  <p class="cnl-aviso-afiliado">Disponibilidade, prazo de entrega e condições mudam no Mercado Livre; confira na página do anúncio.</p>
+</div>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+ {"@type":"Question","name":"{{PERGUNTA_1}}","acceptedAnswer":{"@type":"Answer","text":"{{RESPOSTA_1}}"}},
+ {"@type":"Question","name":"{{PERGUNTA_2}}","acceptedAnswer":{"@type":"Answer","text":"{{RESPOSTA_2}}"}}]}
+</script>

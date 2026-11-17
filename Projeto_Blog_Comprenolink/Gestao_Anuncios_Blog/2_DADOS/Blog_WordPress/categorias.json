@@ -6,7 +6,7 @@
       "nome": "Tecnologia & Informática",
       "slug": "tecnologia-e-informatica",
       "emoji": "💻",
-      "intro": "Confira as melhores ofertas de notebooks, monitores, impressoras, celulares, smartwatches e periféricos gamer, selecionados no Mercado Livre.",
+      "intro": "Confira ofertas de notebooks, monitores, impressoras, celulares, smartwatches e periféricos gamer, selecionados no Mercado Livre.",
       "chamada": "notebooks, celulares, impressoras e periféricos gamer",
       "meta_descricao": "Notebook ASUS Ryzen 7, monitor LG 27\", impressora EcoTank, SSD NVMe, celulares e periféricos gamer: tecnologia com ótimo custo-benefício no Mercado Livre.",
       "subcategorias": [
@@ -35,7 +35,10 @@
             "monitor gamer",
             "monitor full hd",
             "monitor curvo",
-            "monitor samsung"
+            "monitor samsung",
+            "monitor aoc",
+            "pen drive",
+            "hd externo"
           ]
         },
         {
@@ -63,7 +66,7 @@
       "nome": "Áudio & TV",
       "slug": "audio-e-tv",
       "emoji": "🎧",
-      "intro": "Som e imagem de qualidade para a sua casa: fones, caixas de som, soundbars, Smart TVs, receptores e telas de projeção com melhor custo-benefício do Mercado Livre.",
+      "intro": "Som e imagem de qualidade para a sua casa: fones, caixas de som, soundbars, Smart TVs, receptores e telas de projeção selecionados no Mercado Livre.",
       "chamada": "som e imagem de qualidade para a sua casa",
       "meta_descricao": "JBL Go 5 e Boombox, caixas amplificadas, soundbar, Smart TVs Samsung e Philco Roku e receptor sem mensalidade: som e imagem com ofertas do Mercado Livre.",
       "subcategorias": [
@@ -268,7 +271,7 @@
       "nome": "Casa, Cama & Decoração",
       "slug": "casa-cama-e-decoracao",
       "emoji": "🛋️",
-      "intro": "Conforto e estilo para todos os cantos da casa: enxoval de cama, cabeceiras, redes, espelhos e decoração de Natal com as melhores ofertas do Mercado Livre.",
+      "intro": "Conforto e estilo para todos os cantos da casa: enxoval de cama, cabeceiras, redes, espelhos e decoração de Natal, com ofertas selecionadas do Mercado Livre.",
       "chamada": "conforto e estilo para todos os cantos da casa",
       "meta_descricao": "Jogo de lençol 600 fios, coberta sherpa, travesseiro ergonômico, cabeceira e decoração de Natal: conforto e estilo para a casa com ofertas do Mercado Livre.",
       "subcategorias": [
@@ -317,7 +320,7 @@
       "nome": "Ferramentas & Utilidades",
       "slug": "ferramentas-e-utilidades",
       "emoji": "🔧",
-      "intro": "Ferramentas, reparos, limpeza e organização que resolvem a rotina da casa, com as melhores ofertas do Mercado Livre.",
+      "intro": "Ferramentas, reparos, limpeza e organização que resolvem a rotina da casa, com ofertas selecionadas do Mercado Livre.",
       "chamada": "ferramentas, limpeza e organização para a casa",
       "meta_descricao": "Parafusadeiras, mini motosserra WAP, compressor Tramontina, jogo de bits Vonder, silicone e organizadores: ferramentas e utilidades com ofertas do Mercado Livre.",
       "subcategorias": [

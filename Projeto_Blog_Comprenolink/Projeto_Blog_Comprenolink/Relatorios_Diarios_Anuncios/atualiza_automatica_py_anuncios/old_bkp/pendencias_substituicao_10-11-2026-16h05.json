@@ -1,0 +1,15 @@
+{
+  "gerado_em": "2026-11-09 12:39",
+  "ultima_verificacao_ml": "2026-11-09 12:33",
+  "anuncios_ativos": 214,
+  "anuncios_total": 214,
+  "requisitos_substituto": [
+    "Mesmo produto (mesmo código de catálogo, outro vendedor). Só se não houver: mesmo tipo de produto e mesma categoria do guia.",
+    "Anúncio ativo, produto novo e com estoque.",
+    "Melhor política de venda, nesta ordem: vendedor MercadoLíder (Platinum › Gold › Líder) ou reputação verde; envio Full; frete grátis; devolução grátis; garantia informada (de fábrica ou do vendedor).",
+    "Nota 4,5 ou mais, com muitas avaliações e muitas unidades vendidas.",
+    "Preço até 20% acima ou abaixo do anúncio anterior. Empate na política de venda: o de menor preço.",
+    "Gerar o link no ML Afiliados (Gerar link → copiar o meli.la) e trocar no item do guia, no botão e na foto."
+  ],
+  "pendentes": []
+}

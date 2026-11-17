@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Manutenção do Blog das Máquinas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@800;900&family=Libre+Franklin:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+  /* Layout: mesma cara do gerador original; passo 1 virou um editor de produtos (alterar, incluir, remover, ordenar) */
+  :root {
+    --bg: #f5f6f7; --paper: #ffffff; --ink: #1a2230; --muted: #5b6474; --line: #cfd5dd;
+    --accent: #a8321f; --accent-ink: #ffffff; --accent-soft: #f6e4e0; --steel: #2c4a6b;
+    --ok: #1f7a4a; --ok-soft: #e1f3e8; --warn: #9a5a00; --warn-soft: #fbefd9;
+    --font-display: "Big Shoulders Display", "Arial Narrow", Impact, sans-serif;
+    --font-body: "Libre Franklin", "Segoe UI", system-ui, sans-serif;
+    --font-mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #12161d; --paper: #1a2029; --ink: #e8ebf0; --muted: #9aa3b2; --line: #36404d;
+      --accent: #e0664f; --accent-ink: #1a0f0c; --accent-soft: #3a211d; --steel: #8fb3da;
+      --ok: #5fd08f; --ok-soft: #173024; --warn: #f0b85a; --warn-soft: #33260f; color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #12161d; --paper: #1a2029; --ink: #e8ebf0; --muted: #9aa3b2; --line: #36404d;
+    --accent: #e0664f; --accent-ink: #1a0f0c; --accent-soft: #3a211d; --steel: #8fb3da;
+    --ok: #5fd08f; --ok-soft: #173024; --warn: #f0b85a; --warn-soft: #33260f; color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  body { background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 1.05rem; line-height: 1.6; padding-inline: 16px; padding-block: 0 64px; margin: 0; }
+  .pole { height: 8px; margin-inline: -16px; background: repeating-linear-gradient(-45deg, var(--accent) 0 14px, var(--paper) 14px 28px, var(--steel) 28px 42px, var(--paper) 42px 56px); }
+  .wrap { max-width: 48rem; margin-inline: auto; display: grid; gap: 28px; padding-top: 36px; }
+  h1 { font-family: var(--font-display); font-weight: 900; text-transform: uppercase; font-size: clamp(2rem, 6vw, 2.8rem); line-height: 1; margin: 0; text-wrap: balance; }
+  .sub { margin: 8px 0 0; color: var(--muted); }
+  .step { background: var(--paper); border: 1px solid var(--line); border-radius: 8px; padding: 22px; display: grid; gap: 16px; min-width: 0; }
+  .step-head { display: flex; gap: 14px; align-items: baseline; }
+  .n { font-family: var(--font-display); font-weight: 900; font-size: 2.4rem; line-height: .8; color: var(--accent); }
+  h2 { font-size: 1.2rem; margin: 0; font-weight: 700; }
+  .hint { margin: 2px 0 0; color: var(--muted); font-size: .95rem; }
+  .field { display: grid; gap: 6px; min-width: 0; }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 560px) { .row { grid-template-columns: 1fr; } }
+  label { font-weight: 600; font-size: .95rem; }
+  label small { font-weight: 400; color: var(--muted); }
+  input[type=url], input[type=text], select, textarea {
+    width: 100%; font: inherit; font-size: 1rem; padding: 10px 12px; border: 2px solid var(--line);
+    border-radius: 6px; background: var(--bg); color: var(--ink);
+  }
+  textarea { min-height: 84px; resize: vertical; }
+  input:focus, select:focus, textarea:focus { outline: none; border-color: var(--steel); }
+  .status { font-size: .88rem; padding: 3px 10px; border-radius: 999px; justify-self: start; }
+  .status.ok { background: var(--ok-soft); color: var(--ok); }
+  .status.pad { background: var(--accent-soft); color: var(--muted); }
+  .status.warn { background: var(--warn-soft); color: var(--warn); }
+  button { font: inherit; cursor: pointer; }
+  .big { background: var(--accent); color: var(--accent-ink); border: 0; border-radius: 8px; padding: 16px 22px; font-size: 1.15rem; font-weight: 700; justify-self: start; }
+  .big:hover { filter: brightness(1.08); }
+  .sec { background: var(--paper); color: var(--steel); border: 2px solid var(--steel); border-radius: 8px; padding: 10px 16px; font-weight: 700; }
+  .sec:hover { background: var(--bg); }
+  .mini { background: var(--bg); color: var(--ink); border: 1px solid var(--line); border-radius: 6px; padding: 6px 10px; font-size: .9rem; }
+  .mini:hover { border-color: var(--steel); }
+  .mini.del { color: var(--accent); }
+  .mini:disabled { opacity: .4; cursor: default; }
+  button:focus-visible, summary:focus-visible { outline: 3px solid var(--steel); outline-offset: 3px; }
+  .done { background: var(--ok-soft); color: var(--ok); border-radius: 6px; padding: 12px 14px; font-weight: 600; }
+  .fallback { display: grid; gap: 8px; }
+  .fallback textarea { height: 140px; font-family: var(--font-mono); font-size: .75rem; }
+  ol.passos { margin: 0; padding-left: 1.3em; display: grid; gap: 10px; }
+  .kbd { font-family: var(--font-mono); font-size: .85em; background: var(--accent-soft); padding: 1px 6px; border-radius: 4px; white-space: nowrap; }
+  .preview { border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: #ffffff; }
+  .preview iframe { display: block; width: 100%; height: 760px; border: 0; }
+  .acoes { display: flex; flex-wrap: wrap; gap: 10px; }
+
+  /* Ficha de cada produto no editor */
+  details.prod { border: 2px solid var(--line); border-radius: 8px; background: var(--bg); }
+  details.prod[open] { border-color: var(--steel); }
+  details.prod > summary { list-style: none; cursor: pointer; padding: 12px 14px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+  details.prod > summary::-webkit-details-marker { display: none; }
+  .pos { font-family: var(--font-display); font-weight: 900; font-size: 1.8rem; line-height: 1; color: var(--accent); min-width: 1.4em; }
+  .pnome { font-weight: 700; flex: 1 1 12rem; min-width: 0; overflow-wrap: anywhere; }
+  .seta { color: var(--muted); font-size: .85rem; }
+  details.prod[open] .seta { display: none; }
+  .corpo { padding: 4px 14px 16px; display: grid; gap: 14px; border-top: 1px solid var(--line); }
+  .ferramentas { display: flex; flex-wrap: wrap; gap: 8px; padding-top: 12px; }
+  .vazio { color: var(--muted); padding: 14px; border: 2px dashed var(--line); border-radius: 8px; text-align: center; }
+  .contagem { font-family: var(--font-mono); font-size: .85rem; color: var(--muted); }
+</style>
+</head>
+<body>
+
+<div class="pole" aria-hidden="true"></div>
+<div class="wrap">
+  <header>
+    <h1>Blog das máquinas: manutenção dos anúncios</h1>
+    <p class="sub">Altere, inclua, remova ou mude a ordem dos produtos. Depois copie o blog pronto e cole no Google Sites. Não precisa mexer em código.</p>
+  </header>
+
+  <section class="step">
+    <div class="step-head"><span class="n">1</span><div><h2>Produtos do blog <span class="contagem" id="contagem"></span></h2><p class="hint">Clique num produto para abrir e alterar. Para incluir um novo, use o botão <strong>+ Incluir novo produto</strong> no fim da lista. Tudo fica guardado neste computador sozinho.</p></div></div>
+    <div id="lista" style="display:grid;gap:12px"></div>
+    <div class="acoes">
+      <button class="big" id="novo" type="button">+ Incluir novo produto</button>
+    </div>
+  </section>
+
+  <section class="step">
+    <div class="step-head"><span class="n">2</span><div><h2>Textos do blog <small style="font-weight:400;color:var(--muted)">(opcional)</small></h2><p class="hint">Título, data, introdução e as dicas do fim. Só mude se quiser.</p></div></div>
+    <details class="prod" id="textos">
+      <summary><span class="pnome">Abrir os textos do blog</span><span class="seta">clique para abrir ▾</span></summary>
+      <div class="corpo" id="camposTextos"></div>
+    </details>
+  </section>
+
+  <section class="step">
+    <div class="step-head"><span class="n">3</span><div><h2>Copie o blog pronto</h2><p class="hint">O botão copia o blog completo, já com todas as alterações.</p></div></div>
+    <button class="big" id="copiar" type="button">Copiar blog para o Google Sites</button>
+    <div class="done" id="ok" hidden>Copiado! Agora faça o passo 4.</div>
+    <div class="fallback" id="fb" hidden>
+      <p style="margin:0">Não foi possível copiar sozinho. Clique dentro da caixa abaixo, aperte <span class="kbd">Ctrl + A</span> e depois <span class="kbd">Ctrl + C</span>.</p>
+      <textarea id="fbtxt" readonly aria-label="Código do blog"></textarea>
+    </div>
+  </section>
+
+  <section class="step">
+    <div class="step-head"><span class="n">4</span><div><h2>Cole no Google Sites</h2></div></div>
+    <ol class="passos">
+      <li>Abra a página do site no Google Sites.</li>
+      <li>Se já existe um blog antigo na página, clique nele e depois no ícone de <strong>lixeira</strong> para apagar.</li>
+      <li>No menu da direita, clique em <strong>Inserir</strong> e depois em <strong>Incorporar</strong>.</li>
+      <li>Clique na aba <strong>Incorporar código</strong>.</li>
+      <li>Clique na caixa e aperte <span class="kbd">Ctrl + V</span> para colar.</li>
+      <li>Clique em <strong>Avançar</strong> e depois em <strong>Inserir</strong>.</li>
+      <li>Puxe a borda de baixo do bloco para aumentar até aparecer o blog inteiro.</li>
+      <li>Clique em <strong>Publicar</strong>, no canto de cima à direita.</li>
+    </ol>
+  </section>
+
+  <section class="step">
+    <div class="step-head"><span class="n">5</span><div><h2>Guardar uma cópia <small style="font-weight:400;color:var(--muted)">(recomendado)</small></h2><p class="hint">Salve um arquivo de backup com todos os produtos. Serve para levar a outro computador ou recuperar se o navegador for limpo.</p></div></div>
+    <div class="acoes">
+      <button class="sec" id="salvar" type="button">Salvar backup</button>
+      <button class="sec" id="abrir" type="button">Abrir backup</button>
+      <button class="sec" id="restaurar" type="button">Voltar aos 4 produtos originais</button>
+      <input type="file" id="arquivo" accept=".json,application/json" hidden>
+    </div>
+    <div class="done" id="msgBackup" hidden></div>
+  </section>
+
+  <section style="display:grid;gap:12px">
+    <h2>Como vai ficar</h2>
+    <div class="preview"><iframe id="prev" title="Prévia do blog"></iframe></div>
+  </section>
+</div>
+
+<script>
+  const CHAVE = "blog-maquinas-manutencao-v1";
+
+  const LOJAS = {
+    ml:     { nome: "Mercado Livre", cta: "Ver ofertas no Mercado Livre →", busca: n => "https://lista.mercadolivre.com.br/" + slug(n) },
+    shopee: { nome: "Shopee",        cta: "Ver oferta na Shopee →",          busca: n => "https://shopee.com.br/search?keyword=" + encodeURIComponent(n) },
+    outra:  { nome: "Outra loja",    cta: "Ver oferta →",                    busca: () => "" }
+  };
+
+  // Mesmo conteúdo do gerador original (gerador-links-afiliado.html)
+  const PADRAO = {
+    eyebrow: "Guia de compras · Cuidados masculinos",
+    titulo: "As melhores máquinas de cortar cabelo e barba para comprar no Mercado Livre",
+    data: "29 de setembro de 2026",
+    leitura: "Leitura de 3 min",
+    lede: "Se você quer manter o visual em dia em casa ou é um profissional buscando o melhor custo-benefício para a sua barbearia, escolher a máquina certa faz toda a diferença.",
+    intro: "O Mercado Livre conta com uma enorme variedade de opções, com entrega rápida e ótimos preços. Confira abaixo a seleção com as {N} melhores máquinas de cortar cabelo e barba que fazem sucesso na plataforma.",
+    dicasTitulo: "Qual escolher?",
+    dicas: "Vai atender clientes? | A Wahl Magic Clip é o investimento que aguenta a rotina de barbearia.\nQuer só o acabamento perfeito? | A Kemei KM-2299 entrega corte rente pelo menor preço da lista.\nPrecisa de uma máquina para tudo em casa? | O kit Mondial 6 em 1 cobre cabelo, barba e corpo.",
+    nota: "Os preços mudam no site oficial: clique em cada oferta para conferir o valor atualizado antes de comprar.",
+    produtos: [
+      { nome: "Wahl Magic Clip Cordless Profissional", curto: "Wahl Magic Clip Cordless", tag: "Profissional · sem fio", de: "600,00", ate: "790,00",
+        descricao: "Destaque absoluto entre os barbeiros, possui motor potente, lâminas de alta precisão com dentes escalonados e excelente autonomia de bateria. O corte é suave, sem fio e não puxa os fios.",
+        indicada: "Barbearias e uso profissional", loja: "ml", link: "", busca: "https://lista.mercadolivre.com.br/wahl-magic-clip-cordless", imagem: "" },
+      { nome: "Máquina de Acabamento Kemei KM-2299 0 Gap", curto: "Kemei KM-2299 0 Gap", tag: "Acabamento · 0 gap", de: "75,00", ate: "149,90",
+        descricao: "Queridinha pelo custo-benefício imbatível. É leve, ergonômica, conta com motor de alto desempenho e lâminas super afiadas para aquele acabamento rente à pele, riscos e pezinho.",
+        indicada: "Acabamento, riscos e pezinho", loja: "ml", link: "", busca: "https://lista.mercadolivre.com.br/kemei-km-2299", imagem: "" },
+      { nome: "Máquina de Cortar Cabelo Kemei KM-2600", curto: "Kemei KM-2600", tag: "Corte · uso versátil", de: "115,00", ate: "149,00",
+        descricao: "Com um design robusto e motor potente, esta máquina oferece ótima autonomia de bateria e vem equipada com lâminas de aço inoxidável de alta durabilidade para uso versátil.",
+        indicada: "Corte do dia a dia", loja: "ml", link: "", busca: "https://lista.mercadolivre.com.br/kemei-km-2600", imagem: "" },
+      { nome: "Cortador de Cabelos Mondial Super Groom 6 (BG-04)", curto: "Mondial Super Groom 6 (BG-04)", tag: "Kit completo · 6 em 1", de: "169,00", ate: "190,00",
+        descricao: "A solução mais prática para quem quer um kit completo de cuidados pessoais em casa. É multifuncional (6 em 1), fácil de limpar e acompanha diversos acessórios para cabelo, barba e corpo.",
+        indicada: "Cabelo, barba e corpo em casa", loja: "ml", link: "", busca: "https://lista.mercadolivre.com.br/mondial-super-groom-bg-04", imagem: "" }
+    ]
+  };
+
+  const CAMPOS_TEXTO = [
+    ["eyebrow", "Linha pequena acima do título", "text"],
+    ["titulo", "Título do blog", "text"],
+    ["data", "Data", "text"],
+    ["leitura", "Tempo de leitura", "text"],
+    ["lede", "Primeiro parágrafo (destaque)", "area"],
+    ["intro", "Segundo parágrafo <small>— {N} vira o número de produtos sozinho</small>", "area"],
+    ["dicasTitulo", "Título das dicas", "text"],
+    ["dicas", "Dicas do fim <small>— uma por linha: pergunta | resposta</small>", "area"],
+    ["nota", "Observação final (preços)", "area"]
+  ];
+
+  const copia = o => JSON.parse(JSON.stringify(o));
+  let dados = carregar();
+  let aberto = -1;
+
+  function carregar() {
+    try {
+      const s = JSON.parse(localStorage.getItem(CHAVE) || "null");
+      if (s && Array.isArray(s.produtos)) return { ...copia(PADRAO), ...s };
+    } catch {}
+    const d = copia(PADRAO);
+    // Aproveita os links já colados no gerador original, se estiverem neste navegador
+    try {
+      const antigos = JSON.parse(localStorage.getItem("links") || "[]");
+      antigos.forEach((l, i) => { if (d.produtos[i] && l) d.produtos[i].link = l; });
+    } catch {}
+    return d;
+  }
+  function guardar() { try { localStorage.setItem(CHAVE, JSON.stringify(dados)); } catch {} }
+
+  function slug(v) {
+    return (v || "").normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+  }
+  function limpa(v) { return (v || "").trim().replace(/\s+/g, ""); }
+  function valido(v) { return /^https?:\/\/\S+\.\S+/i.test(v); }
+  function esc(v) { return String(v || "").replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
+  function afiliado(url) {
+    return /(^https?:\/\/)?(meli\.la|s\.shopee\.com\.br|shope\.ee|amzn\.to)\//i.test(url)
+      || /mercadolivre\.com\.br\/social\//i.test(url) || /[?&]matt_(tool|word)=/i.test(url);
+  }
+
+  // Link final do botão + aviso que aparece embaixo do campo
+  function destino(p) {
+    const v = limpa(p.link);
+    const loja = LOJAS[p.loja] || LOJAS.ml;
+    const busca = p.busca || loja.busca(p.curto || p.nome);
+    if (!v) return { url: busca, st: busca ? "pad" : "warn", msg: busca ? "Sem link de afiliado (usa a busca normal, não gera comissão)" : "Falta o link do produto" };
+    if (!valido(v)) return { url: busca, st: "warn", msg: "Esse link parece incompleto. Ele precisa começar com https://" };
+    if (!afiliado(v)) return { url: v, st: "warn", msg: "Link aceito, mas não parece ser de afiliado (meli.la / s.shopee). Confira se gera comissão." };
+    return { url: v, st: "ok", msg: "✓ Link de afiliado colocado" };
+  }
+
+
+  function gerar() {
+    const ps = dados.produtos;
+    const lojas = [...new Set(ps.map(p => p.loja))];
+    const fichas = ps.map((p, i) => {
+      const loja = LOJAS[p.loja] || LOJAS.ml;
+      const d = destino(p);
+      return `    <article class="maq">
+      <div class="rank">${i + 1}</div>
+      ${p.tag ? `<div class="tag">${esc(p.tag)}</div>` : ""}
+      <h3>${esc(p.nome)}</h3>
+      ${p.imagem && valido(limpa(p.imagem)) ? `<img class="foto" src="${esc(limpa(p.imagem))}" alt="${esc(p.nome)}" loading="lazy">` : ""}
+      ${p.descricao ? `<p>${esc(p.descricao)}</p>` : ""}
+      ${d.url ? `<a class="cta" href="${esc(d.url)}" target="_blank" rel="noopener">${esc(loja.cta)}</a>` : ""}
+    </article>`;
+    }).join("\n\n");
+    const linhas = ps.map(p => `          <tr><td>${esc(p.curto || p.nome)}</td><td>${esc(p.indicada)}</td></tr>`).join("\n");
+    const dicas = (dados.dicas || "").split("\n").map(l => l.trim()).filter(Boolean).map(l => {
+      const [q, ...r] = l.split("|");
+      return r.length ? `      <li><strong>${esc(q.trim())}</strong> ${esc(r.join("|").trim())}</li>` : `      <li>${esc(q.trim())}</li>`;
+    }).join("\n");
+    const N = ps.length;
+    const rotulo = lojas.length === 1 && lojas[0] === "ml" ? (N === 1 ? "máquina" : "máquinas") : (N === 1 ? "produto" : "produtos");
+
+    return `<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<base target="_blank">
+<title>${esc(dados.titulo)}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Libre+Franklin:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@500;600&display=swap">
+<style>
+  /* Layout: coluna editorial estreita; cada máquina é uma "ficha" numerada pelo ranking, com faixa de preço em régua */
+  :root {
+    --bg: #f5f6f7;
+    --paper: #ffffff;
+    --ink: #1a2230;
+    --muted: #5b6474;
+    --line: #dde1e7;
+    --accent: #a8321f;      /* vermelho do poste de barbearia */
+    --accent-soft: #f6e4e0;
+    --steel: #2c4a6b;       /* azul do poste */
+    --font-display: "Big Shoulders Display", "Arial Narrow", Impact, sans-serif;
+    --font-body: "Libre Franklin", "Segoe UI", system-ui, sans-serif;
+    --font-mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+  }
+
+  * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  html { color-scheme: light; }
+  body {
+    background: var(--bg); color: var(--ink);
+    font-family: var(--font-body); font-size: 1.0625rem; line-height: 1.7;
+    padding-inline: 16px; padding-block: 0 32px; margin: 0;
+  }
+  .wrap { max-width: 44rem; margin-inline: auto; }
+
+  .pole {
+    height: 8px; margin-inline: -16px;
+    background: repeating-linear-gradient(-45deg, var(--accent) 0 14px, var(--paper) 14px 28px, var(--steel) 28px 42px, var(--paper) 42px 56px);
+  }
+
+  header.post { padding-block: 48px 32px; display: grid; gap: 16px; }
+  .eyebrow {
+    font-family: var(--font-mono); font-size: .75rem; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--accent);
+  }
+  h1 {
+    font-family: var(--font-display); font-weight: 900; text-transform: uppercase;
+    font-size: clamp(2.4rem, 7vw, 3.6rem); line-height: .98; letter-spacing: .005em;
+    margin: 0; text-wrap: balance;
+  }
+  .meta { font-size: .875rem; color: var(--muted); display: flex; flex-wrap: wrap; gap: 6px 16px; }
+  .lede { font-size: 1.2rem; line-height: 1.6; margin: 0; }
+  p { margin: 0; }
+  .intro { display: grid; gap: 16px; padding-bottom: 32px; border-bottom: 1px solid var(--line); }
+
+  h2 {
+    font-family: var(--font-display); font-weight: 800; text-transform: uppercase;
+    font-size: 1.9rem; line-height: 1.05; margin: 0; text-wrap: balance;
+  }
+  section.lista { display: grid; gap: 28px; padding-block: 40px; }
+
+  article.maq {
+    background: var(--paper); border: 1px solid var(--line); border-radius: 6px;
+    padding: 24px; display: grid; grid-template-columns: auto 1fr; gap: 4px 20px;
+  }
+  .rank {
+    font-family: var(--font-display); font-weight: 900; font-size: 3.4rem; line-height: .85;
+    color: var(--accent); grid-row: span 6;
+  }
+  .maq > * { min-width: 0; }
+  .tag {
+    font-family: var(--font-mono); font-size: .7rem; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--steel);
+  }
+  h3 {
+    font-family: var(--font-display); font-weight: 800; font-size: 1.65rem; line-height: 1.08;
+    margin: 0 0 6px; text-wrap: balance;
+  }
+  .foto { display: block; max-width: 100%; max-height: 220px; object-fit: contain; margin-bottom: 10px; justify-self: start; }
+  .maq p { color: var(--ink); }
+  .cta {
+    justify-self: start; margin-top: 14px;
+    font-weight: 600; font-size: .95rem; color: var(--accent); text-decoration: none;
+    border-bottom: 2px solid currentColor; padding-bottom: 1px;
+  }
+  .cta:hover { color: var(--steel); }
+  .cta:focus-visible { outline: 2px solid var(--steel); outline-offset: 4px; }
+
+  section.comparativo { display: grid; gap: 16px; padding-block: 8px 40px; }
+  .tbl { overflow-x: auto; border: 1px solid var(--line); border-radius: 6px; background: var(--paper); }
+  table { border-collapse: collapse; width: 100%; min-width: 520px; font-size: .95rem; }
+  th, td { text-align: left; padding: 12px 16px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  tr:last-child td { border-bottom: 0; }
+  th {
+    font-family: var(--font-mono); font-size: .7rem; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--muted); font-weight: 500;
+  }
+  td.num { font-family: var(--font-mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+  .dicas { display: grid; gap: 14px; padding-top: 32px; border-top: 1px solid var(--line); }
+  .dicas ul { margin: 0; padding-left: 1.2em; display: grid; gap: 8px; }
+  .nota { font-size: .85rem; color: var(--muted); padding-top: 24px; }
+
+  @media (max-width: 480px) {
+    article.maq { grid-template-columns: 1fr; padding: 20px; }
+    .rank { grid-row: auto; font-size: 2.6rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="pole" aria-hidden="true"></div>
+<div class="wrap">
+  <header class="post">
+    <div class="eyebrow">${esc(dados.eyebrow)}</div>
+    <h1>${esc(dados.titulo)}</h1>
+    <div class="meta"><span>${esc(dados.data)}</span><span>${esc(dados.leitura)}</span></div>
+  </header>
+
+  <div class="intro">
+    ${dados.lede ? `<p class="lede">${esc(dados.lede)}</p>` : ""}
+    ${dados.intro ? `<p>${esc(dados.intro.split("{N}").join(N))}</p>` : ""}
+  </div>
+
+  <section class="lista" aria-label="As ${N} ${rotulo}">
+${fichas}
+  </section>
+
+  ${N ? `<section class="comparativo">
+    <h2>Comparativo rápido</h2>
+    <div class="tbl">
+      <table>
+        <thead><tr><th>Modelo</th><th>Indicada para</th></tr></thead>
+        <tbody>
+${linhas}
+        </tbody>
+      </table>
+    </div>
+  </section>` : ""}
+
+  <section class="dicas">
+    ${dicas ? `<h2>${esc(dados.dicasTitulo)}</h2>
+    <ul>
+${dicas}
+    </ul>` : ""}
+    ${dados.nota ? `<p class="nota">${esc(dados.nota)}</p>` : ""}
+  </section>
+</div>
+</body>
+</html>`;
+  }
+
+  // ---------- Editor ----------
+  const lista = document.getElementById("lista");
+
+  function campo(id, rotulo, valor, tipo, extra) {
+    const v = esc(valor);
+    if (tipo === "area") return `<div class="field"><label for="${id}">${rotulo}</label><textarea id="${id}" data-k="${extra}">${v}</textarea></div>`;
+    if (tipo === "loja") return `<div class="field"><label for="${id}">${rotulo}</label><select id="${id}" data-k="${extra}">${Object.entries(LOJAS).map(([k, l]) => `<option value="${k}"${k === valor ? " selected" : ""}>${l.nome}</option>`).join("")}</select></div>`;
+    return `<div class="field"><label for="${id}">${rotulo}</label><input type="${tipo}" id="${id}" data-k="${extra}" value="${v}" autocomplete="off"></div>`;
+  }
+
+  function desenhar() {
+    const ps = dados.produtos;
+    document.getElementById("contagem").textContent = `· ${ps.length} ${ps.length === 1 ? "produto" : "produtos"}`;
+    if (!ps.length) { lista.innerHTML = `<div class="vazio">Nenhum produto. Clique em <strong>+ Incluir novo produto</strong>.</div>`; return; }
+    lista.innerHTML = ps.map((p, i) => `
+      <details class="prod" data-i="${i}"${i === aberto ? " open" : ""}>
+        <summary><span class="pos">${i + 1}</span><span class="pnome">${esc(p.nome) || "<em>Produto sem nome</em>"}</span><span class="status" data-st></span><span class="seta">alterar ▾</span></summary>
+        <div class="corpo">
+          <div class="ferramentas">
+            <button type="button" class="mini" data-a="subir"${i === 0 ? " disabled" : ""}>↑ Subir</button>
+            <button type="button" class="mini" data-a="descer"${i === ps.length - 1 ? " disabled" : ""}>↓ Descer</button>
+            <button type="button" class="mini" data-a="duplicar">Duplicar</button>
+            <button type="button" class="mini del" data-a="remover">🗑 Remover</button>
+          </div>
+          ${campo(`nome${i}`, "Nome do produto (título da ficha)", p.nome, "text", "nome")}
+          <div class="field">
+            ${campo(`link${i}`, "Link de afiliado", p.link, "url", "link").replace(/^<div class="field">|<\/div>$/g, "")}
+            <span class="status" data-st2></span>
+          </div>
+          <div class="row">
+            ${campo(`loja${i}`, "Loja", p.loja, "loja", "loja")}
+            ${campo(`tag${i}`, "Etiqueta <small>(ex.: Profissional · sem fio)</small>", p.tag, "text", "tag")}
+          </div>
+          <p class="hint" style="margin:0">O blog não mostra preço (o preço muda no site oficial).</p>
+          ${campo(`desc${i}`, "Descrição", p.descricao, "area", "descricao")}
+          <div class="row">
+            ${campo(`curto${i}`, "Nome curto <small>(tabela comparativa)</small>", p.curto, "text", "curto")}
+            ${campo(`ind${i}`, "Indicada para <small>(tabela)</small>", p.indicada, "text", "indicada")}
+          </div>
+          ${campo(`img${i}`, "Link da foto <small>(opcional — botão direito na foto do anúncio › Copiar endereço da imagem)</small>", p.imagem, "url", "imagem")}
+        </div>
+      </details>`).join("");
+    avisos();
+  }
+
+  function avisos() {
+    lista.querySelectorAll("details.prod").forEach(el => {
+      const p = dados.produtos[+el.dataset.i];
+      const d = destino(p);
+      const curto = d.st === "ok" ? "✓ afiliado" : d.st === "pad" ? "sem afiliado" : "conferir link";
+      const s1 = el.querySelector("[data-st]"), s2 = el.querySelector("[data-st2]");
+      s1.className = "status " + d.st; s1.textContent = curto;
+      s2.className = "status " + d.st; s2.textContent = d.msg;
+    });
+  }
+
+  let t;
+  function mudou(redesenhar) {
+    guardar();
+    document.getElementById("ok").hidden = true;
+    if (redesenhar) desenhar(); else avisos();
+    clearTimeout(t);
+    t = setTimeout(() => { document.getElementById("prev").srcdoc = gerar(); }, 250);
+  }
+
+  lista.addEventListener("input", e => {
+    const k = e.target.dataset.k; if (!k) return;
+    const el = e.target.closest("details.prod"); const i = +el.dataset.i;
+    const p = dados.produtos[i];
+    p[k] = e.target.value;
+    // A busca padrão só vale para o nome original do produto; produto renomeado ou com outra loja usa a busca da loja
+    if (k === "nome" || k === "curto" || k === "loja") p.busca = "";
+    if (k === "nome") el.querySelector(".pnome").textContent = p.nome || "Produto sem nome";
+    mudou(false);
+  });
+  lista.addEventListener("toggle", e => {
+    const el = e.target; if (!el.matches || !el.matches("details.prod")) return;
+    if (el.open) aberto = +el.dataset.i; else if (aberto === +el.dataset.i) aberto = -1;
+  }, true);
+  lista.addEventListener("click", e => {
+    const b = e.target.closest("button[data-a]"); if (!b) return;
+    const i = +b.closest("details.prod").dataset.i; const ps = dados.produtos;
+    const a = b.dataset.a;
+    if (a === "subir" && i > 0) { [ps[i - 1], ps[i]] = [ps[i], ps[i - 1]]; aberto = i - 1; }
+    if (a === "descer" && i < ps.length - 1) { [ps[i + 1], ps[i]] = [ps[i], ps[i + 1]]; aberto = i + 1; }
+    if (a === "duplicar") { ps.splice(i + 1, 0, { ...copia(ps[i]), nome: ps[i].nome + " (cópia)", busca: "" }); aberto = i + 1; }
+    if (a === "remover") {
+      if (!confirm(`Remover "${ps[i].nome || "produto sem nome"}" do blog?`)) return;
+      ps.splice(i, 1); aberto = -1;
+    }
+    mudou(true);
+  });
+
+  document.getElementById("novo").addEventListener("click", () => {
+    dados.produtos.push({ nome: "", curto: "", tag: "", de: "", ate: "", descricao: "", indicada: "", loja: "ml", link: "", busca: "", imagem: "" });
+    aberto = dados.produtos.length - 1;
+    mudou(true);
+    const el = lista.querySelector(`details.prod[data-i="${aberto}"]`);
+    el.scrollIntoView({ behavior: "smooth", block: "start" });
+    el.querySelector("input").focus({ preventScroll: true });
+  });
+
+  // Textos gerais
+  const ct = document.getElementById("camposTextos");
+  function desenharTextos() {
+    ct.innerHTML = CAMPOS_TEXTO.map(([k, r, tp]) => campo("tx_" + k, r, dados[k], tp === "area" ? "area" : "text", k)).join("");
+  }
+  ct.addEventListener("input", e => { const k = e.target.dataset.k; if (!k) return; dados[k] = e.target.value; mudou(false); });
+
+  // Copiar
+  document.getElementById("copiar").addEventListener("click", () => {
+    const html = gerar();
+    const ok = document.getElementById("ok"), fb = document.getElementById("fb"), txt = document.getElementById("fbtxt");
+    const mostrarFallback = () => { txt.value = html; fb.hidden = false; ok.hidden = true; txt.focus(); txt.select(); };
+    try {
+      navigator.clipboard.writeText(html).then(() => { ok.hidden = false; fb.hidden = true; }, mostrarFallback);
+    } catch { mostrarFallback(); }
+  });
+
+  // Backup
+  const msg = document.getElementById("msgBackup");
+  function aviso(texto) { msg.textContent = texto; msg.hidden = false; }
+  document.getElementById("salvar").addEventListener("click", () => {
+    const hoje = new Date().toISOString().slice(0, 10);
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(new Blob([JSON.stringify(dados, null, 2)], { type: "application/json" }));
+    a.download = `backup-blog-maquinas-${hoje}.json`;
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+    aviso(`Backup salvo na pasta Downloads: backup-blog-maquinas-${hoje}.json`);
+  });
+  document.getElementById("abrir").addEventListener("click", () => document.getElementById("arquivo").click());
+  document.getElementById("arquivo").addEventListener("change", e => {
+    const f = e.target.files[0]; if (!f) return;
+    f.text().then(txt => {
+      const s = JSON.parse(txt);
+      if (!s || !Array.isArray(s.produtos)) throw new Error();
+      dados = { ...copia(PADRAO), ...s }; aberto = -1;
+      desenharTextos(); mudou(true);
+      aviso(`Backup aberto: ${s.produtos.length} produtos carregados.`);
+    }).catch(() => aviso("Esse arquivo não é um backup do blog. Escolha o arquivo backup-blog-maquinas-….json"));
+    e.target.value = "";
+  });
+  document.getElementById("restaurar").addEventListener("click", () => {
+    if (!confirm("Voltar aos 4 produtos originais? As alterações feitas aqui serão perdidas (salve um backup antes, se quiser).")) return;
+    const links = dados.produtos.slice(0, 4).map(p => p.link);
+    dados = copia(PADRAO); aberto = -1;
+    // Mantém os links de afiliado que já estavam nos 4 primeiros
+    if (confirm("Manter os links de afiliado que já estavam colados nos 4 primeiros?")) links.forEach((l, i) => { dados.produtos[i].link = l || ""; });
+    desenharTextos(); mudou(true);
+    aviso("Voltou aos 4 produtos originais.");
+  });
+
+  desenharTextos();
+  mudou(true);
+</script>
+</body>
+</html>

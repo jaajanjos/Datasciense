@@ -163,9 +163,13 @@ def verificar(item):
     if not item["link_afiliado"]:
         r["status"] = "Sem link de afiliado"
     else:
-        cod, final, t = baixar(item["link_afiliado"])
+        for tentativa in range(3):  # o ML às vezes devolve o perfil vazio por oscilação: confere até 3 vezes antes de marcar Removido
+            cod, final, t = baixar(item["link_afiliado"])
+            card = primeiro_card(t) if cod == 200 else None
+            if card or cod != 200:
+                break
+            time.sleep(4)
         r["http"], r["url_final"] = cod, final
-        card = primeiro_card(t) if cod == 200 else None
         if cod == 0 or "account-verification" in final or "captcha" in t[:5000].lower():
             r["status"] = "Não verificado"
         elif cod >= 400:
@@ -210,6 +214,20 @@ def main(pausa=None):
         extra = f" · {r['aviso_ml']}" if r["aviso_ml"] else ""
         print(f"  {r['item']:>2}. {r['status']:<24} {r['anuncio_mlb'] or '-':<15} {r['nome_no_blog'][:45]}{extra}")
         time.sleep(pausa)
+    # segunda conferência: o que ficou Removido/Pausado/Link quebrado é rechecado depois de uma pausa (evita falso "fora do ar")
+    suspeitos = [i for i, r in enumerate(resultado) if r["status"] in ("Removido / indisponível", "Pausado", "Link quebrado")]
+    if suspeitos:
+        print(f"Conferindo de novo {len(suspeitos)} anúncio(s) marcado(s) como fora do ar...")
+        time.sleep(15)
+        for i in suspeitos:
+            for _ in range(2):
+                novo = verificar(resultado[i])
+                if novo["status"] == "Ativo":
+                    novo["catalogo_no_blog"], novo["verificado_em"] = resultado[i].get("catalogo_no_blog", ""), agora
+                    resultado[i] = novo
+                    print(f"  {novo['item']:>2}. voltou a Ativo na 2ª conferência")
+                    break
+                time.sleep(10)
     nome = os.path.join(PASTA, datetime.now().strftime("status_anuncios_%Y-%m-%d_%Hh%M.csv"))
     for caminho, modo in ((nome, "w"), (HISTORICO, "a")):
         novo = modo == "w" or not os.path.exists(HISTORICO)

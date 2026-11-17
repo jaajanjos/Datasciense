@@ -13,6 +13,7 @@ Uso:  python 4_aplicar_no_blog.py              (publica no site)
 import csv
 import importlib.util
 import os
+import re
 import sys
 from datetime import datetime
 
@@ -79,10 +80,14 @@ def main():
             continue
         cmd = [sys.executable, "-X", "utf8", c["gerenciar_blog"], "editar", str(n),
                "--nome", s["nome"], "--link", s["link"], "--titulo-anuncio", s["titulo_anuncio"],
-               "--preco", s["preco"], "--imagem", s["imagem"]]
-        for campo, opcao in (("selo", "--selo"), ("desc", "--desc")):
-            if s.get(campo):
-                cmd += [opcao, s[campo]]
+               "--imagem", s["imagem"]]   # sem --preco: o blog não mostra preço (política do dono)
+        # selo em branco é permitido (decisão do dono 12/11/2026): "-" limpa o selo do produto anterior
+        if s.get("selo"):
+            cmd += ["--selo", s["selo"]]
+        elif alvo.get("selo"):
+            cmd += ["--selo", "-"]
+        if s.get("desc"):
+            cmd += ["--desc", s["desc"]]
         for campo, opcao in (("beneficios", "--beneficios"), ("ideal", "--ideal")):
             if s.get(campo):
                 cmd += [opcao, " | ".join(s[campo]) if isinstance(s[campo], list) else s[campo]]
@@ -94,17 +99,39 @@ def main():
         if alvo.get("preco_auto"):
             conferir.append("cartão do plugin Hostinger: confira foto/título/preço do cartão no site")
         conferir.append("validar link e produto (dono)")
+        validacao = ""
+        if codigo == 0 and not simular:
+            # VALIDAÇÃO: relê o guia publicado e prova que a troca ficou lá
+            pagina = gb.baixar_pagina(cfg_wp)
+            itens = gb.itens(pagina.conteudo)
+            problemas = []
+            novos = [i for i in itens if i["link"] == s["link"]]
+            if len(novos) != 1:
+                problemas.append(f"link novo aparece {len(novos)}x no guia (esperado 1)")
+            elif novos[0]["nome"].strip().lower() != s["nome"].strip().lower():
+                problemas.append(f"nome no guia diferente do esperado ({novos[0]['nome']!r})")
+            if any(i["link"] == s["link_antigo"] for i in itens):
+                problemas.append("link antigo ainda está no guia")
+            if novos:   # política: o guia não pode mostrar preço
+                for campo in ("nome", "titulo_anuncio", "selo", "desc"):
+                    if re.search(r"R\$\s*\d", novos[0][campo] or ""):
+                        problemas.append(f"PREÇO no campo {campo} do guia (proibido pela política do blog)")
+            validacao = "VALIDADO no guia (link novo presente, link antigo removido)" if not problemas                 else "FALHOU na validação: " + "; ".join(problemas)
+            comum.log(f"  item {n}: {validacao}")
+            if problemas:
+                falhas += 1
         if codigo != 0:
             falhas += 1
             resultado = "ERRO ao aplicar (veja o log)"
+        elif simular:
+            resultado = "pré-visualizado (simulação)"
         else:
-            resultado = "pré-visualizado (simulação)" if simular else "publicado"
+            resultado = "publicado" if validacao.startswith("VALIDADO") else "publicado, mas " + validacao
+        if validacao:
+            conferir.insert(0, validacao)
         registrar([quando, "simulação" if simular else "real", n, alvo["nome"], s["link_antigo"], s["nome"], s["link"],
                    s["preco"], s.get("anuncio_mlb", ""), s.get("vendedor", ""), s.get("politica", ""), resultado,
                    "; ".join(conferir)])
-        if not simular and codigo == 0:
-            pagina = gb.baixar_pagina(cfg_wp)          # relê a página publicada antes da próxima troca
-            itens = gb.itens(pagina.conteudo)
     comum.log(f"Histórico das trocas (para você validar): {comum.ARQ_HISTORICO}")
     return 1 if falhas else 0
 

@@ -8,7 +8,8 @@ produto e, se houver erro, corrige pelos programas. Mesmo assim, siga as regras 
 - **Nunca** digite senha, nunca faça login, nunca burle captcha. Se o ML pedir login/captcha, pare e registre.
 - **Não** edite o blog: quem troca no WordPress é o programa `4_aplicar_no_blog.py`, lendo o arquivo que você grava.
 - Ritmo humano: uma página por vez, sem abrir dezenas de abas. Feche as abas que abrir.
-- Não invente dados: preço, título, imagem e textos vêm da página do anúncio.
+- Não invente dados: título, imagem e textos vêm da página do anúncio.
+- **POLÍTICA DO BLOG (regra do dono): nenhum texto do cartão pode ter PREÇO** (nem "R$ ..." no nome, título, selo, descrição, benefícios ou "ideal para"), nem "mais vendido", "líder", "melhor/menor preço", "oferta do mês", "garantido" ou "Olha o que eu encontrei!". O `nome` é o título do produto SEM preço. O preço serve só para você conferir a faixa; vai no campo `preco` apenas para o histórico.
 
 ## Entrada
 Leia `pendencias_substituicao.json` (nesta pasta). Cada item de `pendentes` tem: item, nome_no_blog, titulo_no_ml,
@@ -42,8 +43,7 @@ produto), **não** tente contornar: grave o arquivo de saída com `"situacao_ger
 5. **Colher os dados do cartão** (da própria página do anúncio): título do anúncio, preço à vista (formato
    `R$ 1.234,56`), URL da **imagem principal** (https, do ML), nº do anúncio (MLB), vendedor e política de venda.
 6. **Textos do guia** (curtos, no mesmo estilo dos outros itens, atrativos para a compra, **sem inventar**: só o que a
-   página do anúncio mostra): `nome` (nome curto do produto, como no guia), `selo` (2 a 5 palavras, ex.: "Boa opção
-   de entrada"), `desc` (1 frase), `beneficios` (3 itens), `ideal` (2 a 3 perfis). Sem promessas de saúde nem
+   página do anúncio mostra): `nome` (nome curto do produto, como no guia), `selo` (**deixe em BRANCO: "selo": ""** — decisão do dono em 12/11/2026: em anúncio novo o selo fica vazio), `desc` (1 frase), `beneficios` (3 itens), `ideal` (2 a 3 perfis). Sem promessas de saúde nem
    "o melhor" absoluto.
 
 ## Saída (obrigatória) — grave `substituicoes_aprovadas.json` nesta pasta, UTF-8, exatamente neste formato

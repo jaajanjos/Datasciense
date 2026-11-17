@@ -79,10 +79,13 @@ def arte(x, campanha, formato):
     # selo
     fs = fonte("arialbd.ttf", 40)
     selo = x["selo"].upper()
-    tw = d.textlength(selo, font=fs)
-    d.rounded_rectangle([(W - tw) / 2 - 30, y, (W + tw) / 2 + 30, y + 70], 35, fill=VERDE_NATAL if natal else AMARELO)
-    d.text((W / 2, y + 35), selo, font=fs, fill=BRANCO if natal else ESCURO, anchor="mm")
-    y += 100
+    if selo.strip():  # selo em branco (regra do dono, 12/11/2026): não desenha a pílula vazia
+        tw = d.textlength(selo, font=fs)
+        d.rounded_rectangle([(W - tw) / 2 - 30, y, (W + tw) / 2 + 30, y + 70], 35, fill=VERDE_NATAL if natal else AMARELO)
+        d.text((W / 2, y + 35), selo, font=fs, fill=BRANCO if natal else ESCURO, anchor="mm")
+        y += 100
+    else:
+        y += 20
     # nome
     fn = fonte("arialbd.ttf", 64 if H > 1400 else 56)
     for linha in quebra(d, x["nome"], fn, W - 120)[:3]:

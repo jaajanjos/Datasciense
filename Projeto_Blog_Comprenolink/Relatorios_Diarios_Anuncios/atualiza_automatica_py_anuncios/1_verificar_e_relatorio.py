@@ -9,6 +9,7 @@ Uso:  python 1_verificar_e_relatorio.py                 (verifica tudo agora no 
 import glob
 import os
 import sys
+import time
 
 import comum
 
@@ -19,11 +20,13 @@ def main():
     comum.abrir_log("atualiza")
     comum.titulo("ETAPA 1 - Verificar anúncios no ML e gerar o relatório de acessos")
     pasta_hist = os.path.join(c["pasta_relatorios"], "_historico_relatorios")
-    antes = set(glob.glob(os.path.join(pasta_hist, "relatorio_acessos_anuncios_*.html")))
+    inicio = time.time() - 2
     cmd = [sys.executable, "-X", "utf8", c["programa_relatorio"],
            "--sem-verificar-anuncios" if sem_verificar else "--verificar-anuncios"]
     codigo = comum.rodar(cmd, cwd=c["pasta_fontes_painel"], tempo_limite=60 * 60)
-    novos = sorted(set(glob.glob(os.path.join(pasta_hist, "relatorio_acessos_anuncios_*.html"))) - antes)
+    # o nome do arquivo só tem hora e minuto (pode ser sobrescrito no mesmo minuto): vale o arquivo gravado agora
+    novos = sorted(a for a in glob.glob(os.path.join(pasta_hist, "relatorio_acessos_anuncios_*.html"))
+                   if os.path.getmtime(a) >= inicio)
     if codigo != 0 or not novos:
         comum.log("ERRO: o relatório de acessos não foi gerado (veja as mensagens acima).")
         return 1

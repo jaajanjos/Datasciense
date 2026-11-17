@@ -116,10 +116,14 @@ def main():
                "atualiza só o painel."],
               ["4", "4_aplicar_no_blog.py", "Acha o item pelo LINK ANTIGO (o número muda), troca nome, link, selo, "
                "descrição, benefícios, ideal para, título e foto pelo gerenciar_blog.py, que faz backup da página "
-               "antes de publicar. Registra tudo em historico_substituicoes.csv.", "O item com erro fica "
-               "registrado; os outros seguem."],
+               "antes de publicar. <b>Depois de cada troca, relê o guia no WordPress e VALIDA:</b> link novo "
+               "presente 1 vez, nome conferido e link antigo removido. Registra tudo em "
+               "historico_substituicoes.csv.", "O item com erro ou que falhar na validação fica "
+               "registrado (marcado ATENÇÃO no resumo); os outros seguem."],
               ["5", "5_painel_e_resumo.py", "Se houve troca, gera o relatório de novo verificando os links novos; "
-               "roda o ATUALIZAR_PAINEL.bat (planilha + PDF) e grava resumo_ultima_execucao.txt.",
+               "roda o ATUALIZAR_PAINEL.bat (planilha + PDF), grava resumo_ultima_execucao.txt e "
+               "<b>ABRE o Painel_conversao_performance_….pdf na tela</b> (não abre na simulação; use "
+               "<font name='Courier'>--nao-abrir</font> na etapa 5 para desligar).",
                "Resumo indica 'COM ERRO'; veja o log."],
           ], [1.3, 4.0, 8.4, 3.9]),
           P("Validação automática da etapa 3 (antes de qualquer publicação)", "h2"),
@@ -185,7 +189,7 @@ def main():
             "(3_relatorio_acessos_anuncios.py, 6_verificar_anuncios.py, ATUALIZAR_PAINEL.bat) e "
             "Gestao_Anuncios_Blog\\1_PROGRAMAS\\Blog_WordPress\\gerenciar_blog.py.")]
 
-    s += [CondPageBreak(7 * cm), P("7. Testes feitos em 09/11/2026", "h1"),
+    s += [CondPageBreak(7 * cm), P("7. Testes feitos em 09/11/2026 e 12/11/2026", "h1"),
           tab(["Teste", "Resultado"], [
               ["Simulação completa (opção 8)", "OK: relatório gerado; 4 anúncios fora do ar listados (itens 51, 182, "
                "191, 196); Claude não chamado; nada publicado."],
@@ -196,8 +200,33 @@ def main():
               ["Chamada do Claude Code", "Comando aceito; <b>login do Claude Code expirado</b> neste PC: fazer "
                "/login antes da primeira execução real."],
           ], [5.4, 12.2], cor=VERDE),
-          P("<b>Conclusão:</b> o processo está pronto e validado em simulação. A primeira execução real deve ser "
-            "feita com o dono presente (Chrome logado e Claude Code com login), validando as trocas logo em seguida.")]
+          P("Política do blog: SEM PREÇO nos anúncios (regra do dono, 12/11/2026)", "h2"),
+          P("Os anúncios não podem exibir preço (nome, título, selo, descrição, benefícios, \"ideal para\", caixa de "
+            "preço, páginas de categoria) nem \"mais vendido\", \"líder\" (exceto o status real MercadoLíder), "
+            "\"melhor/menor preço\", \"oferta do mês\", \"garantido\" ou \"Olha o que eu encontrei!\". "
+            "<b>Selo:</b> em anúncio novo ou substituído o selo fica <b>em branco</b> (decisão do dono, 12/11/2026; a etapa 4 limpa o selo do produto anterior). "
+            "<b>O processo valida sozinho:</b> etapa 3 recusa a troca com preço/frase proibida; etapa 4 não envia "
+            "preço e confere o guia depois de publicar; etapa 5 roda o <font name='Courier'>verificar_sem_preco.py</font> "
+            "(todas as páginas e posts + textos dos cartões) e mostra o resultado no resumo, com ATENÇÃO se houver "
+            "algo. Correção: <font name='Courier'>gerenciar_blog.py editar N ... --aplicar</font> ou "
+            "<font name='Courier'>verificar_sem_preco.py --corrigir</font> (caixas de preço)."),
+          P("Ajustes e testes de 12/11/2026", "h2"),
+          tab(["Item", "Resultado"], [
+              ["Resumo (etapa 5) misturava itens de rodada antiga", "CORRIGIDO: considera só os pendentes atuais; "
+               "itens sem tentativa aparecem como 'troca manual'."],
+              ["Etapa 1 acusava 'relatório não gerado' ao rodar 2x no mesmo minuto", "CORRIGIDO: confere pela hora "
+               "de gravação do arquivo."],
+              ["Validação da troca depois de publicar (etapa 4)", "INCLUÍDA: relê o guia e confere link novo, nome e "
+               "link antigo. Sintaxe testada; será exercitada na primeira troca real."],
+              ["Abrir o painel PDF no final (etapa 5)", "INCLUÍDA."],
+              ["Preço no blog (item 207 e outros)", "CORRIGIDO: nome do 207; 8 caixas de preço (itens 11 a 19); "
+               "textos de cadastro e \"mais vendido\" nos itens 205 a 213; \"melhor\" no item 76. Varredura final: OK."],
+              ["Execução completa de 12/11 (10h17 a 10h25)", "OK, sem erro: 213 de 213 anúncios ativos, 0 pendentes; "
+               "Claude não chamado e nada publicado; painel e planilha atualizados."],
+          ], [6.6, 11.0], cor=VERDE),
+          P("<b>Conclusão:</b> o processo está funcional. A substituição pelo Claude e a validação pós-publicação só "
+            "serão exercitadas quando um anúncio sair do ar (Chrome logado no ML Afiliados e Claude Code com login). "
+            "Valide as trocas logo em seguida pelo resumo e pelo histórico.")]
 
     doc = SimpleDocTemplate(SAIDA, pagesize=A4, leftMargin=1.6 * cm, rightMargin=1.6 * cm, topMargin=1.5 * cm,
                             bottomMargin=1.6 * cm, title="Atualização automática dos anúncios", author="Claude")

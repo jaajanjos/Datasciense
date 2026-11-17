@@ -1,0 +1,7 @@
+{
+  "gerado_em": "2026-11-14 08:49",
+  "situacao_geral": "navegador_indisponivel",
+  "motivo": "Navegador 'Browser 1' (onThisComputer) está conectado, mas a conta do Mercado Livre não está logada: a página inicial do mercadolivre.com.br mostra 'Entre na sua conta' / 'Entrar na sua conta', sem a barra 'Afiliados' no topo. Conforme a regra do roteiro, não é permitido tentar contornar login/captcha, então nenhum item pendente foi processado.",
+  "substituicoes": [],
+  "nao_substituidos": []
+}

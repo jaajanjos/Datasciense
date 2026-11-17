@@ -5,11 +5,12 @@ Painel_conversao_performance_AAAA-MM-DD_HHhMM.pdf) e grava o resumo_ultima_execu
 
 Uso:  python 5_painel_e_resumo.py            (executa)
       python 5_painel_e_resumo.py --simular  (não roda o painel; só monta o resumo com o que já existe)
-      python 5_painel_e_resumo.py --abrir    (abre o PDF do painel no final)
+      python 5_painel_e_resumo.py --nao-abrir (não abre o PDF do painel no final; por padrão ele ABRE)
 """
 import csv
 import glob
 import os
+import subprocess
 import sys
 from datetime import datetime
 
@@ -36,7 +37,7 @@ def main():
     comum.titulo("ETAPA 5 - Relatório final, painel de conversão (PDF) e planilha de controle"
                  + (" [SIMULAÇÃO]" if simular else ""))
     rel_dir = c["pasta_relatorios"]
-    publicadas = [r for r in trocas_de_hoje() if r["modo"] == "real" and r["resultado"] == "publicado"]
+    publicadas = [r for r in trocas_de_hoje() if r["modo"] == "real" and r["resultado"].startswith("publicado")]
     codigo = 0
     if not simular:
         if publicadas:
@@ -54,6 +55,10 @@ def main():
 
     pend = comum.ler_json(comum.ARQ_PENDENCIAS, {}) or {}
     subs = comum.ler_json(comum.ARQ_SUBSTITUICOES, {}) or {}
+    # só vale o que se refere aos pendentes de agora (o arquivo de substituições pode ser de uma rodada antiga)
+    itens_atuais = {str(p.get("item")) for p in (pend.get("pendentes") or [])}
+    subs["substituicoes"] = [x for x in subs.get("substituicoes") or [] if str(x.get("item")) in itens_atuais]
+    subs["nao_substituidos"] = [x for x in subs.get("nao_substituidos") or [] if str(x.get("item")) in itens_atuais]
     html = mais_novo(os.path.join(rel_dir, "_historico_relatorios", "relatorio_acessos_anuncios_*.html"))
     pdf = mais_novo(os.path.join(rel_dir, "Painel_conversao_performance_*.pdf"))
     xlsx = os.path.join(rel_dir, "Painel de  Controle de Acesso.xlsx")
@@ -70,9 +75,27 @@ def main():
         "Trocas publicadas hoje (VALIDAR link e produto):",
     ]
     linhas += [f"  item {r['item']}: {r['nome_antigo']} -> {r['nome_novo']} | {r['link_novo']} | {r['preco']} | "
+               f"{'OK' if r['resultado'] == 'publicado' else '*** ATENÇÃO: ' + r['resultado'] + ' ***'} | "
                f"conferir: {r['conferir']}" for r in publicadas] or ["  (nenhuma)"]
     linhas += ["", "Não substituídos (motivo):"]
     linhas += [f"  item {n.get('item')}: {n.get('motivo')}" for n in subs.get("nao_substituidos") or []] or ["  (nenhum)"]
+    sem_tentativa = sorted(itens_atuais - {str(x.get("item")) for x in subs["substituicoes"] + subs["nao_substituidos"]})
+    if sem_tentativa:
+        linhas.append("  ainda sem tentativa de substituição (troca manual): item " + ", ".join(sem_tentativa))
+    # POLÍTICA DO BLOG: sem preço e sem texto proibido nos anúncios (varredura só de leitura de todo o site)
+    linhas += ["", "Política do blog (sem preço / textos permitidos) - verificação do site inteiro:"]
+    try:
+        ver = os.path.join(os.path.dirname(c["gerenciar_blog"]), "verificar_sem_preco.py")
+        r = subprocess.run([sys.executable, "-X", "utf8", ver], capture_output=True, text=True, encoding="utf-8",
+                           errors="replace", timeout=600, cwd=os.path.dirname(ver))
+        saida = [l for l in (r.stdout or "").splitlines() if l.strip()] or ["(sem saída)"]
+        linhas += ["  " + l for l in saida]
+        if r.returncode != 0:
+            linhas.append("  *** ATENÇÃO: há preço ou texto fora da política. Corrija: gerenciar_blog.py editar N ... "
+                          "ou verificar_sem_preco.py --corrigir ***")
+            codigo |= 0
+    except Exception as exc:  # a verificação não pode derrubar o resumo
+        linhas.append(f"  (não foi possível verificar: {exc})")
     linhas += ["", "Arquivos do dia:",
                f"  Relatório de acessos: {html or '-'}",
                f"  Painel (PDF) ........ {pdf or '-'}",
@@ -86,7 +109,7 @@ def main():
         f.write("\n".join(linhas) + "\n")
     for l in linhas:
         comum.log(l)
-    if "--abrir" in sys.argv and pdf and not simular:
+    if "--nao-abrir" not in sys.argv and pdf and not simular:
         os.startfile(pdf)
     return 1 if codigo else 0
 

@@ -14,7 +14,22 @@ from datetime import datetime
 
 import comum
 
-CAMPOS = ("item", "link_antigo", "nome", "link", "titulo_anuncio", "preco", "imagem")
+CAMPOS = ("item", "link_antigo", "nome", "link", "titulo_anuncio", "imagem")
+# Política do blog (combinado com o dono): NENHUM preço nem promessa nos textos do guia.
+CAMPOS_TEXTO = ("nome", "titulo_anuncio", "selo", "desc", "beneficios", "ideal")
+RE_PROIBIDO = re.compile(r"R\$\s*\d|\d[\d.]*,\d{2}\s*(reais)?|\d+\s*reais|mais vendido|olha o que eu encontrei|"
+                         r"melhor pre|menor pre|(?<!mercado)l[ií]der|oferta do m[eê]s|garantido", re.I)
+
+
+def texto_proibido(s):
+    """Devolve (campo, trecho) se algum campo de texto do cartão tiver preço ou frase proibida; senão None."""
+    for campo in CAMPOS_TEXTO:
+        v = s.get(campo) or ""
+        v = " | ".join(v) if isinstance(v, list) else str(v)
+        m = RE_PROIBIDO.search(v)
+        if m:
+            return campo, m.group(0)
+    return None
 
 
 def validar(saida, pendentes):
@@ -40,6 +55,8 @@ def validar(saida, pendentes):
             motivo = "link novo igual ao antigo (armadilha do catálogo)"
         elif not s["imagem"].startswith("https://"):
             motivo = "imagem sem https"
+        elif texto_proibido(s):
+            motivo = "texto com preço ou frase proibida pela política do blog (campo %s: %r)" % texto_proibido(s)
         if motivo:
             recusadas.append({"item": s.get("item"), "motivo": "recusado pela validação: " + motivo})
         else:

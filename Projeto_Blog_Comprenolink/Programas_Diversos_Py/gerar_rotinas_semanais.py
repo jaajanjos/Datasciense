@@ -143,7 +143,7 @@ def roteiro_pdf():
     from reportlab.lib.pagesizes import A4
     from reportlab.lib.units import cm
     from reportlab.platypus import PageBreak, SimpleDocTemplate, Spacer
-    base.HOJE = date(2026, 11, 3)
+    base.HOJE = date(2026, 11, 11)  # última alteração do roteiro (seção Visitas)
     st = [Spacer(1, 0.4 * cm), P("ROTINAS DA SEMANA", "capa_t"), Spacer(1, 4),
           P("Segunda: os números (passo 23) | Sexta: SEO (passo 21)<br/>comprenolink.net - Checklist Turbinar", "capa_s"), Spacer(1, 8),
           info([("Em uma frase", "Segunda 30 minutos olhando os números e decidindo UMA coisa. Sexta 1 hora cuidando do Google."),
@@ -193,7 +193,41 @@ def roteiro_pdf():
           bloco("Meta da rotina", [
               "1 página nova por semana (passo 13: fones, TVs, presentes, celulares, reviews, comparativos).",
               "Guia atualizado a cada 15 dias. O Google leva de 4 a 12 semanas para dar posições boas: constância ganha.",
-              "Não troque endereço (slug) de página já indexada sem redirecionamento 301."], VERDE, VERDE_C)]
+              "Não troque endereço (slug) de página já indexada sem redirecionamento 301."], VERDE, VERDE_C),
+          # incluído em 11/11/2026 a pedido do dono: medir as visitas do site toda segunda e sexta
+          PageBreak(),
+          faixa("V", "Visitas do site: segunda e sexta (10 min)", "segunda e sexta - junto com as rotinas acima", LARANJA), Spacer(1, 6),
+          info([("Para que serve", "Saber quantas pessoas de verdade visitam o blog e de onde elas vêm (Google, Instagram, WhatsApp). "
+                                   "O painel do PC conta também os testes do dono; o Google Analytics conta só visitantes reais."),
+                ("Onde", "Chrome lilás (comprenolink), que já está logado no Google Analytics e no Search Console."),
+                ("Período", "Sempre 'Últimos 28 dias' (mês móvel) e, na segunda, também 'Últimos 7 dias' (a semana).")]),
+          Spacer(1, 6),
+          passos([
+              ("Abrir o Google Analytics", "No Chrome lilás, acesse analytics.google.com. No alto à esquerda, confira se a propriedade "
+               "selecionada é a do comprenolink.net (se houver mais de uma, clique no nome e escolha a do blog)."),
+              ("Escolher o período", "No menu da esquerda clique em Relatórios. No canto superior direito clique na data e escolha "
+               "'Últimos 28 dias' > Aplicar. (Segunda-feira: anote também 'Últimos 7 dias'.)"),
+              ("Anotar os visitantes", "Relatórios > Aquisição > Visão geral (ou 'Visão geral dos relatórios'). Anote 'Usuários ativos' "
+               "(pessoas diferentes) e 'Novos usuários'."),
+              ("Anotar as visualizações e a página campeã", "Relatórios > Engajamento > Páginas e telas. Anote o total de 'Visualizações' e "
+               "as 3 páginas mais vistas (normalmente o guia, a Black Friday e alguma categoria)."),
+              ("Anotar de onde vêm", "Relatórios > Aquisição > Aquisição de tráfego. Anote quantos usuários vieram de: Organic Search (Google/Bing), "
+               "Organic Social (Instagram/Facebook), Direct (link direto, WhatsApp costuma cair aqui) e Referral (outros sites)."),
+              ("Search Console (só sexta)", "search.google.com/search-console > Desempenho > Resultados da pesquisa > período 'Últimos 28 dias'. "
+               "Anote Cliques totais, Impressões totais, CTR média e Posição média. É a mesma tela da rotina de SEO acima."),
+              ("Registrar", "Anote os números na tabela abaixo (ou na coluna de observações da Planilha_Semanal_Turbinar.xlsx). "
+               "Se preferir, tire um print de cada tela e mande ao Claude na conversa 'BLOG- Day by Day': ele organiza e compara com a semana anterior.")], LARANJA),
+          Spacer(1, 6),
+          tabela(["Data", "Usuários 28 dias", "Usuários 7 dias (seg)", "Visualizações 28 dias", "Google (Organic Search)",
+                  "Instagram (Social)", "Direct", "Cliques Search Console (sex)"],
+                 [["&nbsp;<br/>&nbsp;"] * 8 for _ in range(6)], [0.1, 0.12, 0.13, 0.13, 0.13, 0.13, 0.1, 0.16], cor=LARANJA),
+          Spacer(1, 6),
+          bloco("Como ler os números", [
+              "Compare sempre com a mesma medição da semana anterior (28 dias com 28 dias). Uma semana boa ou ruim sozinha não é tendência.",
+              "Usuários subindo e cliques no ML parados: o problema é a página ou o produto (veja a tabela da segunda-feira).",
+              "Google (Organic Search) crescendo é o melhor sinal: é tráfego que chega sem gastar com anúncio.",
+              "Se o Analytics mostrar zero ou cair de repente, avise o Claude: pode ser o código do Site Kit que parou de funcionar."],
+                LARANJA, LARANJA_C)]
     nome = "Roteiro_Rotinas_Segunda_e_Sexta.pdf"
     doc = SimpleDocTemplate(SAIDA + nome, pagesize=A4, leftMargin=1.6 * cm, rightMargin=1.6 * cm, topMargin=2.2 * cm, bottomMargin=1.5 * cm,
                             title="Rotinas da semana - comprenolink.net", author="comprenolink.net")

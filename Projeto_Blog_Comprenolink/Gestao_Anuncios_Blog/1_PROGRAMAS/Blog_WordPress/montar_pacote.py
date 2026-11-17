@@ -83,6 +83,14 @@ if errorlevel 8 (
 if not exist "%DESTINO%\2_DADOS\Blog_Maquinas" mkdir "%DESTINO%\2_DADOS\Blog_Maquinas"
 if not exist "%DESTINO%\2_DADOS\Blog_WordPress\backups" mkdir "%DESTINO%\2_DADOS\Blog_WordPress\backups"
 if not exist "%DESTINO%\2_DADOS\Blog_WordPress\wp_credenciais.exemplo.json" copy "%~dp0modelo\wp_credenciais.exemplo.json" "%DESTINO%\2_DADOS\Blog_WordPress\" >nul
+if exist "%~dp0modelo\categorias.json" (
+  if exist "%DESTINO%\2_DADOS\Blog_WordPress\categorias.json" (
+    if not exist "%DESTINO%\2_DADOS\Blog_WordPress\old_bkp" mkdir "%DESTINO%\2_DADOS\Blog_WordPress\old_bkp"
+    copy /y "%DESTINO%\2_DADOS\Blog_WordPress\categorias.json" "%DESTINO%\2_DADOS\Blog_WordPress\old_bkp\categorias_antes_da_atualizacao.json" >nul
+  )
+  copy /y "%~dp0modelo\categorias.json" "%DESTINO%\2_DADOS\Blog_WordPress\" >nul
+)
+if exist "%~dp0modelo\paginas_categorias.json" if not exist "%DESTINO%\2_DADOS\Blog_WordPress\paginas_categorias.json" copy "%~dp0modelo\paginas_categorias.json" "%DESTINO%\2_DADOS\Blog_WordPress\" >nul
 echo.
 echo PRONTO: programas atualizados para a versao {versao}.
 if exist "%DESTINO%\2_DADOS\Blog_WordPress\wp_credenciais.json" (echo Senha e backups: mantidos.) else (echo Falta a senha: abra o atalho 2 e siga o passo 3 do LEIA-ME_COMO_INSTALAR_NO_OUTRO_PC.txt)
@@ -110,8 +118,23 @@ máquinas (pasta 2_DADOS) NÃO são tocados. Nada é apagado.
 4. Abra o 2_ABRIR_PAINEL_BLOG_WORDPRESS.bat: deve aparecer "Conectado".
 5. Pode apagar a pasta extraída e o .zip da atualização.
 
+A atualização também traz o PublicarCategorias.exe e o atalho 3_PUBLICAR_CATEGORIAS.bat, e atualiza o
+categorias.json (guardando o anterior em 2_DADOS\\Blog_WordPress\\old_bkp). O paginas_categorias.json só é
+copiado se o PC ainda não tiver o dele.
+
 Primeira instalação (o PC ainda não tem o painel): use o 4_PACOTE_OUTRO_PC.zip.
 """
+
+
+def sincronizar_dados_categorias():
+    """Leva o categorias.json e o paginas_categorias.json (sem senha) do 2_DADOS principal para o pacote."""
+    destino = os.path.join(PACOTE, "2_DADOS", "Blog_WordPress")
+    os.makedirs(destino, exist_ok=True)
+    for nome in ("categorias.json", "paginas_categorias.json"):
+        origem = os.path.join(DADOS, nome)
+        if os.path.isfile(origem):
+            shutil.copy2(origem, os.path.join(destino, nome))
+            print(f"  {nome} copiado para o pacote")
 
 
 def limpar_senhas():
@@ -160,6 +183,8 @@ def gerar_atualizacao():
         z.writestr(f"{NOME_ATUALIZAR}/LEIA-ME_ATUALIZAR.txt", crlf(LEIA_ATUALIZAR.replace("{versao}", versao)))
         z.write(os.path.join(PACOTE, "2_DADOS", "Blog_WordPress", "wp_credenciais.exemplo.json"),
                 f"{NOME_ATUALIZAR}/modelo/wp_credenciais.exemplo.json")
+        for nome in ("categorias.json", "paginas_categorias.json"):
+            z.write(os.path.join(PACOTE, "2_DADOS", "Blog_WordPress", nome), f"{NOME_ATUALIZAR}/modelo/{nome}")
         for d, subs, fs in os.walk(PACOTE):
             rel = os.path.relpath(d, PACOTE)
             if rel.split(os.sep)[0] == "2_DADOS":
@@ -180,6 +205,8 @@ def gerar_atualizacao():
 def main():
     if not os.path.isdir(PACOTE):
         raise SystemExit(f"ERRO: pasta {PACOTE} não existe")
+    print("Levando os dados de categorias para o pacote...")
+    sincronizar_dados_categorias()
     print("Conferindo senha no pacote...")
     limpar_senhas()
     print("Refazendo o zip...")

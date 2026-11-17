@@ -1,0 +1,24 @@
+<!-- TEMPLATE CORRIGIDO comprenolink.net - versao consultiva 15/11/2026 -->
+<!-- Usar somente apos validacao de conformidade, teste mobile e aprovacao do dono. -->
+<style>
+.cnl-art{--azul:#3483FA;--esc:#2968C8;--amar:#FFE600;--tinta:#1F2A44;--cinza:#6B7280;--borda:#E5E7EB;--fundo:#F5F6F8;--verde:#008C45;font:16px/1.55 Arial,sans-serif;color:var(--tinta)}
+.cnl-aviso{font-size:13px;color:var(--cinza);background:var(--fundo);border-left:4px solid var(--amar);padding:10px 12px;border-radius:8px}
+.cnl-tabela-wrap{overflow-x:auto;margin:18px 0}.cnl-comp{width:100%;border-collapse:collapse;min-width:620px}.cnl-comp th{background:var(--tinta);color:#fff;text-align:left;padding:10px}.cnl-comp td{padding:10px;border-bottom:1px solid var(--borda);vertical-align:middle}
+.cnl-cta{display:inline-block;background:var(--azul);color:#fff!important;font-weight:700;padding:11px 16px;border-radius:10px;text-decoration:none}.cnl-cta:hover,.cnl-cta:focus{background:var(--esc)}
+.cnl-review{border:1px solid var(--borda);border-radius:14px;padding:18px;margin:20px 0}.cnl-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.cnl-fonte{font-size:13px;color:var(--cinza)}
+@media(max-width:640px){.cnl-grid{grid-template-columns:1fr}.cnl-cta{display:block;width:100%;box-sizing:border-box;text-align:center}}
+</style>
+<article class="cnl-art">
+<p class="cnl-aviso"><strong>Transparencia:</strong> este artigo contem links de afiliado. Se houver compra por eles, o blog pode receber uma comissao, sem custo adicional para o comprador.</p>
+<h1>{{TITULO_CLARO_SEM_PROMESSA}}</h1>
+<p>{{CONTEXTO_DO_COMPRADOR_E_O_QUE_SERA_COMPARADO}}</p>
+<h2>Comparacao rapida</h2>
+<div class="cnl-tabela-wrap"><table class="cnl-comp"><thead><tr><th>Produto</th><th>Diferenca objetiva</th><th>Indicado para</th><th>Ver anuncio</th></tr></thead><tbody>
+<tr><td><a href="#produto-1">{{NOME_CURTO}}</a></td><td>{{FATO_VERIFICAVEL}}</td><td>{{PERFIL_DE_USO}}</td><td><a class="cnl-cta" href="{{LINK_AFILIADO}}" target="_blank" rel="sponsored nofollow noopener">Ver no Mercado Livre</a></td></tr>
+</tbody></table></div>
+<h2>Como escolher</h2><ul><li>{{CRITERIO_1}}</li><li>{{CRITERIO_2}}</li><li>{{CRITERIO_3}}</li></ul>
+<section class="cnl-review" id="produto-1"><h2>{{NOME_COMPLETO}}</h2><p class="cnl-fonte">Base da analise: {{ESPECIFICACOES_DO_ANUNCIO_ROTULO_OU_FABRICANTE}}. Nao afirmar teste pratico se ele nao ocorreu.</p><div class="cnl-grid"><div><h3>Pontos fortes</h3><ul><li>{{PRO_1}}</li><li>{{PRO_2}}</li></ul></div><div><h3>Pontos de atencao</h3><ul><li>{{CONTRA_1}}</li><li>{{CONTRA_2}}</li></ul></div></div><p><strong>Faz sentido para:</strong> {{PUBLICO_E_CENARIO}}</p><p><a class="cnl-cta" href="{{LINK_AFILIADO}}" target="_blank" rel="sponsored nofollow noopener">Conferir anuncio no Mercado Livre</a></p></section>
+<h2>Perguntas frequentes</h2><h3>{{PERGUNTA_1}}</h3><p>{{RESPOSTA_VISIVEL_E_FACTUAL}}</p><h3>{{PERGUNTA_2}}</h3><p>{{RESPOSTA_VISIVEL_E_FACTUAL}}</p>
+<p class="cnl-aviso">Disponibilidade, condicoes, vendedor e entrega podem mudar. Confirme as informacoes na pagina do anuncio.</p>
+</article>
+<!-- Se FAQPage for mantido, o JSON-LD deve reproduzir exatamente as perguntas e respostas visiveis. Nao tratar como garantia de rich result. -->

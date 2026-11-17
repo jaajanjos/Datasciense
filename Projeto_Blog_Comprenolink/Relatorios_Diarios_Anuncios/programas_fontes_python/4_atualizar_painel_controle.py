@@ -618,9 +618,8 @@ ANALISE_PADRAO = [
                            "de cozinha/casa, que é onde está a venda e os cliques reais)."),
     ("Ponto de atenção 2", "Exportar a lista de vendas do ML Afiliados (19 vendas) para D:\\Projeto_Blog_Comprenolink\\Relatorios_Diarios_Anuncios\\vendas_afiliados: só "
                            "1 está no histórico. Com a lista completa, o painel liga cada venda ao visitante que clicou."),
-    ("Ponto de atenção 3", "4 anúncios fora do ar: itens 43 Garrafa Térmica 900 ml (pausado), 50 Lixeira Inteligente 16 L "
-                           "(removido), 64 Kit 4 Ursinhos Natalinos (pausado, produto de Natal!) e 85 Sérum Vitamina C para Olhos "
-                           "(pausado). Troque os links."),
+    ("Ponto de atenção 3", "Anúncios do guia: veja o quadro 'Precisam de substituto' desta página; ele mostra só o que está "
+                           "fora do ar na última verificação (confirmada 2 vezes antes de marcar)."),
     ("Ponto de atenção 4", "A venda ainda está EM REVISÃO (entrega prevista para 28/10): a comissão de R$ 2,29 só conta "
                            "quando o ML aprovar. Na próxima exportação o estado muda sozinho no painel."),
     ("Ponto de atenção 5", "Faltam 31 dias para a Black Friday: destaque cozinha/casa (copo térmico, potes, tampa), que mais "
@@ -1493,6 +1492,10 @@ def montar(rels, vendas, preservado, avisos, anuncios=None, hist_anuncios=None):
     # ---------- análise do especialista (editável, preservada)
     ws.cell(r, 2, "ANÁLISE DO ESPECIALISTA (texto editável)").font = F_SEC
     analise = preservado["analise"] or ANALISE_PADRAO
+    # texto antigo de 27/10 sobre anúncios fora do ar (itens 43/50/64/85) já foi resolvido: aponta para o quadro atual
+    analise = [(rot, ("Anúncios do guia: veja o quadro 'Precisam de substituto' desta página; ele mostra só o que está fora "
+                      "do ar na última verificação (confirmada 2 vezes antes de marcar).")
+                if str(txt).startswith("4 anúncios fora do ar: itens 43") else txt) for rot, txt in analise]
     r += 1
     for rot, txt in analise:
         ws.merge_cells(start_row=r, start_column=2, end_row=r, end_column=3)

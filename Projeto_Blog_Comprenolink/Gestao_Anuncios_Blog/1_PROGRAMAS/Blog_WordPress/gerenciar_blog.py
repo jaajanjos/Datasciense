@@ -338,7 +338,9 @@ def editar_item(s, n, c):
             link = _link_ok(c["link"]) if c.get("link") else mh.group(4)
             nome = html.escape(c["nome"], quote=False) if c.get("nome") else mh.group(6)
             resto = mh.group(7)
-            if c.get("selo"):
+            if c.get("selo") == "-":   # "-" = deixar o selo em branco (política: selo só com fato; senão vazio)
+                resto = ""
+            elif c.get("selo"):
                 resto = re.sub(r'^(\s*(?:⭐)?\s*).*$', lambda k: (k.group(1) or "⭐ ") + html.escape(c["selo"], quote=False),
                                resto, flags=re.S) if resto.strip() else "⭐ " + html.escape(c["selo"], quote=False)
             novo_inner = f'{mh.group(1)}.{mh.group(2)}<a{mh.group(3)}href="{link}"{mh.group(5)}>{nome}</a>{resto}'

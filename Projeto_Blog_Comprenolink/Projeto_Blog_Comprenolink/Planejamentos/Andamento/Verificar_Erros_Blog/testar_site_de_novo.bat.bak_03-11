@@ -1,0 +1,49 @@
+@echo off
+chcp 65001 >nul
+title Teste completo do site comprenolink.net
+
+rem Roda o check completo do site e abre o relatorio HTML gerado.
+rem Script testado: D:\mercado_livre\docs\teste_site_completo.py
+
+for %%I in ("%~dp0..\docs") do set "PASTA_DOCS=%%~fI"
+
+where python >nul 2>nul
+if errorlevel 1 (
+    echo [ERRO] Python nao encontrado. Instale o Python e marque "Add python.exe to PATH".
+    pause
+    exit /b 1
+)
+
+if not exist "%PASTA_DOCS%\teste_site_completo.py" (
+    echo [ERRO] Nao encontrei "%PASTA_DOCS%\teste_site_completo.py".
+    pause
+    exit /b 1
+)
+
+echo ============================================================
+echo   Testando comprenolink.net (paginas, links e erros)...
+echo   Isso leva cerca de 1 minuto.
+echo ============================================================
+echo.
+
+set PYTHONIOENCODING=utf-8
+python "%PASTA_DOCS%\teste_site_completo.py"
+if errorlevel 1 (
+    echo.
+    echo [ERRO] O teste nao terminou. Veja a mensagem acima.
+    pause
+    exit /b 1
+)
+
+rem Abre o relatorio mais recente
+for /f "delims=" %%F in ('dir /b /o-d "%PASTA_DOCS%\teste_site_*.html" 2^>nul') do (
+    start "" "%PASTA_DOCS%\%%F"
+    goto :aberto
+)
+:aberto
+
+echo.
+echo Pronto. O relatorio foi aberto no navegador e fica salvo em:
+echo   %PASTA_DOCS%
+echo.
+pause
