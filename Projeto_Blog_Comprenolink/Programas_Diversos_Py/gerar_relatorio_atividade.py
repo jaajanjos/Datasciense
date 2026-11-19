@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 """RELATÓRIO DE ATIVIDADES do Claude no blog comprenolink.net / Instagram @compre.no.link (formato diário de bordo).
 Rodar:  python -X utf8 gerar_relatorio_atividade.py
-Saida: D:/Projeto_Blog_Comprenolink/0- Pendencias/4_Relatorio_Ativ_Claude_no_Blog/RELATORIO_ATIVIDADE_CLAUDE_BLOG_DD_MM_AAAA_HHhMM.pdf
+Saida: D:/Projeto_Blog_Comprenolink/0- Pendencias/4_Relatorio_Ativ_Claude_no_Blog/BLOG - Execução de atividades e planejamento_DD_MM_AAAA_HHhMM.pdf
+(nome definido pelo dono em 19/11/2026; antes: RELATORIO_ATIVIDADE_CLAUDE_BLOG_DD_MM_AAAA_HHhMM.pdf)
 
 REGRA DO DONO (29/10/2026): gerar/atualizar SEMPRE ao fim de cada sessão/agendamento: o que foi EXECUTADO (data e hora),
 o que NÃO foi executado, o MOTIVO e a NOVA DATA para reexecutar. Pendência não espera um mês: propor a data mais próxima.
@@ -21,7 +22,7 @@ from reportlab.lib.units import cm  # noqa: E402
 from reportlab.platypus import PageBreak, Paragraph, SimpleDocTemplate, Spacer, Table, TableStyle  # noqa: E402
 
 AGORA = datetime.now()
-SAIDA = rf"D:/Projeto_Blog_Comprenolink/0- Pendencias/4_Relatorio_Ativ_Claude_no_Blog/RELATORIO_ATIVIDADE_CLAUDE_BLOG_{AGORA:%d_%m_%Y_%Hh%M}.pdf"
+SAIDA = rf"D:/Projeto_Blog_Comprenolink/0- Pendencias/4_Relatorio_Ativ_Claude_no_Blog/BLOG - Execução de atividades e planejamento_{AGORA:%d_%m_%Y_%Hh%M}.pdf"
 W, H = landscape(A4)
 LARG = W - 3 * cm
 AZUL = colors.HexColor("#0369A1")
@@ -33,10 +34,6 @@ COR = {EX: (VERDE, VERDE_C), PA: (LARANJA, LARANJA_C), NE: (VERMELHO, VERMELHO_C
 
 # (data, hora, atividade, situação, o que foi feito / evidência, motivo (se não executado), nova data para reexecutar)
 ATIVIDADES = [
-    ('30/10', '20:47', 'ATENÇÃO: a arte e o vídeo de 28/11 trazem textos que a política do blog evita ("MELHOR CUSTO-BENEFÍCIO" no selo e, no Reels, "Um dos mais vendidos e bem avaliados do Mercado Livre")', 'PARCIAL', 'Agendei mesmo assim porque a rotina foi aprovada pelo dono com estas artes e a publicação só ocorre em 28/11, quase um mês à frente; dá tempo de trocar. Não alterei nenhuma arte sem o OK do dono. Se o dono aprovar, regeno feed.png e reels.mp4 sem esses termos e substituo o agendamento de 28/11 (e de 25/11 e 26/11, que já tinham "Melhor").', 'Aguardando OK do dono', 'assim que o dono responder'),
-    ('04/11', '19:17', 'WhatsApp Canal: não publicado', 'NÃO EXECUTADO', 'O pacote de 04/11 não tem bloco 19:20 Canal.', 'Sem bloco 19:20 no pacote', 'Nenhuma'),
-    ('04/11', 'noite', 'Segundo administrador no Canal (sócio) e página comprenolink.net/canal; alinhar o 2º chip Claro pré-pago (aparelho dual SIM)', 'NÃO EXECUTADO', 'Combinado com o dono para o dia seguinte.', 'Depende do dono (administrador) e da compra do chip.', 'qui 05/11'),
-    ('06/11', '19:17', 'WhatsApp Canal 19:20', 'NÃO EXECUTADO', 'Não publicado.', 'O pacote de hoje não tem o bloco 19:20 (regra: só publica no Canal se houver).', ''),
     ('19/11', '00:59', 'Conferência das tarefas agendadas (conversa nova: BLOG - Execução de atividades e planejamento)', 'EXECUTADO', 'Esta conversa assumiu tudo da "Atividades Claude e Planejamento" (passagem registrada nas anotações). Conferi as tarefas agendadas: as 3 da noite de 18/11 (BF/Natal 2, Pixel, Melhorias M0) terminaram com sucesso; as 5 de hoje (10:06, 10:22, 12:23, 20:00 e 20:30) estão ativas. Nenhuma tarefa cita a conversa antiga.', '', ''),
     ('19/11', '01:15', 'Anúncio Black Friday: decisão do dono ("DE ACORDO") aplicada às tarefas', 'EXECUTADO', 'Plano A: R$ 90 de 20 a 27/11 (≈ R$ 11,25/dia), se até sex 20/11 18:00 o limite da Meta (≥ R$ 90) e a comissão dos 5 itens estiverem resolvidos; senão plano B: R$ 50 de 24 a 27/11. Natal R$ 100 mantido e condicional. Criado 1_Pendencias/DECISAO_ANUNCIO_BF_2026.md e ajustadas 4 tarefas (aviso 20/11 09:00, BF/Natal 4, aviso 23/11 09:00, BF/Natal 5), com cópia em old_bkp. Nada alterado na Meta nem no site.', '', 'Dono: limite da Meta e comissão até sex 20/11 18:00'),
     ('19/11', '01:50', 'Anúncio de Natal alterado pelo dono e aplicado às tarefas', 'EXECUTADO', 'Natal = R$ 150 de 14 a 24/12 (substitui R$ 100 de 03 a 14/12), só se a BF passar; anúncio vai até 24/12. Teto sobe para R$ 290 (acumulado possível R$ 289,67). DECISAO_ANUNCIO_BF_2026.md atualizado; tarefas: BF/Natal 6 (30/11) ajustada, BF/Natal 7 movida para 28/12, Pixel diário estendido até 28/12, criadas natal-preparo-11-12 e natal-parada-17-12. Backups em old_bkp.', '', 'Dono: seg 14/12 subir o limite em + R$ 150 e criar o anúncio (se aprovado)'),
@@ -90,12 +87,12 @@ PLANO_ANUNCIO = [
     ("sex 20/11 20:00", "BF/Natal 4: confere o anúncio no ar (aprovado? gastando?), os links e o rastreamento; se não foi criado, propõe o plano B", "A ou B", "Claude (tarefa agendada)", "Agendado"),
     ("qui 19/11 após 20:00", "Criar e publicar o anúncio na Meta: Vendas + SaidaML, R$ 90 total, início sex 20/11 00:00, término 27/11 23:59", "A", "Dono (Claude orienta)", "Aguardando"),
     ("qui 19/11 20:00", "BF/Natal 3 (antecipado): reverifica os 4 links, publica a página 752, entrega o material e troca a campanha no gerador de gráficos", "A", "Claude (tarefa agendada)", "Agendado"),
-    ("sáb 21 a sex 27/11", "Mandar a página 752 à mão para conhecidos e grupos permitidos", "A e B", "Dono", "Aguardando"),
-    ("seg a sex 10:06 e 10:22", "Gráficos do anúncio (retoma seg 23/11; sem sábado e domingo) e Pixel (PageView e SaidaML), com conferência dos 4 links", "A e B", "Claude (tarefa agendada)", "Agendado"),
+    ("sáb 21/11 a sex 27/11 (Previsto: 10:00)", "Mandar a página 752 à mão para conhecidos e grupos permitidos", "A e B", "Dono", "Aguardando"),
+    ("seg 23/11 a sex 27/11, 10:06 e 10:22", "Gráficos do anúncio (retoma seg 23/11; sem sábado e domingo) e Pixel (PageView e SaidaML), com conferência dos 4 links", "A e B", "Claude (tarefa agendada)", "Agendado"),
     ("seg 23/11 09:00", "Aviso. Plano A: números do anúncio no ar. Plano B: ÚLTIMO DIA, decisão até 12:00", "A ou B", "Claude (tarefa agendada)", "Agendado"),
     ("seg 23/11 até 12:00", "Liberar o limite da Meta (pelo menos R$ 50), confirmar a comissão e decidir se o anúncio sai", "B", "Dono", "Só se for B"),
     ("seg 23/11 20:30", "BF/Natal 5. Plano A: checagem de parada (pausar se saída < 3% ou custo por clique de saída > R$ 3). Plano B: publica a página 752, troca a campanha e entrega o checklist", "A ou B", "Claude (tarefa agendada)", "Agendado"),
-    ("seg 23/11 noite", "Plano A: pausar se o Claude recomendar. Plano B: criar e publicar o anúncio de R$ 50 (início 24/11 00:00)", "A ou B", "Dono", "Aguardando"),
+    ("seg 23/11 (Previsto: 21:00)", "Plano A: pausar se o Claude recomendar. Plano B: criar e publicar o anúncio de R$ 50 (início 24/11 00:00)", "A ou B", "Dono", "Aguardando"),
     ("ter 24/11 00:00", "Início do anúncio do plano B", "B", "Meta", "Só se for B"),
     ("qua 25/11 10:06", "Checagem de parada do plano B (mesma regra: saída < 3% ou custo por clique de saída > R$ 3); o Claude avisa e o dono pausa", "B", "Claude avisa, dono pausa", "Só se for B"),
     ("sex 27/11 23:59", "Fim do anúncio da Black Friday", "A e B", "Meta", "Aguardando"),
@@ -103,7 +100,7 @@ PLANO_ANUNCIO = [
     ("qui 19/11 01:45", "Natal alterado pelo dono: R$ 150 de 14 a 22/12 (substitui R$ 100 de 03 a 14/12; o fim foi antecipado de 24 para 22/12 pelo prazo de entrega); teto sobe para R$ 290", "Natal", "Dono", "FEITO"),
     ("sex 11/12 20:30", "Natal: se aprovado, material final, links conferidos e aviso para segunda", "Natal", "Claude (tarefa agendada)", "Agendado"),
     ("seg 14/12", "Subir o limite da Meta em + R$ 150 e criar/publicar o anúncio de Natal (R$ 150, 14/12 00:00 a 22/12 23:59, ≈ R$ 16,67/dia)", "Natal", "Dono (Claude orienta)", "Só se aprovado"),
-    ("14 a 22/12, seg a sex 10:06", "Acompanhamento diário do Natal (gráficos, Pixel e links)", "Natal", "Claude (tarefa agendada)", "Só se aprovado"),
+    ("seg 14/12 a ter 22/12, seg a sex 10:06", "Acompanhamento diário do Natal (gráficos, Pixel e links)", "Natal", "Claude (tarefa agendada)", "Só se aprovado"),
     ("qui 17/12 20:00", "Checagem de parada do Natal (pausar se saída < 3% ou custo por clique de saída > R$ 3)", "Natal", "Claude avisa, dono pausa", "Agendado"),
     ("ter 22/12 23:59", "Fim do anúncio de Natal (antecipado de 24/12 pelo prazo de entrega do ML; decisão do dono)", "Natal", "Meta", "Só se aprovado"),
     ("seg 28/12 20:30", "BF/Natal 7: fechamento (resultado, custo total, vendas e o que aprendemos; comissão do ML cai em ~60 dias). Movido de 14/12", "A, B e Natal", "Claude (tarefa agendada)", "Agendado"),
@@ -241,32 +238,68 @@ def abre(d):
 def main():
     doc = SimpleDocTemplate(SAIDA, pagesize=(W, H), leftMargin=1.5 * cm, rightMargin=1.5 * cm, topMargin=2.4 * cm, bottomMargin=1.5 * cm,
                             title="Relatório de atividades do Claude – blog", author="comprenolink.net")
-    nao = [a for a in ATIVIDADES if a[3] in (NE, PA)]
-    dest = Table([[Paragraph(f"<b>{DESTAQUE_TITULO}</b>", ParagraphStyle("dt", parent=TXT, fontSize=12, leading=15, textColor=colors.white))]],
-                 colWidths=[LARG])
-    dest.setStyle(TableStyle([("BACKGROUND", (0, 0), (-1, -1), VERMELHO), ("TOPPADDING", (0, 0), (-1, -1), 7), ("BOTTOMPADDING", (0, 0), (-1, -1), 7)]))
-    # MODO SÓ PENDENTES (pedido do dono em 19/11/2026): sem histórico de executadas e sem análises; o que foi feito sai do relatório.
-    feitos = sorted([p_ for p_ in PLANO_ANUNCIO if p_[4].upper().startswith("FEITO")], key=lambda p_: p_[0][-5:])
-    resto = [p_ for p_ in PLANO_ANUNCIO if not p_[4].upper().startswith("FEITO")]
-    verde_txt = VERDE.hexval().replace("0x", "#")
-    falta = [list(p_[:4]) + [f'<font color="{verde_txt}"><b>{p_[4]}</b></font>'] for p_ in feitos] + [list(p_) for p_ in resto]
-    faixa = lambda t, cor: Table([[Paragraph(f"<b>{t}</b>", ParagraphStyle("fx", parent=TXT, fontSize=11, leading=14, textColor=colors.white))]],  # noqa: E731
-                                 colWidths=[LARG], style=[("BACKGROUND", (0, 0), (-1, -1), cor), ("TOPPADDING", (0, 0), (-1, -1), 6), ("BOTTOMPADDING", (0, 0), (-1, -1), 6)])
-    plano_tab = tabela(["Data e hora", "Atividade", "Plano", "Quem executa", "Situação"], falta, [0.13, 0.50, 0.12, 0.15, 0.10], cor=AZUL)
-    for r_ in range(1, len(feitos) + 1):  # itens já feitos: linha inteira em verde
-        plano_tab.setStyle(TableStyle([("BACKGROUND", (0, r_), (-1, r_), VERDE_C)]))
-    st = [dest, tabela(["#", "O que fazer", "Prazo", "Por quê"], [list(d) for d in DESTAQUE], [0.04, 0.56, 0.12, 0.28], cor=VERMELHO),
-          Spacer(1, 10), faixa("PLANO DO ANÚNCIO (A = R$ 90 de 20 a 27/11  |  B = R$ 50 de 24 a 27/11  |  NATAL = R$ 150 de 14 a 22/12), EM ORDEM DE DATA: EM VERDE, O QUE JÁ FOI FEITO", AZUL),
-          plano_tab,
-          Spacer(1, 10), P("Outras pendências em aberto", "h2"),
-          tabela(["Data", "Atividade", "Situação", "Motivo", "Nova data para reexecutar"],
-                 [[a[0], a[2], a[3], a[5], a[6]] for a in nao], [0.05, 0.28, 0.09, 0.32, 0.26], cor=VERMELHO, col_situacao=2),
-          Spacer(1, 10), P("Quem faz o quê e quando (só o que está em aberto)", "h2"),
-          tabela(["Quando", "Quem", "O que", "Ganho / observação"], [list(r) for r in REEXECUCAO], [0.17, 0.10, 0.38, 0.35], cor=LARANJA),
-          Spacer(1, 10), P("Reels ainda sem agendar (o Instagram libera 29 dias antes)", "h2"),
-          tabela(["Dia de post", "Produto", "Pode agendar a partir de", "Situação"],
-                 [[d, p_, abre(d), "pendente"] for d, p_ in FALTA_AGENDAR], [0.12, 0.46, 0.2, 0.22], cor=AZUL),
-          Spacer(1, 10), P("Observações", "h2")]
+    # ===== FORMATO PADRÃO (dono, 19/11/2026): TODA linha = Atividade | Status | Quem | Data e horário.
+    # Status só "Pendente" ou "Concluído"; nunca linha sem data E hora (se ainda não há, "Previsto: dia/hora"). O gerador recusa se faltar.
+    import re as _re
+
+    def _hora(d, quem):
+        if _re.search(r"\d{1,2}:\d{2}", d) or "Previsto" in d:
+            return d
+        return f"{d} (Previsto: {'20:00' if 'Claude' in quem else '09:00'})"
+
+    def _chave(d):
+        m = _re.search(r"(\d{1,2})/(\d{1,2})", d)
+        h = _re.search(r"(\d{1,2}):(\d{2})", d)
+        hh = (int(h.group(1)), int(h.group(2)) + (1 if "após" in d else 0)) if h else (99, 0)
+        return (int(m.group(2)), int(m.group(1)), hh) if m else (12, 31, hh)
+
+    def _linhas_padrao(itens):
+        """itens: (atividade, status, quem, data). Valida e ordena por data."""
+        out = []
+        for atv, stt, quem, dat in itens:
+            assert stt in ("Pendente", "Concluído"), f"Status inválido: {stt!r} ({atv[:40]})"
+            assert quem and atv and dat, f"Linha sem campo: {atv[:40]}"
+            dat = _hora(dat, quem)
+            assert _re.search(r"\d{1,2}:\d{2}", dat), f"Linha sem hora: {atv[:40]}"
+            out.append((atv, stt, quem, dat))
+        return sorted(out, key=lambda x: _chave(x[3]))
+
+    def quadro(titulo, cor, itens):
+        linhas = _linhas_padrao(itens)
+        verde = VERDE.hexval().replace("0x", "#")
+        dados = [[a_, f'<font color="{verde}"><b>{s_}</b></font>' if s_ == "Concluído" else s_, q_, d_] for a_, s_, q_, d_ in linhas]
+        t = tabela(["Atividade", "Status", "Quem", "Data e horário"], dados, [0.52, 0.10, 0.18, 0.20], cor=cor)
+        for r_, (_, s_, _, _) in enumerate(linhas, start=1):
+            if s_ == "Concluído":
+                t.setStyle(TableStyle([("BACKGROUND", (0, r_), (-1, r_), VERDE_C)]))
+        faixa = Table([[Paragraph(f"<b>{titulo}</b>", ParagraphStyle("fx", parent=TXT, fontSize=11, leading=14, textColor=colors.white))]],
+                      colWidths=[LARG], style=[("BACKGROUND", (0, 0), (-1, -1), cor), ("TOPPADDING", (0, 0), (-1, -1), 6), ("BOTTOMPADDING", (0, 0), (-1, -1), 6)])
+        return [faixa, t]
+
+    # 1) o que o dono ainda deve fazer no anúncio (destaque)
+    destaque = [("Criar e publicar o anúncio na Meta com o material que o Claude entrega (Vendas + SaidaML, R$ 90 total, AGENDADO para começar sex 20/11 00:00 e terminar 27/11 23:59). "
+                 "Criando hoje, a Meta revisa e ele já roda sexta de manhã", "Pendente", "Dono (Claude orienta)", "qui 19/11, depois das 20:00 (Previsto: 20:30)")]
+    # 2) plano do anúncio A / B / Natal: o feito fica em verde
+    plano = []
+    for dat, atv, pl, quem, stt in PLANO_ANUNCIO:
+        feito = stt.upper().startswith("FEITO")
+        extra = "" if feito or not stt.lower().startswith("só") else f" ({stt[0].lower() + stt[1:]})"
+        plano.append((f"[{pl}] {atv}{extra}", "Concluído" if feito else "Pendente", quem, dat))
+    # 3) demais pendências, cada uma com quem e quando (data prevista quando ainda não há)
+    demais = [
+        ("Reconectar a extensão do Claude no Chrome (sem isso o Reels das 20:30 falha)", "Pendente", "Dono", "qui 19/11 antes de 20:30 (Previsto: 19:30)"),
+        ("Agendar no Instagram o Reels de 18/12 (Máquina de Cortar Cabelo Nixzen, 19:05)", "Pendente", "Claude (tarefa agendada)", "qui 19/11 20:30"),
+        ("Agendar no Instagram o Reels de 21/12 (Jogo de Lençol Percal 600 Fios, 19:05); janela abre 22/11 ~20:00", "Pendente", "Claude (rotina de segunda)", "seg 23/11 20:00"),
+        ("Agendar no Instagram o Reels de 23/12 (Cortina de LED 3x3 m, 19:05); janela abre 24/11 ~20:00", "Pendente", "Claude (rotina de segunda)", "seg 30/11 20:00 (Previsto)"),
+        ("\"De acordo\" do dono para corrigir as legendas dos Reels (tirar \"Comente BLACK... Direct\") e arquivar os posts repetidos de 11, 13, 16 e 18/11", "Pendente", "Dono aprova; Claude executa", "aprovar até sex 20/11 12:00 (Previsto); executar seg 23/11 20:00"),
+        ("Validar link e produto dos itens 67 (Suporte de TV) e 181 (Fone Soundcore P30i)", "Pendente", "Dono", "sex 20/11 12:00 (Previsto)"),
+        ("Decidir a frase \"dieta e alimentação leve\" da legenda da Air Fryer (11/11) e a foto da LG (26/11), que traz \"melhor\" na imagem do fabricante", "Pendente", "Dono", "ter 24/11 12:00 (Previsto)"),
+    ]
+    st = quadro("ANÚNCIO BLACK FRIDAY: O QUE VOCÊ AINDA DEVE FAZER (HOJE, qui 19/11, à noite)", VERMELHO, destaque)
+    st += [Spacer(1, 10)] + quadro("PLANO DO ANÚNCIO (A = R$ 90 de 20 a 27/11 | B = R$ 50 de 24 a 27/11 | NATAL = R$ 150 de 14 a 22/12), EM ORDEM DE DATA: EM VERDE, O QUE JÁ FOI FEITO", AZUL, plano)
+    from reportlab.platypus import KeepTogether
+    st += [Spacer(1, 10), KeepTogether(quadro("OUTRAS PENDÊNCIAS, CADA UMA COM QUEM E QUANDO", LARANJA, demais))]
+    st += [Spacer(1, 10), P("Observações", "h2")]
     for o in OBSERVACOES:
         st += [Paragraph("• " + o, TXT), Spacer(1, 4)]
     doc.build(st, onFirstPage=cab_rod, onLaterPages=cab_rod)
@@ -276,7 +309,7 @@ def main():
     bkp = os.path.join(pasta, "old_bkp")
     os.makedirs(bkp, exist_ok=True)
     for nome in os.listdir(pasta):
-        if nome.startswith("RELATORIO_ATIVIDADE_CLAUDE_BLOG_") and nome.endswith(".pdf") and nome != os.path.basename(SAIDA):
+        if nome.startswith(("BLOG - Execução de atividades e planejamento_", "RELATORIO_ATIVIDADE_CLAUDE_BLOG_")) and nome.endswith(".pdf") and nome != os.path.basename(SAIDA):
             destino = os.path.join(bkp, nome)
             if not os.path.exists(destino):
                 try:

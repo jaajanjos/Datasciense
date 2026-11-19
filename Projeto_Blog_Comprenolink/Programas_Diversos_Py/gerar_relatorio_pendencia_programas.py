@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
-"""Relatorio diario da conversa BLOG - Pendencia e ajustes em programas.
-Regra do dono: executado com sucesso fica SO no dia; no dia seguinte sai.
-Pendencias ficam ate a solucao. Uma unica versao na pasta (anterior -> old_bkp)."""
-import os, shutil, glob
+"""Relatorio da conversa BLOG - Pendencia e ajustes em programas.
+Regra do dono (19/11/2026): so PENDENCIAS e atividades a realizar; concluida e RETIRADA.
+Toda linha: Atividade | Status | Quem | Data e horario (nunca sem data/hora; sem data = "Previsto: dia/hora").
+Uma unica versao na pasta (anterior -> old_bkp)."""
+import os, re, sys, shutil, glob
 from datetime import datetime
 from reportlab.lib.pagesizes import A4
 from reportlab.lib import colors
@@ -11,52 +12,54 @@ from reportlab.platypus import SimpleDocTemplate, Paragraph, Table, TableStyle
 
 PASTA = r"D:\Projeto_Blog_Comprenolink\0- Pendencias\4_Relatorio_Ativ_Claude_no_Blog"
 HOJE = datetime.now()
-HOJE_S = HOJE.strftime("%d/%m/%Y")
 
-# (data DD/MM/AAAA, atividade, situacao)  -> aparece so se data == hoje
-EXECUTADO = [
-]
-
-# ficam ate a solucao: (atividade, situacao / quem / quando)
-PENDENCIAS = [
-    ("Sincronizar Reels do Instagram na Pagina Facebook Comprenolink - hoje: Reels de 06/11 e 09/11",
-     "Hoje 19/11 as 20h. Eu tento publicar (autorizado pelo dono); se travar na janela do video, oriento passo a passo."),
-    ("Sincronizar os demais Reels (11/11, 13/11, 16/11, 18/11 e os novos do dia a dia)",
-     "Max. 2 por dia, a partir de sex 20/11 as 20h, conforme a agenda. Ja publicados: 02/11 e 04/11."),
+# (atividade, status, quem, data e horario)   status: Pendente | Concluido (concluido nao entra no PDF)
+ATIVIDADES = [
+    ("Sincronizar Reels do Instagram na Pagina Facebook Comprenolink: Reels de 06/11 e 09/11",
+     "Pendente", "Claude publica (dono escolhe o video; se travar, guia passo a passo)", "19/11/2026 as 20h"),
+    ("Sincronizar Reels: 11/11 e o Reel novo do dia",
+     "Pendente", "Claude publica (dono escolhe o video)", "20/11/2026 as 20h"),
+    ("Sincronizar Reels: 13/11 e o Reel novo do dia",
+     "Pendente", "Claude publica (dono escolhe o video)", "23/11/2026 as 20h"),
+    ("Sincronizar Reels: 16/11 e o Reel novo do dia",
+     "Pendente", "Claude publica (dono escolhe o video)", "24/11/2026 as 20h"),
+    ("Sincronizar Reels: 18/11 e o Reel novo do dia",
+     "Pendente", "Claude publica (dono escolhe o video)", "25/11/2026 as 20h"),
+    ("Sincronizar os Reels novos seguintes (ate 23/12, max. 2 por dia)",
+     "Pendente", "Claude publica (dono escolhe o video)", "Previsto: de 26/11/2026 a 23/12/2026, sempre as 20h"),
     ("Reels sem video localizado (12/11 JBL e mais 2 do Instagram)",
-     "Aguardando o dono indicar onde esta o video."),
+     "Pendente", "Dono indica onde esta o video", "Previsto: 20/11/2026 as 20h"),
 ]
 
-def tabela(linhas, cab, larg):
-    st = getSampleStyleSheet()["BodyText"]; st.fontSize = 9; st.leading = 11
-    dados = [[Paragraph("<b>%s</b>" % c, st) for c in cab]]
-    for l in linhas:
-        dados.append([Paragraph(x, st) for x in l])
-    t = Table(dados, colWidths=larg, repeatRows=1)
-    t.setStyle(TableStyle([("BACKGROUND", (0, 0), (-1, 0), colors.HexColor("#E8E8E8")),
-                           ("GRID", (0, 0), (-1, -1), 0.4, colors.grey),
-                           ("VALIGN", (0, 0), (-1, -1), "TOP")]))
-    return t
+def validar():
+    for a in ATIVIDADES:
+        if len(a) != 4 or not all(str(x).strip() for x in a):
+            sys.exit("RECUSADO: linha com campo vazio: %r" % (a,))
+        if a[1] not in ("Pendente", "Concluido"):
+            sys.exit("RECUSADO: status invalido: %r" % (a,))
+        if not re.search(r"\d{1,2}/\d{1,2}", a[3]) or not re.search(r"\d{1,2}\s*h", a[3]):
+            sys.exit("RECUSADO: falta data e horario: %r" % (a,))
 
 def main():
+    validar()
+    linhas = [a for a in ATIVIDADES if a[1] == "Pendente"]
     os.makedirs(os.path.join(PASTA, "old_bkp"), exist_ok=True)
-    for f in glob.glob(os.path.join(PASTA, "RELATORIO_PENDENCIA_PROGRAMAS_*.pdf")):
+    for f in glob.glob(os.path.join(PASTA, "BLOG- Pendencia e ajustes em programas_*.pdf")):
         shutil.move(f, os.path.join(PASTA, "old_bkp", os.path.basename(f)))
-    nome = "RELATORIO_PENDENCIA_PROGRAMAS_%s.pdf" % HOJE.strftime("%d_%m_%Y_%Hh%M")
-    caminho = os.path.join(PASTA, nome)
+    caminho = os.path.join(PASTA, "BLOG- Pendencia e ajustes em programas_%s.pdf" % HOJE.strftime("%d_%m_%Y_%Hh%M"))
     ss = getSampleStyleSheet()
-    h = ParagraphStyle("h", parent=ss["Heading2"], spaceBefore=10)
+    st = ParagraphStyle("c", parent=ss["BodyText"], fontSize=9, leading=11)
+    dados = [[Paragraph("<b>%s</b>" % c, st) for c in ("Atividade", "Status", "Quem", "Data e horario")]]
+    for l in linhas:
+        dados.append([Paragraph(x, st) for x in l])
+    t = Table(dados, colWidths=[200, 55, 150, 122], repeatRows=1)
+    t.setStyle(TableStyle([("BACKGROUND", (0, 0), (-1, 0), colors.HexColor("#E8E8E8")),
+                           ("GRID", (0, 0), (-1, -1), 0.4, colors.grey), ("VALIGN", (0, 0), (-1, -1), "TOP")]))
     doc = SimpleDocTemplate(caminho, pagesize=A4, leftMargin=36, rightMargin=36, topMargin=36, bottomMargin=36,
-                            title="Relatorio Pendencia e ajustes em programas")
-    el = [Paragraph("Relatorio - BLOG: Pendencia e ajustes em programas", ss["Title"]),
-          Paragraph("Gerado em %s as %s. Regra: executado com sucesso fica so no dia e sai no dia seguinte; "
-                    "pendencias ficam ate a solucao." % (HOJE_S, HOJE.strftime("%Hh%M")), ss["BodyText"]),
-          Paragraph("Executado hoje (%s)" % HOJE_S, h)]
-    ex = [(a, s) for d, a, s in EXECUTADO if d == HOJE_S]
-    el.append(tabela(ex, ["Atividade", "Situacao"], [200, 327]) if ex else Paragraph("Nada executado hoje ate o momento.", ss["BodyText"]))
-    el.append(Paragraph("Pendencias (ficam ate a solucao)", h))
-    el.append(tabela(PENDENCIAS, ["Atividade", "Situacao / quem / quando"], [230, 297]))
-    doc.build(el)
+                            title="BLOG - Pendencia e ajustes em programas")
+    doc.build([Paragraph("BLOG: Pendencia e ajustes em programas", ss["Title"]),
+               Paragraph("Gerado em %s as %s. So pendencias e atividades a realizar; concluida sai do quadro."
+                         % (HOJE.strftime("%d/%m/%Y"), HOJE.strftime("%Hh%M")), ss["BodyText"]), t])
     print(caminho)
 
 if __name__ == "__main__":
