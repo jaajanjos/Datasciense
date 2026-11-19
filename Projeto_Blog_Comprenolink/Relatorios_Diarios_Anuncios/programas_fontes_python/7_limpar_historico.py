@@ -2,7 +2,8 @@
 """
 Limpa os arquivos acumulados em Relatorios_Diarios_Anuncios depois que o painel foi consolidado.
 
-O que sai (vai para a LIXEIRA do Windows, dá para recuperar):
+O que sai da pasta principal (REGRA DO DONO, 19/11/2026: nada vai para a Lixeira; os antigos são MOVIDOS para a pasta old_bkp
+da própria pasta, sempre dentro do diretório do projeto):
   - Painel_conversao_performance_*.pdf ........ fica 1 por dia, dos últimos N dias
   - _historico_relatorios\\relatorio_*.html .... ficam os dos últimos N dias; um HTML só sai se as métricas
                                                  do dia dele já estão em historico_consolidado\\historico_quadros.csv
@@ -71,14 +72,23 @@ def ultimos_dias(arquivos, n, um_por_dia):
     return manter | sem_data
 
 
-def para_lixeira(caminhos):
+def para_old_bkp(caminhos):
+    """Move cada arquivo para old_bkp da MESMA pasta (dentro do projeto). Não apaga nada e não usa a Lixeira."""
     if not caminhos or SIMULAR:
         return
-    lista = "\n".join(caminhos)
-    script = ("Add-Type -AssemblyName Microsoft.VisualBasic; $input | ForEach-Object { if ($_ -and (Test-Path -LiteralPath $_)) "
-              "{ [Microsoft.VisualBasic.FileIO.FileSystem]::DeleteFile($_, 'OnlyErrorDialogs', 'SendToRecycleBin') } }")
-    subprocess.run(["powershell", "-NoProfile", "-Command", script], input=lista, text=True, encoding="utf-8",
-                   check=True, capture_output=True)
+    for c in caminhos:
+        if not os.path.exists(c):
+            continue
+        bkp = os.path.join(os.path.dirname(c), "old_bkp")
+        os.makedirs(bkp, exist_ok=True)
+        destino = os.path.join(bkp, os.path.basename(c))
+        if os.path.exists(destino):  # já há uma cópia igual no old_bkp: acrescenta a hora para não perder nenhuma
+            nome, ext = os.path.splitext(os.path.basename(c))
+            destino = os.path.join(bkp, f"{nome}_dup{int(os.path.getmtime(c))}{ext}")
+        try:
+            os.replace(c, destino)
+        except PermissionError:  # arquivo aberto em outro programa: fica onde está e sai na próxima limpeza
+            print("  ! aberto em outro programa, fica na pasta por enquanto:", os.path.basename(c))
 
 
 def main():
@@ -124,9 +134,9 @@ def main():
         print("Nada a limpar.")
         return 0
     for a in sair:
-        print(("  [simulação] " if SIMULAR else "  → Lixeira: ") + os.path.relpath(a, PASTA))
-    para_lixeira(sair)
-    print(f"{len(sair)} arquivo(s), {total / 1024 / 1024:.1f} MB {'seriam liberados' if SIMULAR else 'enviados para a Lixeira'}.")
+        print(("  [simulação] " if SIMULAR else "  → old_bkp: ") + os.path.relpath(a, PASTA))
+    para_old_bkp(sair)
+    print(f"{len(sair)} arquivo(s), {total / 1024 / 1024:.1f} MB {'seriam movidos para old_bkp' if SIMULAR else 'movidos para old_bkp (nada foi apagado)'}.")
     return 0
 
 

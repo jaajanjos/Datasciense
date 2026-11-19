@@ -22,6 +22,15 @@ computador (o "Browser 1"/onThisComputer, com o ML Afiliados logado). Abra uma a
 Se nenhum navegador estiver conectado ou o ML Afiliados não estiver logado (sem a barra "Afiliados" no topo da página do
 produto), **não** tente contornar: grave o arquivo de saída com `"situacao_geral": "navegador_indisponivel"` e o motivo.
 
+## REGRA DO DONO (19/11/2026) — substituto de MAIOR COMISSÃO
+Ao substituir um anúncio fora do normal, o dono autoriza trocar por um produto que esteja GERANDO MAIOR COMISSÃO no ML Afiliados:
+escolha entre os melhores colocados do ranking de vendas dos afiliados do ML (painel do ML Afiliados, com o dono logado), na MESMA
+categoria do guia do item pendente, e que cumpram a política de venda abaixo e as regras de texto do blog. Compare a taxa de
+comissão mostrada no painel (nunca invente: se o painel não mostrar a taxa, use a do ranking e diga que a taxa é estimada).
+Se não houver produto de comissão maior dentro da política, use o critério normal abaixo (mesmo produto/mesmo tipo). Registre em
+cada substituição, dentro do campo "conferido", a posição no ranking (se visível), a taxa de comissão e se foi usado o critério de comissão.
+"Mais vendido" é só critério interno: NUNCA escreva isso nos textos do blog.
+
 ## Para cada item pendente
 1. **Escolha do substituto**, nesta ordem (vale sempre a MELHOR política de venda):
    1. Mesmo produto (mesmo catálogo, outro vendedor) em `busca_mesmo_produto`. Se não houver anúncio ativo bom:

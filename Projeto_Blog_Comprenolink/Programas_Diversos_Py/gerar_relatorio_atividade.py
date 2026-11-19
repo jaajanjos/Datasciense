@@ -33,62 +33,156 @@ COR = {EX: (VERDE, VERDE_C), PA: (LARANJA, LARANJA_C), NE: (VERMELHO, VERMELHO_C
 
 # (data, hora, atividade, situação, o que foi feito / evidência, motivo (se não executado), nova data para reexecutar)
 ATIVIDADES = [
-    ('29/10', '19:03 e 19:16 a 19:20', 'Tentei agendar com mais de 29 dias à frente pelo Meta Business Suite (para dezembro não esperar 1 mês)', 'NÃO EXECUTADO', 'Você entrou no Business Suite com o Instagram do blog (sem Facebook). Abri Criar postagem > Agendar e testei o calendário: 28/11 em diante aparece bloqueado, igual ao site do Instagram. Cancelei sem publicar nada.', 'O limite de 29 dias é do próprio Instagram; o Business Suite não ajuda para contas só de Instagram.', 'Não há atalho: dezembro abre dia a dia (tabela 4). O Claude agenda a cada dia, sem esperar mais que o necessário.'),
-    ('29/10', '19:12 a 19:16', 'Instagram: agendar post (19:00) e Reels (19:05) de 27/11 – Power Bank Anker', 'NÃO EXECUTADO', 'Cancelei o cron das 19:13 para fazer na hora. Subi feed.png, escrevi a legenda, escolhi 27/11. O Instagram aceitou 18:00 e recusou 18:30, 18:59 e 19:00 ("escolha uma data dentro dos próximos 29 dias"). Descartei o rascunho sem agendar.', 'A janela real do Instagram fica cerca de 1 hora atrás do relógio: o horário 19:00 de 27/11 só abre perto das 20:00 de hoje (o cálculo anterior, 19:00, estava errado).', 'Refeito com sucesso às 20:09 a 20:13 (linhas abaixo).'),
-    ('29/10', '20:04', 'Instagram: conferi o post de boas-vindas restaurado pelo dono', 'PARCIAL', 'Post voltou com o mesmo endereço (instagram.com/p/DfAUWWGsITn), então a automação BLACK continua ligada a ele. NÃO está fixado: o site não tem a opção Fixar. Comentário "Black" feito pela própria compre.no.link não dispara a automação.', 'Fixar e testar dependem do celular e de uma segunda conta do dono.', 'HOJE: dono fixa pelo app (⋯ > Fixar no perfil) e comenta BLACK pela conta pessoal; Claude confere a resposta pública no post.'),
     ('30/10', '20:47', 'ATENÇÃO: a arte e o vídeo de 28/11 trazem textos que a política do blog evita ("MELHOR CUSTO-BENEFÍCIO" no selo e, no Reels, "Um dos mais vendidos e bem avaliados do Mercado Livre")', 'PARCIAL', 'Agendei mesmo assim porque a rotina foi aprovada pelo dono com estas artes e a publicação só ocorre em 28/11, quase um mês à frente; dá tempo de trocar. Não alterei nenhuma arte sem o OK do dono. Se o dono aprovar, regeno feed.png e reels.mp4 sem esses termos e substituo o agendamento de 28/11 (e de 25/11 e 26/11, que já tinham "Melhor").', 'Aguardando OK do dono', 'assim que o dono responder'),
-    ('31/10', '16:56', 'O gerador deste relatório voltou a uma versão antiga (sem as minhas anotações das 16:31) e o PDF das 00h57 reapareceu na pasta', 'PARCIAL', 'Não sei a causa (possível sincronização com o outro PC). Refiz as anotações. CSV, painel de 16:37 e pacotes novos estavam intactos. Vale o dono conferir se há sincronização automática entre os dois PCs sobrescrevendo Programas_Diversos_Py.', 'Dono confere a sincronização', 'assim que puder'),
-    ('01/11', '11:15', 'Marcar "Cadastrado = S" na planilha CATALOGO_CATEGORIAS.xlsx', 'PARCIAL', 'Não consegui gravar: o arquivo está aberto no Excel. As 9 categorias já existem no WhatsApp (confirmado pelo dono).', 'Excel aberto', 'assim que o dono fechar o Excel e avisar'),
-    ('02/11', '21:05 a 21:21', 'Instagram Story com link agendado no Business Suite: 04/11, 06/11 e 09/11 às 19:10', 'PARCIAL', 'Descobri como agendar o Story com adesivo de link e posicionar o adesivo por script. Faltam 13 (11/11 a 30/11), cerca de 5 min cada; abri uma sessão própria (card "Agendar 13 Stories").', 'Cada Story leva vários passos no navegador', 'Sessão própria, assim que o dono iniciar o card'),
-    ('02/11', '22:05', 'Instagram: trocar post 19:00 e Reels 19:05 de 13/11, 18/11 e 23/11 (fotos erradas) e agendar os 3 Stories', 'PARCIAL', 'Pedido enviado à sessão dos Stories, que tem o contexto do Chrome: criar os novos, conferir e excluir os antigos errados.', 'Aguardando a sessão terminar', 'Hoje, assim que a sessão terminar'),
     ('04/11', '19:17', 'WhatsApp Canal: não publicado', 'NÃO EXECUTADO', 'O pacote de 04/11 não tem bloco 19:20 Canal.', 'Sem bloco 19:20 no pacote', 'Nenhuma'),
-    ('04/11', '20:39', 'Rotina diária de agendamento no Instagram (dia 02/12, cuja janela abriu em 03/11 às ~20:00)', 'NÃO EXECUTADO', 'Não executei: o Chrome conectado ao Claude está com o Instagram DESLOGADO (abriu a tela de login em instagram.com/scheduled_content). Não digito senha nem faço login pelo dono, e não pude conferir no calendário se 02/12 já tinha sido agendado em 03/11. Também não há dia novo hoje além de 02/12 (a janela de 04/12 só abre em 05/11, ~20:00).', 'Instagram deslogado no Chrome do Claude', 'assim que o dono entrar no Instagram (@compre.no.link) neste Chrome e escrever "agendar 02/12"; 04/12 segue em 05/11 ~20:39'),
     ('04/11', 'noite', 'Segundo administrador no Canal (sócio) e página comprenolink.net/canal; alinhar o 2º chip Claro pré-pago (aparelho dual SIM)', 'NÃO EXECUTADO', 'Combinado com o dono para o dia seguinte.', 'Depende do dono (administrador) e da compra do chip.', 'qui 05/11'),
-    ('05/11', '10:10', 'Item 39 do relatório (Kit 3 Formas Antiaderentes): NÃO trocado', 'NÃO EXECUTADO', 'O item 39 do blog hoje é a Câmera Lâmpada Wi-Fi (ativa); o Kit 3 Formas não existe mais no guia: resíduo do histórico do painel.', 'Trocar sobrescreveria um item ativo', 'seg 09/11 (conferir se o painel ainda lista o 39)'),
     ('06/11', '19:17', 'WhatsApp Canal 19:20', 'NÃO EXECUTADO', 'Não publicado.', 'O pacote de hoje não tem o bloco 19:20 (regra: só publica no Canal se houver).', ''),
-    ('09/11', '08:06', 'Criada a rotina de atualização automática dos anúncios (Relatorios_Diarios_Anuncios\\atualiza_automatica_py_anuncios)', 'PARCIAL', 'Menu 0_MENU_ATUALIZA_ANUNCIOS.bat + 0_executar_tudo.py com 5 etapas: verificar no ML + relatório HTML, lista de substitutos, substituição com o Claude (Chrome logado, sem aprovação prévia: o dono valida depois), troca no blog com backup e validação dos links, painel PDF + planilha + resumo. Documentação DOCUMENTACAO_ATUALIZA_ANUNCIOS_09_11_2026.pdf (como executar, riscos e atenção). Testes: simulação completa OK (4 anúncios fora do ar hoje: itens 51, 182, 191, 196), validação da IA OK, troca no blog em pré-visualização OK (nada publicado).', 'Primeira execução real pendente: o login do Claude Code de terminal está expirado (fazer /login) e o Chrome precisa estar logado no ML Afiliados.', '09/11'),
-    ('09/11', '08:25', '1ª execução real da substituição automática CANCELADA pelo dono (consumo alto do plano)', 'NÃO EXECUTADO', 'Login do Claude Code feito pelo dono (Pro) e Chrome conectado. Etapa 1 concluída (verificação dos 213 anúncios + relatório às 08:22); cancelado durante a etapa 3, antes de qualquer troca: nada publicado no blog, nenhum arquivo de substituição gerado.', 'Decisão do dono: substituir manualmente. A rotina fica disponível; a opção 3 (relatório + painel, sem Claude) não consome o plano.', ''),
-    ('18/11', '10:06', 'Gráficos diários do anúncio Meta (rotina)', 'EXECUTADO', 'Rotina rodou e foi PULADA pela regra de saldo: anúncio Concluído, saldo R$ 0,33 e 260 visitas, igual à leitura anterior. Nenhum PDF novo de gráficos.', '', ''),
-    ('18/11', '10:22', 'Evolução diária do Pixel da Meta (rotina)', 'EXECUTADO', 'Rodou: snippet 12 ainda estava inativo naquele horário, então não abriu a Meta nem gravou no CSV (ativado só às 20:05).', '', ''),
-    ('18/11', '12:23', 'Relatório das atividades da manhã', 'EXECUTADO', 'As duas rotinas da manhã rodaram sem falha; nada precisou ser corrigido.', '', ''),
-    ('18/11', '13:49', 'Página Privacidade: descrição própria no ar (AIOSEO)', 'EXECUTADO', 'Descrição gravada na página id 3 e conferida; backup em 2_DADOS\\Blog_WordPress\x08ackups.', '', ''),
-    ('18/11', '14:00 a 14:30', 'Estrutura oficial de pastas: varredura, ajuste e rebuild do exe e dos zips', 'EXECUTADO', 'Comparei o disco com a árvore oficial (pastas e arquivos conferem) e corrigi caminhos em 11 anotações e 2 programas (aplicar_textos_212_214.py e gerar_checklist_vendas_pdf.py, com cópia em old_bkp). 101 programas compilam; 4_VALIDAR_ESTRUTURA = TUDO CERTO. A atualização automática das categorias estava parada por 4 produtos sem categoria (14, 47, 67, 172): palavras no categorias.json (backup em old_bkp), rotina rodou e publicou (rc 0). Rebuild feito pelo GERAR_EXE.bat: CentralBlog.exe, PainelBlog.exe, 4_PACOTE_OUTRO_PC.zip e 4_ATUALIZAR_OUTRO_PC.zip (sem senha, integridade OK); cópias dos antigos em Gestao_Anuncios_Blog\\old_bkp.', 'PublicarCategorias.exe do pacote não é gerado pelo GERAR_EXE.bat; mantido o de 13/11 (mais novo que o publicar_categorias.py). O outro PC só recebe o pacote novo quando o dono levar o zip.', 'Nenhuma'),
-    ('18/11', '20:00 a 20:15', 'Anúncio BF/Natal, etapa 2: conferência do rascunho da página de entrada (id 752, achados-selecionados)', 'EXECUTADO', 'Rascunho 752 segue em DRAFT (não publicado), 5 links, sem preço e sem termos proibidos. Os 5 itens (207, 179, 178, 1 e 49) estão Ativos com HTTP 200 no status de 18/11 às 11:15 (anuncios_status). Nenhuma alteração no blog, nos arquivos ou na conta Meta; página não recriada.', '', "Pendente do dono: ver a prévia achados-selecionados_PREVIA.html e dizer se há ajustes; confirmar no painel do ML a taxa de comissão dos 5 itens. Etapa seguinte só com 'de acordo'."),
-    ('18/11', '20:05 a 20:40', 'Meta Pixel ativado no blog (snippet 12) e teste real', 'EXECUTADO', 'Backup dos snippets feito (snippets_2026-11-18_20h0546.json). Snippet 12 ativado, sem erro de código; cache aquecido. No site: barra de aviso (cnl-aviso) e Pixel 1128603339935423 presentes no HTML (página inicial pode levar alguns minutos para sair do cache). Teste no Chrome: clicar Aceitar carrega o Pixel (fbevents.js) e o clique num link meli.la foi acionado. Gerenciador de Eventos ainda sem atividade (pode levar até 30 min): PageView e SaidaML AINDA NÃO CONFERIDOS na Meta, confirmar depois. Snippet 5 e conta de anúncios não foram alteradas.', '', ''),
-    ('18/11', '20:20 a 20:30', 'Melhorias do blog, etapa M0: linha de base de saída por página e PageSpeed (celular)', 'EXECUTADO', 'Só leitura. Saída por página (CSV de 18/11 11:15, sem teste_rastreio): guia 478 visitas / 70 cliques = 14,6%; tecnologia 286 / 3 = 1,0%; início 265 / 0; casa e eletrodomésticos 18 / 7 = 38,9%; ferramentas 25 / 3; áudio e TV 16 / 0. Anúncio (instagram/paid): 260 visitas e 2 cliques (0,8%). PageSpeed celular: início 95, guia 99, tecnologia 98, áudio e TV 95, casa 95 (LCP até 1,7 s, CLS ~0).', 'A API do PageSpeed deu erro 429 (cota diária); usei a página pública pagespeed.web.dev no Chrome (aba fechada). Arquivo salvo em 0- Pendencias/1_Pendencias/BASELINE_MELHORIAS_BLOG_18_11_2026.md. Nada alterado no blog nem na conta Meta. Conclusão: velocidade não é o gargalo; o gargalo é a saída (tecnologia 1,0%, início 0, anúncio 0,8%).', ''),
+    ('19/11', '00:59', 'Conferência das tarefas agendadas (conversa nova: BLOG - Execução de atividades e planejamento)', 'EXECUTADO', 'Esta conversa assumiu tudo da "Atividades Claude e Planejamento" (passagem registrada nas anotações). Conferi as tarefas agendadas: as 3 da noite de 18/11 (BF/Natal 2, Pixel, Melhorias M0) terminaram com sucesso; as 5 de hoje (10:06, 10:22, 12:23, 20:00 e 20:30) estão ativas. Nenhuma tarefa cita a conversa antiga.', '', ''),
+    ('19/11', '01:15', 'Anúncio Black Friday: decisão do dono ("DE ACORDO") aplicada às tarefas', 'EXECUTADO', 'Plano A: R$ 90 de 20 a 27/11 (≈ R$ 11,25/dia), se até sex 20/11 18:00 o limite da Meta (≥ R$ 90) e a comissão dos 5 itens estiverem resolvidos; senão plano B: R$ 50 de 24 a 27/11. Natal R$ 100 mantido e condicional. Criado 1_Pendencias/DECISAO_ANUNCIO_BF_2026.md e ajustadas 4 tarefas (aviso 20/11 09:00, BF/Natal 4, aviso 23/11 09:00, BF/Natal 5), com cópia em old_bkp. Nada alterado na Meta nem no site.', '', 'Dono: limite da Meta e comissão até sex 20/11 18:00'),
+    ('19/11', '01:50', 'Anúncio de Natal alterado pelo dono e aplicado às tarefas', 'EXECUTADO', 'Natal = R$ 150 de 14 a 24/12 (substitui R$ 100 de 03 a 14/12), só se a BF passar; anúncio vai até 24/12. Teto sobe para R$ 290 (acumulado possível R$ 289,67). DECISAO_ANUNCIO_BF_2026.md atualizado; tarefas: BF/Natal 6 (30/11) ajustada, BF/Natal 7 movida para 28/12, Pixel diário estendido até 28/12, criadas natal-preparo-11-12 e natal-parada-17-12. Backups em old_bkp.', '', 'Dono: seg 14/12 subir o limite em + R$ 150 e criar o anúncio (se aprovado)'),
+    ('19/11', '02:00', 'Fim do anúncio de Natal antecipado para 22/12 (decisão do dono)', 'EXECUTADO', 'Natal = R$ 150 de 14 a 22/12 (≈ R$ 16,67/dia), mesma verba e mesmo teto (R$ 290). Atualizados DECISAO_ANUNCIO_BF_2026.md, BF/Natal 6 e 7, natal-preparo-11-12, natal-parada-17-12 e este relatório; backups em old_bkp.', '', ''),
+    ('19/11', '02:20', 'Página de entrada 752 (rascunho): 5 itens trocados por moda e calçados, de comissão mais alta', 'EXECUTADO', 'A pedido do dono, saíram TV LG, soundbar JBL, Fire TV Stick e fone QCY; entraram Tênis Olympikus Veloz 3 (211), Kit 2 Bermudas Femininas (103), Kit 3 Leggings (36) e Kit 5 Conjuntos Infantil Menino (161); ficou o Kit 4 Bermudas (49). Motivo: nas vendas passadas, moda e calçados pagaram 17% a 21% (Kit 4 Bermudas Jeans 21%, tênis 20%, chinelo 17%), e eletrônicos nunca venderam, então a taxa deles é desconhecida. Os 5 itens estão Ativos (HTTP 200 em 18/11), sem preço e sem termos proibidos; a página continua em RASCUNHO. Backups em paginas_novas/old_bkp (inclui o conteúdo anterior do WP). Tarefas BF/Natal 4 e 5, aviso de 20/11 e DECISAO_ANUNCIO_BF_2026.md atualizados.', 'A comissão real de cada item só aparece no painel do ML Afiliados; os percentuais acima vêm de vendas antigas de itens parecidos.', 'Dono: conferir a comissão até sex 20/11 18:00'),
+    ('19/11', '08:00', 'Página de entrada 752 (rascunho): Kit 4 Bermudas Tactel retirado a pedido do dono', 'EXECUTADO', 'A página agora tem 4 itens: Tênis Olympikus Veloz 3, Kit 2 Bermudas Femininas, Kit 3 Leggings e Kit 5 Conjuntos Infantil Menino. Continua em RASCUNHO, sem preço. Tarefas BF/Natal 4 e 5, avisos de 20 e 23/11 e DECISAO_ANUNCIO_BF_2026.md ajustados de 5 para 4 itens; backups em old_bkp.', '', 'Dono: conferir a comissão dos 4 itens até sex 20/11 18:00'),
+    ('19/11', '08:23', 'Substituição automática de anúncios (verificação dos 213 anúncios no ML, validação e painel)', 'EXECUTADO', 'Verificação às 08:15: 213 de 213 ativos, 0 precisam de substituto; por isso o passo com o Chrome e o ML Afiliados não rodou e não houve troca nem Reels a reagendar. Regra de maior comissão (ranking dos afiliados, dentro da política) já está no roteiro para a próxima vez. Política do blog: nenhum preço e textos dentro da política. Painel Painel_conversao_performance_2026-11-19_08h21.pdf, planilha e resumo atualizados.', '', ''),
+    ('19/11', '08:50', 'Limite de gastos da conta Meta (Compre no Link - Anúncios) subido de R$ 50 para R$ 150', 'EXECUTADO', 'Com o "pode fazer" do dono, abri Faturamento e pagamentos > Limite de gastos da conta > Alterar, digitei 150 e salvei. A Meta confirmou: limite mensal R$ 150,00; gasto R$ 49,67; saldo R$ 100,33; reinicia no dia 1º. Visa final 0442 válida (vence 12/2032). O limite precisava cobrir o gasto de novembro (R$ 49,67) mais o anúncio de R$ 90. Em 14/12 será preciso subir de novo para o Natal. Nada mais foi alterado na Meta.', '', 'Dono: em 14/12, subir o limite para o Natal'),
+    ('19/11', '08:55', 'Comissão dos 4 itens da página 752 conferida no ML Afiliados', 'EXECUTADO', 'Com a conta do dono logada, abri a página de cada produto e li a barra Afiliados: Tênis Olympikus Veloz 3, Kit 2 Bermudas Femininas, Kit 3 Leggings e Kit 5 Conjuntos Infantil Menino = GANHOS 16% cada. Para comparar, os itens que saíram: TV LG, soundbar JBL e fone QCY = 5%; Kit 4 Bermudas Tactel = 16%. A troca triplicou a taxa (5% para 16%). Só leitura, nada alterado no ML nem no blog.', 'A taxa mostrada pode mudar com campanhas do ML.', ''),
+    ('19/11', '09:55', 'Painel e planilha: origem e data das visitas e dos cliques no ML', 'EXECUTADO', 'A pedido do dono: novo quadro no fim do painel PDF ("De onde vieram as visitas e em que dia" e "Cliques no ML: quando e de onde"), abas novas Origem_Visitas e Visitas_por_Dia e colunas Primeiro dia/Último dia na aba Campanhas; acima de 30 dias só o total. Dados brutos do rastreador, 1 visita = 1 sessão. Planilha recalculada com 0 erros; painel Painel_conversao_performance_2026-11-19_09h54.pdf; cópia de consulta sincronizada. Limpeza do painel agora move para old_bkp e pula arquivo aberto.', '', ''),
+    ('19/11', '01:18', 'Relatório de atividades: 1ª geração do dia', 'EXECUTADO', 'Regra permanente aplicada: saíram os 8 sucessos de 18/11; ficaram as 15 pendências; plano de reexecução refeito só com ações em aberto; dias sem agendar = 18/12, 21/12 e 23/12.', '', ''),
 ]
 
 FALTA_AGENDAR = [
-    ("09/12", "Smartwatch T900 S10 Ultra Pro 49 mm"), ("11/12", "Fone JBL Tune 730 Bluetooth"),
-    ("14/12", "Caixa de Som JBL Go 5 Bluetooth à Prova d'Água"), ("16/12", "Pipoqueira Elétrica Mondial Popflix 1200 W (troca do Kit Skincare removido)"),
-    ("18/12", "Máquina de Cortar Cabelo e Barba Sem Fio Nixzen"), ("21/12", "Jogo de Lençol Casal Percal 600 Fios 4 Peças"),
+    ("18/12", "Máquina de Cortar Cabelo e Barba Sem Fio Nixzen (tarefa hoje 19/11 20:30)"), ("21/12", "Jogo de Lençol Casal Percal 600 Fios 4 Peças"),
     ("23/12", "Cortina de LED 3x3 m com 300 Luzes e Controle"),
 ]
 
 # (quando, quem, o que, ganho / observação) – sempre a data mais cedo possível
 REEXECUCAO = [
-    ("qui 05/11 ~20:39", "Claude", "Agendar 04/12 (post 19:00 e Reels 19:05) pela rotina diária: a janela só abre por volta das 20:00 de 05/11", "Precisa: app Claude aberto, Chrome (o conectado ao Claude, \"Browser 1\") logado no Instagram compre.no.link e PC ligado e sem suspender. 02/12 foi agendado em 04/11 depois do login do dono."),
-    ("ter 03/11", "Dono ou Claude", "WhatsApp: conferir se as 7 categorias saíram de \"em análise\" (aprovadas e visíveis no catálogo para os clientes)", "Cadastro feito e validado em 02/11. Se alguma for recusada, o WhatsApp mostra o motivo no item; o Claude ajusta o texto ou a foto."),
-    ("02/11 (feito)", "Dono", "Sair do aparelho conectado do WhatsApp Web (Aparelhos conectados)", "Resolvido: o dono saiu depois da validação das 7 categorias. Para o Claude conferir o catálogo de novo, é preciso conectar o WhatsApp Web outra vez."),
-    ("seg 09/11, 10:00", "Dono + Claude", "Primeira rodada semanal completa (blog, prints de vendas, CSV, painel, catálogo e links)", "Calendário: Calendario_Execucao_Semanal_WhatsApp_Vendas.ics (importar no Google Agenda ou Outlook)."),
-    ("sáb 31/10 (feito às 16:37)", "Claude", "Vendas do ML Afiliados: CSV recebido e painel atualizado (19 vendas, R$ 172,00 pendentes)", "Resolvido. Falta só o dono confirmar que a conta do CSV é a do blog; o total de R$ 172,00 bate com o ML Afiliados."),
-    ("31/10 em diante", "Claude", "Agendar dezembro, um dia por vez (04/12 em 05/11, 07/12 em 08/11 e assim por diante)", "A rotina diária expira por volta de 05/11 (7 dias): o Claude recria. Se o PC ou o app forem fechados antes, o dono escreve \"agendar DD/MM\"."),
-    ("a decidir", "Dono", "Frase \"dieta e alimentação leve\" na legenda da Air Fryer (11/11) e foto da LG (26/11), que traz \"melhor\" na imagem do fabricante", "Alegações leves que ainda não foram trocadas. Se o dono pedir, o Claude refaz só esse dia."),
-    ("02/11 (feito 20:39)", "Claude", "Primeiro Story com link", "Feito pelo Claude no Meta Business Suite. Daqui em diante o Claude publica Story, Status e Canal nos dias de post (dono de acordo em 02/11)."),
-    ("dias de post (04/11, 06/11, 09/11...)", "Claude", "Story com link 19:10, Status 19:15 e Canal 19:20 (conforme o pacote do dia)", "Story: Meta Business Suite (pode ser agendado com antecedência). Status e Canal: WhatsApp Web, que precisa estar conectado."),
-    ("sempre que aparecer item em \"Precisam de substituto\"", "Dono + Claude", "Substituir anúncios fora do ar: o dono deixa o Chrome com a extensão conectada e logado no ML Afiliados e pede \"substitua os anúncios fora do ar\"", "O Claude mostra os substitutos para aprovação, gera o meli.la, troca no guia e atualiza o relatório e o painel."),
-    ("qui 05/11, 10:00", "Dono + sócio", "Reunião Turbinar e os 17 anúncios (os 17 já foram retirados em 30/10; falta só decidir o Turbinar e os termos do ML Afiliados)", "Levar o Plano Turbinar e o resultado da leitura dos termos."),
+    ("sex 20/11 20:00", "Claude", "BF/Natal 4: plano A publica a página 752 e entrega o material; plano B prepara o anúncio de R$ 50", "Tarefa agendada; lê DECISAO_ANUNCIO_BF_2026.md."),
+    ("sex 20/11 após 20:00 (A) ou seg 23/11 até 12:00 (B)", "Dono", "Criar e publicar o anúncio na Meta (Vendas + SaidaML)", "O Claude orienta; publicar e pausar é sempre do dono."),
+    ("seg 23/11 20:30", "Claude", "BF/Natal 5: checagem de parada (A) ou publicar a página 752 (B)", "Parar se saída < 3% ou custo por clique de saída > R$ 3."),
+    ("qui 19/11 20:30", "Claude", "Agendar o Reels de 18/12 (Nixzen)", "21/12 e 23/12 na rotina de segunda quando a janela abrir."),
+    ("quando puder", "Dono", "\"De acordo\" para corrigir as legendas dos Reels e arquivar os posts repetidos de 11, 13, 16 e 18/11", "Legendas prometem resposta no Direct que não existe."),
+    ("quando puder", "Dono", "Validar link e produto dos itens 67 (Suporte de TV) e 181 (Fone Soundcore P30i)", ""),
+    ("a decidir", "Dono", "Frase \"dieta e alimentação leve\" na legenda da Air Fryer (11/11) e foto da LG (26/11), que traz \"melhor\" na imagem do fabricante", "Se o dono pedir, o Claude refaz só esse dia."),
+    ("sempre que aparecer item em \"Precisam de substituto\"", "Dono + Claude", "Substituir anúncios fora do ar (manual, com o dono logado no ML Afiliados)", "O Claude mostra os substitutos para aprovação e troca no guia."),
 ]
 
 OBSERVACOES = [
-    "Quando o dono sai do computador, o agendamento de 28/11 às 20:39 depende de 3 coisas ligadas: o app Claude, o Chrome (com a extensão do Claude e o Instagram compre.no.link logado) e o PC sem suspender. O cron é de sessão e só dispara com o app aberto.",
-    "Em 29/10 abri uma vez a conversa do Direct da conta pessoal do dono para conferir o teste, o que marcou as mensagens como vistas; avisei na hora e não repeti.",
-    "A rede do PC falhou por poucos segundos às 18:4x (erro de DNS ao chamar o blog) e voltou sozinha; nenhuma alteração foi perdida.",
-    "Os agendamentos dependem do aplicativo Claude, do Chrome com a extensão e do Instagram logado ficarem abertos. O cron é de sessão: se o aplicativo for fechado, ele se perde "
-    "e o dono escreve \"agendar DD/MM\".",
-    "Tudo que mexe no blog passa pelo gerenciador com backup antes (pasta backups). Nada foi apagado do blog nesta sessão.",
-    "Horários \"não registrado\" ou \"manhã/tarde\" vêm do resumo das sessões anteriores. Histórico completo: "
-    r"C:\Users\SVR_RYZEN_JAA\.claude\projects\C--Users-SVR-RYZEN-JAA\d759a442-1d58-4e20-94e0-f2e7cc22f60c.jsonl.",
+    "As tarefas agendadas só rodam com o PC ligado e sem suspender e o app Claude aberto; as da noite precisam também do Chrome com a extensão e da Meta e do Instagram (@compre.no.link) logados.",
+    "Tudo que mexe no blog passa pelo gerenciador com backup antes; nada é alterado na conta de anúncios Meta (criar, publicar, pausar e verba são do dono).",
+]
+
+# DESTAQUE do topo: o que o dono deve fazer amanhã de manhã para o anúncio (pedido do dono em 19/11/2026)
+DESTAQUE_TITULO = "ANÚNCIO BLACK FRIDAY: O QUE VOCÊ AINDA DEVE FAZER (HOJE, qui 19/11, à noite)"
+DESTAQUE = [
+    ("1", "Hoje à noite, depois das 20:00: criar e publicar o anúncio na Meta com o material que o Claude entrega (Vendas + SaidaML, R$ 90 total, AGENDADO para começar sex 20/11 00:00 e terminar 27/11 23:59)", "qui 19/11 noite", "Claude publica a página 752 às 20:00 e orienta o passo a passo. A Meta revisa o anúncio antes de rodar: criando hoje, ele já roda sexta de manhã"),
+]
+
+# PLANO DO ANÚNCIO A e B em ordem cronológica (pedido do dono em 19/11/2026). Plano A = R$ 90 de 20 a 27/11; plano B = R$ 50 de 24 a 27/11
+PLANO_ANUNCIO_TITULO = "PLANO DO ANÚNCIO (A = R$ 90 de 20 a 27/11  |  B = R$ 50 de 24 a 27/11  |  NATAL = R$ 150 de 14 a 22/12): TODAS AS ATIVIDADES EM ORDEM CRONOLÓGICA"
+PLANO_ANUNCIO = [
+    ("qui 19/11 01:15", "Decisão: plano A com recuo automático para o B; Natal R$ 100 condicional", "A e B", "Dono", "FEITO"),
+    ("sex 20/11 09:00", "Aviso ao dono: conferir se a Meta aprovou o anúncio criado na noite anterior", "A e B", "Claude (tarefa agendada)", "Agendado"),
+    ("qui 19/11 08:50", "Limite de gastos da Meta subido para R$ 150 (gasto R$ 49,67; saldo R$ 100,33); forma de pagamento Visa 0442 válida", "A", "Claude, com o de acordo do dono", "FEITO 19/11"),
+    ("qui 19/11 08:55", "Comissão dos 4 itens da página 752 conferida no ML Afiliados: todos GANHOS 16% (os eletrônicos que saíram pagavam 5%)", "A e B", "Claude, com a conta do dono logada", "FEITO 19/11"),
+    ("qui 19/11 02:20", "Página 752 (rascunho) com 4 itens de moda e calçados: Tênis Olympikus, Kit 2 Bermudas Fem., Kit 3 Leggings e Kit 5 Conjuntos Infantil", "A e B", "Claude, a pedido do dono", "FEITO 19/11"),
+    ("qui 19/11 08:57", "\"Feito limite\" e \"feito comissão\": confirmados por mim na tela, o dono não precisa responder", "A", "Claude", "FEITO 19/11"),
+    ("sex 20/11 20:00", "BF/Natal 4: confere o anúncio no ar (aprovado? gastando?), os links e o rastreamento; se não foi criado, propõe o plano B", "A ou B", "Claude (tarefa agendada)", "Agendado"),
+    ("qui 19/11 após 20:00", "Criar e publicar o anúncio na Meta: Vendas + SaidaML, R$ 90 total, início sex 20/11 00:00, término 27/11 23:59", "A", "Dono (Claude orienta)", "Aguardando"),
+    ("qui 19/11 20:00", "BF/Natal 3 (antecipado): reverifica os 4 links, publica a página 752, entrega o material e troca a campanha no gerador de gráficos", "A", "Claude (tarefa agendada)", "Agendado"),
+    ("sáb 21 a sex 27/11", "Mandar a página 752 à mão para conhecidos e grupos permitidos", "A e B", "Dono", "Aguardando"),
+    ("seg a sex 10:06 e 10:22", "Gráficos do anúncio (retoma seg 23/11; sem sábado e domingo) e Pixel (PageView e SaidaML), com conferência dos 4 links", "A e B", "Claude (tarefa agendada)", "Agendado"),
+    ("seg 23/11 09:00", "Aviso. Plano A: números do anúncio no ar. Plano B: ÚLTIMO DIA, decisão até 12:00", "A ou B", "Claude (tarefa agendada)", "Agendado"),
+    ("seg 23/11 até 12:00", "Liberar o limite da Meta (pelo menos R$ 50), confirmar a comissão e decidir se o anúncio sai", "B", "Dono", "Só se for B"),
+    ("seg 23/11 20:30", "BF/Natal 5. Plano A: checagem de parada (pausar se saída < 3% ou custo por clique de saída > R$ 3). Plano B: publica a página 752, troca a campanha e entrega o checklist", "A ou B", "Claude (tarefa agendada)", "Agendado"),
+    ("seg 23/11 noite", "Plano A: pausar se o Claude recomendar. Plano B: criar e publicar o anúncio de R$ 50 (início 24/11 00:00)", "A ou B", "Dono", "Aguardando"),
+    ("ter 24/11 00:00", "Início do anúncio do plano B", "B", "Meta", "Só se for B"),
+    ("qua 25/11 10:06", "Checagem de parada do plano B (mesma regra: saída < 3% ou custo por clique de saída > R$ 3); o Claude avisa e o dono pausa", "B", "Claude avisa, dono pausa", "Só se for B"),
+    ("sex 27/11 23:59", "Fim do anúncio da Black Friday", "A e B", "Meta", "Aguardando"),
+    ("seg 30/11 20:30", "BF/Natal 6: avaliar a Black Friday (aprova se saída ≥ 8% e custo por clique de saída < R$ 1) e recomendar o Natal", "A e B", "Claude analisa, dono decide", "Agendado"),
+    ("qui 19/11 01:45", "Natal alterado pelo dono: R$ 150 de 14 a 22/12 (substitui R$ 100 de 03 a 14/12; o fim foi antecipado de 24 para 22/12 pelo prazo de entrega); teto sobe para R$ 290", "Natal", "Dono", "FEITO"),
+    ("sex 11/12 20:30", "Natal: se aprovado, material final, links conferidos e aviso para segunda", "Natal", "Claude (tarefa agendada)", "Agendado"),
+    ("seg 14/12", "Subir o limite da Meta em + R$ 150 e criar/publicar o anúncio de Natal (R$ 150, 14/12 00:00 a 22/12 23:59, ≈ R$ 16,67/dia)", "Natal", "Dono (Claude orienta)", "Só se aprovado"),
+    ("14 a 22/12, seg a sex 10:06", "Acompanhamento diário do Natal (gráficos, Pixel e links)", "Natal", "Claude (tarefa agendada)", "Só se aprovado"),
+    ("qui 17/12 20:00", "Checagem de parada do Natal (pausar se saída < 3% ou custo por clique de saída > R$ 3)", "Natal", "Claude avisa, dono pausa", "Agendado"),
+    ("ter 22/12 23:59", "Fim do anúncio de Natal (antecipado de 24/12 pelo prazo de entrega do ML; decisão do dono)", "Natal", "Meta", "Só se aprovado"),
+    ("seg 28/12 20:30", "BF/Natal 7: fechamento (resultado, custo total, vendas e o que aprendemos; comissão do ML cai em ~60 dias). Movido de 14/12", "A, B e Natal", "Claude (tarefa agendada)", "Agendado"),
+]
+
+# PREVISÃO do anúncio da Black Friday (opinião do Claude em 19/11/2026, pedido do dono). Estimativa, não garantia.
+PREVISAO_TITULO = "PREVISÃO DO ANÚNCIO DA BLACK FRIDAY (R$ 90): OPINIÃO DO CLAUDE EM 19/11 (estimativa, não garantia)"
+PREVISAO_BASE = ("<b>Base:</b> 1º teste (11 a 13/11) = R$ 49,67 para 260 visitas (≈ R$ 0,19 por visita) e 0,8% de saída para o ML; "
+                 "página do guia, com poucos itens = 14,6% de saída; histórico do painel = 19 vendas e R$ 172 (≈ R$ 9 de comissão por venda). "
+                 "Com R$ 90: ≈ 350 a 470 visitas.")
+PREVISAO = [
+    ("Ruim (igual ao 1º teste, ≈ 1%)", "≈ 4", "0", "R$ 0"),
+    ("REALISTA (página curta, 5 a 8%)", "≈ 20 a 35", "0 a 2", "R$ 0 a 20"),
+    ("Bom (igual ao guia, ≈ 14%)", "≈ 50 a 65", "1 a 4", "R$ 10 a 40"),
+]
+PREVISAO_CONCLUSAO = [
+    "<b>1.</b> O anúncio quase certamente não se paga na Black Friday: gastar R$ 90 para voltar R$ 0 a 40 é o mais provável.",
+    "<b>2.</b> Chance de pelo menos 1 venda: algo como 50% (estimativa). Ajuda: quem entra no ML pelo link e compra outra coisa também gera comissão.",
+    "<b>3.</b> O critério do Natal (R$ 150, 14 a 22/12) é difícil: custo por clique de saída abaixo de R$ 1 exige ≈ 19% de saída, mais do que o guia faz hoje. O mais provável é a BF não liberar o Natal, e isso protege o dinheiro.",
+    "<b>4.</b> Vira vendas? Pelo anúncio pago, no curto prazo: chance baixa. Pelo blog no Google, no médio prazo: sim, há chance (o guia já leva 14,6% ao ML sem custo).",
+    "<b>Valor real do plano:</b> aprender, gastando pouco, se a página curta converte. Saída perto de 8% ou mais em 30/11: repetir esse modelo de página no blog todo, de graça. Perto de 1%: o anúncio pago não serve, e você para sem perder mais.",
+]
+
+# ANÁLISE: o anúncio ajuda a divulgar o blog? (opinião do Claude em 19/11/2026, pedido do dono)
+DIVULGACAO_TITULO = "O ANÚNCIO AJUDA A DIVULGAR O BLOG? OPINIÃO DO CLAUDE EM 19/11: AJUDA UM POUCO, MAS NÃO É DIVULGAÇÃO DO BLOG"
+DIVULGACAO = [
+    ("AJUDA", "Gente nova vendo o nome", "≈ 350 a 470 visitas e alguns milhares de pessoas vendo \"Compre no Link\": mais do que o Instagram orgânico traz hoje."),
+    ("AJUDA", "O Pixel aprende", "Cada visita fica registrada na Meta; no futuro dá para anunciar só para quem já visitou o blog, o que costuma converter mais e custar menos."),
+    ("AJUDA", "Seguidores, talvez alguns", "Se o anúncio sair pela conta @compre.no.link, quem gostar pode seguir."),
+    ("NÃO AJUDA", "Visitante cai numa página só", "Ele vai da página 752 para o ML e quase não navega pelo resto do blog: é anúncio de venda, não de divulgação."),
+    ("NÃO AJUDA", "Google não melhora com tráfego pago", "O que faz o blog aparecer no Google é conteúdo bom e páginas que as pessoas procuram."),
+    ("NÃO AJUDA", "Acabou a verba, acabou a visita", "O efeito some em 27/11."),
+    ("DIVULGA DE VERDADE", "1. Google", "Páginas sobre o que as pessoas pesquisam (ex.: presente de Natal por faixa, fone para academia), sem \"melhor\" no texto. É o canal que mais cresce com o tempo, de graça."),
+    ("DIVULGA DE VERDADE", "2. Indicação direta", "O dono mandando o link para conhecidos e grupos permitidos."),
+    ("DIVULGA DE VERDADE", "3. Instagram corrigido", "Bio e legendas dos Reels levando ao link da bio, sem prometer resposta no Direct."),
+]
+DIVULGACAO_CONCLUSAO = ("<b>Resumo:</b> o anúncio é um <b>teste de venda</b> com um pequeno efeito de divulgação. A divulgação de verdade vem do Google e das indicações, "
+                        "e isso está no plano de melhorias do blog a partir de 01/12.")
+
+# ANÁLISE: o que tudo isso vai refletir (opinião do Claude em 19/11/2026, pedido do dono)
+REFLEXO_TITULO = "O QUE TUDO ISSO VAI REFLETIR: OPINIÃO SINCERA DO CLAUDE EM 19/11 (estimativa, não garantia)"
+REFLEXO = [
+    ("Até 30/11 (Black Friday)", "O mais provável é 0 a 2 vendas e R$ 90 gastos. O ganho real é a resposta: a página curta faz as pessoas irem ao ML ou não? Hoje é palpite; em 30/11 vira número."),
+    ("Dezembro", "O Natal (R$ 150, 14 a 22/12) provavelmente não será liberado (critério difícil): economia de R$ 150. As melhorias do blog de 01 a 11/12 (botões, imagens, destaques no topo, confiança) devem melhorar a saída para o ML nas páginas que já recebem visita do Google: é a melhor chance de venda no fim do ano, sem custo."),
+    ("Janeiro e fevereiro", "Caem as comissões de novembro e dezembro (≈ 60 dias depois). Deve ser pouco, mas será o primeiro número real do projeto. O replanejamento de janeiro terá dados de verdade para decidir o que manter, o que cortar e onde pôr esforço."),
+]
+REFLEXO_FUNDO = [
+    "<b>1. Se o blog tem futuro como renda:</b> a resposta virá do Google e da taxa de saída das páginas, não do Instagram nem do anúncio.",
+    "<b>2. Se vale continuar investindo dinheiro:</b> se a BF der muito abaixo de 8% de saída, a resposta honesta é não colocar mais dinheiro em anúncio, só tempo no blog.",
+    "<b>3. Quanto esforço o projeto merece:</b> hoje a estrutura (4 conversas, dezenas de tarefas, relatórios) é grande para o retorno; o resultado de dezembro deve guiar um enxugamento em janeiro.",
+    "<b>Expectativa realista:</b> o blog pode virar uma renda pequena e crescente (dezenas de reais por mês no começo) se o Google continuar trazendo visitas e as páginas melhorarem a saída. Com os números atuais, não há caminho para venda grande no curto prazo.",
+]
+
+# ANÁLISE GERAL com o Natal de R$ 150 (14 a 24/12) – opinião do Claude em 19/11/2026, pedido do dono
+NATAL_TITULO = "ANÁLISE GERAL COM O NATAL DE R$ 150 (14 A 22/12): OPINIÃO DO CLAUDE EM 19/11 (estimativa, não garantia)"
+NATAL_ANALISE = [
+    ("1. Período", "14 a 22/12 é melhor que 03 a 14/12: é a reta final de compra de presente, quando a pessoa já decidiu comprar. A chance de venda por visita é maior."),
+    ("2. Fim em 22/12", "Decisão do dono em 19/11: em 23 e 24/12 muita gente já não compra presente online por causa da entrega. Os mesmos R$ 150 ficam concentrados nos 9 dias bons (≈ R$ 16,67/dia), sem gastar mais."),
+    ("3. Condição", "O mais provável, pelo critério atual (saída ≥ 8% e custo por clique de saída < R$ 1), é a Black Friday NÃO liberar o Natal. Se isso acontecer, economia de R$ 150."),
+    ("4. Se o Natal rodar", "Algo parecido com a BF, um pouco melhor pela época: ≈ 600 a 800 visitas e, no cenário realista, 1 a 4 vendas, com comissão de ≈ R$ 10 a 40 caindo em fevereiro. Anúncio que se paga sozinho continua improvável."),
+    ("5. No geral", "A previsão não muda: o anúncio serve para testar e aprender; a renda que pode crescer vem do Google e das páginas curtas."),
+]
+NATAL_DONO = ("<b>O que é do dono:</b> sex 20/11 limite da Meta (R$ 90) e comissão dos 4 itens; seg 30/11 decidir o Natal; "
+              "seg 14/12, se aprovado, subir o limite em + R$ 150 e criar o anúncio (vai até 22/12). Teto total: R$ 290.")
+
+# PLANO FINAL e análise "vale para testar o blog?" (opinião do Claude em 19/11/2026 ~02:00, pedido do dono)
+FINAL_TITULO = "PLANO FINAL FECHADO EM 19/11 E ANÁLISE: VALE PARA TESTAR O BLOG? OPINIÃO DO CLAUDE: SIM, PELO MOTIVO CERTO"
+FINAL_PLANO = [
+    ("Black Friday (plano A)", "20 a 27/11", "R$ 90", "Limite da Meta e comissão até sex 20/11 18:00"),
+    ("Black Friday (plano B)", "24 a 27/11", "R$ 50", "Se o plano A não der tempo"),
+    ("Natal", "14 a 22/12", "R$ 150", "Só se a BF passar no critério (avaliação 30/11)"),
+    ("TETO", "", "R$ 290", ""),
+]
+FINAL_ANALISE = [
+    "<b>Custo baixo e com freio:</b> no pior caso, ≈ R$ 34 gastos e parada em 23/11; no máximo, R$ 240 ao longo de um mês. O Natal só sai se a BF mostrar resultado.",
+    "<b>Resposta que vale dinheiro:</b> \"a página curta leva as pessoas ao ML?\" vai ter resposta com número. Se levar, o modelo vai para o blog todo, de graça, e isso vale mais que os R$ 90.",
+    "<b>Medição pronta:</b> Pixel, rastreador do blog, gráficos diários e critérios definidos. Desta vez o teste não termina em \"não sei se funcionou\".",
+    "<b>O que não esperar:</b> lucro com o anúncio. O teste mede se o blog converte; não é uma máquina de vendas.",
+    "<b>Resumo:</b> teste bem montado, barato e com regra de parada. Seja qual for o resultado, em 30/11 o dono sabe o que fazer com o blog em 2027.",
 ]
 
 
@@ -148,32 +242,48 @@ def main():
     doc = SimpleDocTemplate(SAIDA, pagesize=(W, H), leftMargin=1.5 * cm, rightMargin=1.5 * cm, topMargin=2.4 * cm, bottomMargin=1.5 * cm,
                             title="Relatório de atividades do Claude – blog", author="comprenolink.net")
     nao = [a for a in ATIVIDADES if a[3] in (NE, PA)]
-    st = [painel(), Spacer(1, 8),
-          Paragraph("<b>Como ler.</b> Cada linha é uma atividade em ordem de data e hora. A coluna <b>Situação</b> diz se foi executada, parcial ou não executada; "
-                    "quando não foi, o <b>motivo</b> e a <b>nova data</b> aparecem na mesma linha. Nada espera um mês: a seção 3 mostra a data mais próxima possível "
-                    "de cada reexecução.", TXT),
-          Spacer(1, 8), P("1. Diário de bordo (cronológico)", "h2"),
-          tabela(["Data", "Hora", "Atividade", "Situação", "O que foi feito / evidência", "Motivo (se não executado)", "Reexecução"],
-                 [list(a) for a in ATIVIDADES], [0.05, 0.08, 0.20, 0.09, 0.25, 0.20, 0.13], col_situacao=3),
-          PageBreak(), P("2. O que não foi executado (ou ficou parcial): motivo e nova data", "h2"),
+    dest = Table([[Paragraph(f"<b>{DESTAQUE_TITULO}</b>", ParagraphStyle("dt", parent=TXT, fontSize=12, leading=15, textColor=colors.white))]],
+                 colWidths=[LARG])
+    dest.setStyle(TableStyle([("BACKGROUND", (0, 0), (-1, -1), VERMELHO), ("TOPPADDING", (0, 0), (-1, -1), 7), ("BOTTOMPADDING", (0, 0), (-1, -1), 7)]))
+    # MODO SÓ PENDENTES (pedido do dono em 19/11/2026): sem histórico de executadas e sem análises; o que foi feito sai do relatório.
+    feitos = sorted([p_ for p_ in PLANO_ANUNCIO if p_[4].upper().startswith("FEITO")], key=lambda p_: p_[0][-5:])
+    resto = [p_ for p_ in PLANO_ANUNCIO if not p_[4].upper().startswith("FEITO")]
+    verde_txt = VERDE.hexval().replace("0x", "#")
+    falta = [list(p_[:4]) + [f'<font color="{verde_txt}"><b>{p_[4]}</b></font>'] for p_ in feitos] + [list(p_) for p_ in resto]
+    faixa = lambda t, cor: Table([[Paragraph(f"<b>{t}</b>", ParagraphStyle("fx", parent=TXT, fontSize=11, leading=14, textColor=colors.white))]],  # noqa: E731
+                                 colWidths=[LARG], style=[("BACKGROUND", (0, 0), (-1, -1), cor), ("TOPPADDING", (0, 0), (-1, -1), 6), ("BOTTOMPADDING", (0, 0), (-1, -1), 6)])
+    plano_tab = tabela(["Data e hora", "Atividade", "Plano", "Quem executa", "Situação"], falta, [0.13, 0.50, 0.12, 0.15, 0.10], cor=AZUL)
+    for r_ in range(1, len(feitos) + 1):  # itens já feitos: linha inteira em verde
+        plano_tab.setStyle(TableStyle([("BACKGROUND", (0, r_), (-1, r_), VERDE_C)]))
+    st = [dest, tabela(["#", "O que fazer", "Prazo", "Por quê"], [list(d) for d in DESTAQUE], [0.04, 0.56, 0.12, 0.28], cor=VERMELHO),
+          Spacer(1, 10), faixa("PLANO DO ANÚNCIO (A = R$ 90 de 20 a 27/11  |  B = R$ 50 de 24 a 27/11  |  NATAL = R$ 150 de 14 a 22/12), EM ORDEM DE DATA: EM VERDE, O QUE JÁ FOI FEITO", AZUL),
+          plano_tab,
+          Spacer(1, 10), P("Outras pendências em aberto", "h2"),
           tabela(["Data", "Atividade", "Situação", "Motivo", "Nova data para reexecutar"],
                  [[a[0], a[2], a[3], a[5], a[6]] for a in nao], [0.05, 0.28, 0.09, 0.32, 0.26], cor=VERMELHO, col_situacao=2),
-          PageBreak(), P("3. Plano de reexecução: a data mais cedo possível", "h2"),
+          Spacer(1, 10), P("Quem faz o quê e quando (só o que está em aberto)", "h2"),
           tabela(["Quando", "Quem", "O que", "Ganho / observação"], [list(r) for r in REEXECUCAO], [0.17, 0.10, 0.38, 0.35], cor=LARANJA),
-          Spacer(1, 10), P("4. Dias de post sem agendamento: quando o Instagram libera (limite de 29 dias, vale também para o Business Suite)", "h2"),
-          Paragraph("O Business Suite tem o mesmo limite de 29 dias, então este é o caminho. Cada dia abre cerca de 1 hora depois das 19:00 do dia indicado (testado em 29/10: aceitou 18:00 e recusou 18:30 às 19:15); o Reels de 19:05 abre 5 minutos depois.", TXT),
-          Spacer(1, 4),
+          Spacer(1, 10), P("Reels ainda sem agendar (o Instagram libera 29 dias antes)", "h2"),
           tabela(["Dia de post", "Produto", "Pode agendar a partir de", "Situação"],
                  [[d, p_, abre(d), "pendente"] for d, p_ in FALTA_AGENDAR], [0.12, 0.46, 0.2, 0.22], cor=AZUL),
-          PageBreak(), P("5. Observações e riscos", "h2")]
+          Spacer(1, 10), P("Observações", "h2")]
     for o in OBSERVACOES:
         st += [Paragraph("• " + o, TXT), Spacer(1, 4)]
-    st += [Spacer(1, 6), P("6. Regra permanente", "h2"),
-           Paragraph("Por pedido do dono (29/10/2026), o Claude atualiza este relatório sempre que concluir uma sessão de trabalho ou de agendamento, "
-                     "com o nome <b>RELATORIO_ATIVIDADE_CLAUDE_BLOG_DD_MM_AAAA_HHhMM.pdf</b> em <b>D:\\Projeto_Blog_Comprenolink</b>: o que foi executado (data e hora), "
-                     "o que não foi, o motivo e a nova data. Gerador: D:\\Projeto_Blog_Comprenolink\\Programas_Diversos_Py\\gerar_relatorio_atividade.py.", TXT)]
     doc.build(st, onFirstPage=cab_rod, onLaterPages=cab_rod)
     print("PDF:", SAIDA)
+    # REGRA DO DONO (19/11/2026): na pasta fica só a versão mais nova; as anteriores vão para old_bkp (nada é apagado)
+    pasta = os.path.dirname(SAIDA)
+    bkp = os.path.join(pasta, "old_bkp")
+    os.makedirs(bkp, exist_ok=True)
+    for nome in os.listdir(pasta):
+        if nome.startswith("RELATORIO_ATIVIDADE_CLAUDE_BLOG_") and nome.endswith(".pdf") and nome != os.path.basename(SAIDA):
+            destino = os.path.join(bkp, nome)
+            if not os.path.exists(destino):
+                try:
+                    os.replace(os.path.join(pasta, nome), destino)
+                    print("movido para old_bkp:", nome)
+                except PermissionError:
+                    print("AVISO: não consegui mover (arquivo aberto em outro programa; feche e rode de novo):", nome)
 
 
 if __name__ == "__main__":

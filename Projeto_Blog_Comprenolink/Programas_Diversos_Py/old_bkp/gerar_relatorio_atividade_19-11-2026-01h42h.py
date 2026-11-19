@@ -1,0 +1,268 @@
+# -*- coding: utf-8 -*-
+"""RELATÓRIO DE ATIVIDADES do Claude no blog comprenolink.net / Instagram @compre.no.link (formato diário de bordo).
+Rodar:  python -X utf8 gerar_relatorio_atividade.py
+Saida: D:/Projeto_Blog_Comprenolink/0- Pendencias/4_Relatorio_Ativ_Claude_no_Blog/RELATORIO_ATIVIDADE_CLAUDE_BLOG_DD_MM_AAAA_HHhMM.pdf
+
+REGRA DO DONO (29/10/2026): gerar/atualizar SEMPRE ao fim de cada sessão/agendamento: o que foi EXECUTADO (data e hora),
+o que NÃO foi executado, o MOTIVO e a NOVA DATA para reexecutar. Pendência não espera um mês: propor a data mais próxima.
+Atualize ATIVIDADES e REEXECUCAO abaixo antes de rodar. Hora só entra quando conhecida (relógio da sessão ou data do arquivo).
+"""
+import os
+import sys
+from datetime import date, datetime, timedelta
+
+sys.path.insert(0, r"D:\Projeto_Blog_Comprenolink\0- Pendencias\5_Plano_turbinar_anuncio_instagram")
+from gerar_pdf_plano_turbinar import (AMARELO, AZUL_C, CINZA, CLARO, ESCURO, LARANJA, LARANJA_C, S, VERDE,  # noqa: E402
+                                      VERDE_C, VERMELHO, VERMELHO_C)
+from reportlab.lib import colors  # noqa: E402
+from reportlab.lib.pagesizes import A4, landscape  # noqa: E402
+from reportlab.lib.styles import ParagraphStyle  # noqa: E402
+from reportlab.lib.units import cm  # noqa: E402
+from reportlab.platypus import PageBreak, Paragraph, SimpleDocTemplate, Spacer, Table, TableStyle  # noqa: E402
+
+AGORA = datetime.now()
+SAIDA = rf"D:/Projeto_Blog_Comprenolink/0- Pendencias/4_Relatorio_Ativ_Claude_no_Blog/RELATORIO_ATIVIDADE_CLAUDE_BLOG_{AGORA:%d_%m_%Y_%Hh%M}.pdf"
+W, H = landscape(A4)
+LARG = W - 3 * cm
+AZUL = colors.HexColor("#0369A1")
+P = lambda t, e="pq": Paragraph(t, S[e])  # noqa: E731
+TXT = ParagraphStyle("txt", fontName="Arial", fontSize=9.6, leading=13.4, textColor=ESCURO)
+
+EX, PA, NE = "EXECUTADO", "PARCIAL", "NÃO EXECUTADO"
+COR = {EX: (VERDE, VERDE_C), PA: (LARANJA, LARANJA_C), NE: (VERMELHO, VERMELHO_C)}
+
+# (data, hora, atividade, situação, o que foi feito / evidência, motivo (se não executado), nova data para reexecutar)
+ATIVIDADES = [
+    ('30/10', '20:47', 'ATENÇÃO: a arte e o vídeo de 28/11 trazem textos que a política do blog evita ("MELHOR CUSTO-BENEFÍCIO" no selo e, no Reels, "Um dos mais vendidos e bem avaliados do Mercado Livre")', 'PARCIAL', 'Agendei mesmo assim porque a rotina foi aprovada pelo dono com estas artes e a publicação só ocorre em 28/11, quase um mês à frente; dá tempo de trocar. Não alterei nenhuma arte sem o OK do dono. Se o dono aprovar, regeno feed.png e reels.mp4 sem esses termos e substituo o agendamento de 28/11 (e de 25/11 e 26/11, que já tinham "Melhor").', 'Aguardando OK do dono', 'assim que o dono responder'),
+    ('04/11', '19:17', 'WhatsApp Canal: não publicado', 'NÃO EXECUTADO', 'O pacote de 04/11 não tem bloco 19:20 Canal.', 'Sem bloco 19:20 no pacote', 'Nenhuma'),
+    ('04/11', 'noite', 'Segundo administrador no Canal (sócio) e página comprenolink.net/canal; alinhar o 2º chip Claro pré-pago (aparelho dual SIM)', 'NÃO EXECUTADO', 'Combinado com o dono para o dia seguinte.', 'Depende do dono (administrador) e da compra do chip.', 'qui 05/11'),
+    ('06/11', '19:17', 'WhatsApp Canal 19:20', 'NÃO EXECUTADO', 'Não publicado.', 'O pacote de hoje não tem o bloco 19:20 (regra: só publica no Canal se houver).', ''),
+    ('19/11', '00:59', 'Conferência das tarefas agendadas (conversa nova: BLOG - Execução de atividades e planejamento)', 'EXECUTADO', 'Esta conversa assumiu tudo da "Atividades Claude e Planejamento" (passagem registrada nas anotações). Conferi as tarefas agendadas: as 3 da noite de 18/11 (BF/Natal 2, Pixel, Melhorias M0) terminaram com sucesso; as 5 de hoje (10:06, 10:22, 12:23, 20:00 e 20:30) estão ativas. Nenhuma tarefa cita a conversa antiga.', '', ''),
+    ('19/11', '01:15', 'Anúncio Black Friday: decisão do dono ("DE ACORDO") aplicada às tarefas', 'EXECUTADO', 'Plano A: R$ 90 de 20 a 27/11 (≈ R$ 11,25/dia), se até sex 20/11 18:00 o limite da Meta (≥ R$ 90) e a comissão dos 5 itens estiverem resolvidos; senão plano B: R$ 50 de 24 a 27/11. Natal R$ 100 mantido e condicional. Criado 1_Pendencias/DECISAO_ANUNCIO_BF_2026.md e ajustadas 4 tarefas (aviso 20/11 09:00, BF/Natal 4, aviso 23/11 09:00, BF/Natal 5), com cópia em old_bkp. Nada alterado na Meta nem no site.', '', 'Dono: limite da Meta e comissão até sex 20/11 18:00'),
+    ('19/11', '01:18', 'Relatório de atividades: 1ª geração do dia', 'EXECUTADO', 'Regra permanente aplicada: saíram os 8 sucessos de 18/11; ficaram as 15 pendências; plano de reexecução refeito só com ações em aberto; dias sem agendar = 18/12, 21/12 e 23/12.', '', ''),
+]
+
+FALTA_AGENDAR = [
+    ("18/12", "Máquina de Cortar Cabelo e Barba Sem Fio Nixzen (tarefa hoje 19/11 20:30)"), ("21/12", "Jogo de Lençol Casal Percal 600 Fios 4 Peças"),
+    ("23/12", "Cortina de LED 3x3 m com 300 Luzes e Controle"),
+]
+
+# (quando, quem, o que, ganho / observação) – sempre a data mais cedo possível
+REEXECUCAO = [
+    ("sex 20/11 até 18:00", "Dono", "Liberar o limite de gastos da conta Meta (≥ R$ 90) e conferir a comissão dos 5 itens da página 752 no ML", "Sem isso o plano A (R$ 90, 20 a 27/11) não sai e vale o plano B (R$ 50, 24 a 27/11). Responder \"feito\" para registrar."),
+    ("sex 20/11 20:00", "Claude", "BF/Natal 4: plano A publica a página 752 e entrega o material; plano B prepara o anúncio de R$ 50", "Tarefa agendada; lê DECISAO_ANUNCIO_BF_2026.md."),
+    ("sex 20/11 após 20:00 (A) ou seg 23/11 até 12:00 (B)", "Dono", "Criar e publicar o anúncio na Meta (Vendas + SaidaML)", "O Claude orienta; publicar e pausar é sempre do dono."),
+    ("seg 23/11 20:30", "Claude", "BF/Natal 5: checagem de parada (A) ou publicar a página 752 (B)", "Parar se saída < 3% ou custo por clique de saída > R$ 3."),
+    ("qui 19/11 20:30", "Claude", "Agendar o Reels de 18/12 (Nixzen)", "21/12 e 23/12 na rotina de segunda quando a janela abrir."),
+    ("quando puder (celular)", "Dono", "Colar o texto novo da bio do Instagram e avisar \"feito\"", "O Instagram no computador recusa salvar; o Claude confere pelo Chrome depois."),
+    ("quando puder", "Dono", "\"De acordo\" para corrigir as legendas dos Reels e arquivar os posts repetidos de 11, 13, 16 e 18/11", "Legendas prometem resposta no Direct que não existe."),
+    ("quando puder", "Dono", "Validar link e produto dos itens 67 (Suporte de TV) e 181 (Fone Soundcore P30i)", ""),
+    ("a decidir", "Dono", "Frase \"dieta e alimentação leve\" na legenda da Air Fryer (11/11) e foto da LG (26/11), que traz \"melhor\" na imagem do fabricante", "Se o dono pedir, o Claude refaz só esse dia."),
+    ("sempre que aparecer item em \"Precisam de substituto\"", "Dono + Claude", "Substituir anúncios fora do ar (manual, com o dono logado no ML Afiliados)", "O Claude mostra os substitutos para aprovação e troca no guia."),
+]
+
+OBSERVACOES = [
+    "As tarefas agendadas só rodam com o PC ligado e sem suspender e o app Claude aberto; as da noite precisam também do Chrome com a extensão e da Meta e do Instagram (@compre.no.link) logados.",
+    "Tudo que mexe no blog passa pelo gerenciador com backup antes; nada é alterado na conta de anúncios Meta (criar, publicar, pausar e verba são do dono).",
+]
+
+# DESTAQUE do topo: o que o dono deve fazer amanhã de manhã para o anúncio (pedido do dono em 19/11/2026)
+DESTAQUE_TITULO = "ANÚNCIO BLACK FRIDAY: O QUE VOCÊ DEVE FAZER AMANHÃ DE MANHÃ (sex 20/11, prazo 18:00)"
+DESTAQUE = [
+    ("1", "Liberar o limite de gastos da conta Meta (Compre no Link - Anúncios): pelo menos R$ 90 e forma de pagamento OK", "até 18:00", "Sem isso o anúncio de R$ 90 (20 a 27/11) não roda; volta ao plano B (R$ 50, 24 a 27/11)"),
+    ("2", "Conferir no painel do ML Afiliados a comissão dos 5 itens da página de entrada (Smart TV LG QNED 55\", Soundbar JBL SB595, Fire TV Stick 4K, Fone QCY HT08, Kit 4 Bermudas)", "até 18:00", "Item de comissão baixa: dizer qual trocar; o Claude troca antes de publicar"),
+    ("3", "Responder ao Claude: \"feito limite\" e \"feito comissão\" (ou o item a trocar)", "até 18:00", "É isso que libera o plano A na tarefa das 20:00"),
+    ("4", "À noite, depois das 20:00: criar e publicar o anúncio na Meta com o material que o Claude entrega (Vendas + SaidaML, R$ 90 total, término 27/11)", "sex 20/11 noite", "Claude publica a página 752 às 20:00 e orienta o passo a passo"),
+]
+
+# PLANO DO ANÚNCIO A e B em ordem cronológica (pedido do dono em 19/11/2026). Plano A = R$ 90 de 20 a 27/11; plano B = R$ 50 de 24 a 27/11
+PLANO_ANUNCIO_TITULO = "PLANO DO ANÚNCIO (A = R$ 90 de 20 a 27/11  |  B = R$ 50 de 24 a 27/11): TODAS AS ATIVIDADES EM ORDEM CRONOLÓGICA"
+PLANO_ANUNCIO = [
+    ("qui 19/11 01:15", "Decisão: plano A com recuo automático para o B; Natal R$ 100 condicional", "A e B", "Dono", "FEITO"),
+    ("sex 20/11 09:00", "Aviso urgente: limite da Meta e comissão até 18:00", "A e B", "Claude (tarefa agendada)", "Agendado"),
+    ("sex 20/11 até 18:00", "Liberar o limite de gastos da Meta (pelo menos R$ 90) e conferir a forma de pagamento", "A", "Dono", "PENDENTE"),
+    ("sex 20/11 até 18:00", "Conferir a comissão dos 5 itens da página 752 no ML Afiliados (dizer se algum sai)", "A e B", "Dono", "PENDENTE"),
+    ("sex 20/11 até 18:00", "Responder ao Claude: \"feito limite\" e \"feito comissão\"", "A", "Dono", "PENDENTE"),
+    ("sex 20/11 20:00", "BF/Natal 4. Plano A: reverifica os 5 links, publica a página 752, entrega o material de R$ 90 e troca a campanha no relatório. Plano B: entrega o material de R$ 50", "A ou B", "Claude (tarefa agendada)", "Agendado"),
+    ("sex 20/11 após 20:00", "Criar e publicar o anúncio na Meta: Vendas + SaidaML, R$ 90 total, término 27/11 23:59", "A", "Dono (Claude orienta)", "Aguardando"),
+    ("sáb 21 a sex 27/11", "Mandar a página 752 à mão para conhecidos e grupos permitidos", "A e B", "Dono", "Aguardando"),
+    ("todo dia 10:06 e 10:22", "Gráficos do anúncio, Pixel (PageView e SaidaML) e conferência dos 5 links", "A (desde 21/11) e B (desde 24/11)", "Claude (tarefa agendada)", "Agendado"),
+    ("seg 23/11 09:00", "Aviso. Plano A: números do anúncio no ar. Plano B: ÚLTIMO DIA, decisão até 12:00", "A ou B", "Claude (tarefa agendada)", "Agendado"),
+    ("seg 23/11 até 12:00", "Liberar o limite da Meta (pelo menos R$ 50), confirmar a comissão e decidir se o anúncio sai", "B", "Dono", "Só se for B"),
+    ("seg 23/11 20:30", "BF/Natal 5. Plano A: checagem de parada (pausar se saída < 3% ou custo por clique de saída > R$ 3). Plano B: publica a página 752, troca a campanha e entrega o checklist", "A ou B", "Claude (tarefa agendada)", "Agendado"),
+    ("seg 23/11 noite", "Plano A: pausar se o Claude recomendar. Plano B: criar e publicar o anúncio de R$ 50 (início 24/11 00:00)", "A ou B", "Dono", "Aguardando"),
+    ("ter 24/11 00:00", "Início do anúncio do plano B", "B", "Meta", "Só se for B"),
+    ("qua 25/11 10:06", "Checagem de parada do plano B (mesma regra: saída < 3% ou custo por clique de saída > R$ 3); o Claude avisa e o dono pausa", "B", "Claude avisa, dono pausa", "Só se for B"),
+    ("sex 27/11 23:59", "Fim do anúncio da Black Friday", "A e B", "Meta", "Aguardando"),
+    ("seg 30/11 20:30", "BF/Natal 6: avaliar a Black Friday (aprova se saída ≥ 8% e custo por clique de saída < R$ 1) e recomendar o Natal", "A e B", "Claude analisa, dono decide", "Agendado"),
+    ("ter 01 a qua 02/12", "Se o Natal for aprovado: subir o limite da Meta em mais R$ 100", "Natal", "Dono", "Só se aprovado"),
+    ("qui 03/12", "Criar e publicar o anúncio de Natal: R$ 100 de 03 a 14/12 (≈ R$ 8,33/dia)", "Natal", "Dono (Claude orienta)", "Só se aprovado"),
+    ("03 a 14/12, 10:06", "Acompanhamento diário do Natal (gráficos, Pixel e links)", "Natal", "Claude (tarefa agendada)", "Só se aprovado"),
+    ("seg 14/12 20:30", "BF/Natal 7: fechamento (resultado, custo total, vendas e o que aprendemos; comissão do ML cai em ~60 dias)", "A e B", "Claude (tarefa agendada)", "Agendado"),
+]
+
+# PREVISÃO do anúncio da Black Friday (opinião do Claude em 19/11/2026, pedido do dono). Estimativa, não garantia.
+PREVISAO_TITULO = "PREVISÃO DO ANÚNCIO DA BLACK FRIDAY (R$ 90): OPINIÃO DO CLAUDE EM 19/11 (estimativa, não garantia)"
+PREVISAO_BASE = ("<b>Base:</b> 1º teste (11 a 13/11) = R$ 49,67 para 260 visitas (≈ R$ 0,19 por visita) e 0,8% de saída para o ML; "
+                 "página do guia, com poucos itens = 14,6% de saída; histórico do painel = 19 vendas e R$ 172 (≈ R$ 9 de comissão por venda). "
+                 "Com R$ 90: ≈ 350 a 470 visitas.")
+PREVISAO = [
+    ("Ruim (igual ao 1º teste, ≈ 1%)", "≈ 4", "0", "R$ 0"),
+    ("REALISTA (página curta, 5 a 8%)", "≈ 20 a 35", "0 a 2", "R$ 0 a 20"),
+    ("Bom (igual ao guia, ≈ 14%)", "≈ 50 a 65", "1 a 4", "R$ 10 a 40"),
+]
+PREVISAO_CONCLUSAO = [
+    "<b>1.</b> O anúncio quase certamente não se paga na Black Friday: gastar R$ 90 para voltar R$ 0 a 40 é o mais provável.",
+    "<b>2.</b> Chance de pelo menos 1 venda: algo como 50% (estimativa). Ajuda: quem entra no ML pelo link e compra outra coisa também gera comissão.",
+    "<b>3.</b> O critério do Natal é difícil: custo por clique de saída abaixo de R$ 1 exige ≈ 19% de saída, mais do que o guia faz hoje. O mais provável é a BF não liberar o Natal, e isso protege o dinheiro.",
+    "<b>4.</b> Vira vendas? Pelo anúncio pago, no curto prazo: chance baixa. Pelo blog no Google, no médio prazo: sim, há chance (o guia já leva 14,6% ao ML sem custo).",
+    "<b>Valor real do plano:</b> aprender, gastando pouco, se a página curta converte. Saída perto de 8% ou mais em 30/11: repetir esse modelo de página no blog todo, de graça. Perto de 1%: o anúncio pago não serve, e você para sem perder mais.",
+]
+
+# ANÁLISE: o anúncio ajuda a divulgar o blog? (opinião do Claude em 19/11/2026, pedido do dono)
+DIVULGACAO_TITULO = "O ANÚNCIO AJUDA A DIVULGAR O BLOG? OPINIÃO DO CLAUDE EM 19/11: AJUDA UM POUCO, MAS NÃO É DIVULGAÇÃO DO BLOG"
+DIVULGACAO = [
+    ("AJUDA", "Gente nova vendo o nome", "≈ 350 a 470 visitas e alguns milhares de pessoas vendo \"Compre no Link\": mais do que o Instagram orgânico traz hoje."),
+    ("AJUDA", "O Pixel aprende", "Cada visita fica registrada na Meta; no futuro dá para anunciar só para quem já visitou o blog, o que costuma converter mais e custar menos."),
+    ("AJUDA", "Seguidores, talvez alguns", "Se o anúncio sair pela conta @compre.no.link, quem gostar pode seguir."),
+    ("NÃO AJUDA", "Visitante cai numa página só", "Ele vai da página 752 para o ML e quase não navega pelo resto do blog: é anúncio de venda, não de divulgação."),
+    ("NÃO AJUDA", "Google não melhora com tráfego pago", "O que faz o blog aparecer no Google é conteúdo bom e páginas que as pessoas procuram."),
+    ("NÃO AJUDA", "Acabou a verba, acabou a visita", "O efeito some em 27/11."),
+    ("DIVULGA DE VERDADE", "1. Google", "Páginas sobre o que as pessoas pesquisam (ex.: presente de Natal por faixa, fone para academia), sem \"melhor\" no texto. É o canal que mais cresce com o tempo, de graça."),
+    ("DIVULGA DE VERDADE", "2. Indicação direta", "O dono mandando o link para conhecidos e grupos permitidos."),
+    ("DIVULGA DE VERDADE", "3. Instagram corrigido", "Bio e legendas dos Reels levando ao link da bio, sem prometer resposta no Direct."),
+]
+DIVULGACAO_CONCLUSAO = ("<b>Resumo:</b> o anúncio é um <b>teste de venda</b> com um pequeno efeito de divulgação. A divulgação de verdade vem do Google e das indicações, "
+                        "e isso está no plano de melhorias do blog a partir de 01/12.")
+
+# ANÁLISE: o que tudo isso vai refletir (opinião do Claude em 19/11/2026, pedido do dono)
+REFLEXO_TITULO = "O QUE TUDO ISSO VAI REFLETIR: OPINIÃO SINCERA DO CLAUDE EM 19/11 (estimativa, não garantia)"
+REFLEXO = [
+    ("Até 30/11 (Black Friday)", "O mais provável é 0 a 2 vendas e R$ 90 gastos. O ganho real é a resposta: a página curta faz as pessoas irem ao ML ou não? Hoje é palpite; em 30/11 vira número."),
+    ("Dezembro", "O Natal provavelmente não será liberado (critério difícil): economia de R$ 100. As melhorias do blog de 01 a 11/12 (botões, imagens, destaques no topo, confiança) devem melhorar a saída para o ML nas páginas que já recebem visita do Google: é a melhor chance de venda no fim do ano, sem custo."),
+    ("Janeiro e fevereiro", "Caem as comissões de novembro e dezembro (≈ 60 dias depois). Deve ser pouco, mas será o primeiro número real do projeto. O replanejamento de janeiro terá dados de verdade para decidir o que manter, o que cortar e onde pôr esforço."),
+]
+REFLEXO_FUNDO = [
+    "<b>1. Se o blog tem futuro como renda:</b> a resposta virá do Google e da taxa de saída das páginas, não do Instagram nem do anúncio.",
+    "<b>2. Se vale continuar investindo dinheiro:</b> se a BF der muito abaixo de 8% de saída, a resposta honesta é não colocar mais dinheiro em anúncio, só tempo no blog.",
+    "<b>3. Quanto esforço o projeto merece:</b> hoje a estrutura (4 conversas, dezenas de tarefas, relatórios) é grande para o retorno; o resultado de dezembro deve guiar um enxugamento em janeiro.",
+    "<b>Expectativa realista:</b> o blog pode virar uma renda pequena e crescente (dezenas de reais por mês no começo) se o Google continuar trazendo visitas e as páginas melhorarem a saída. Com os números atuais, não há caminho para venda grande no curto prazo.",
+]
+
+
+def tabela(cab, linhas, larguras, cor=ESCURO, col_situacao=None):
+    dados = [[P(f"<b>{c}</b>", "cab") for c in cab]] + [[P(str(c)) for c in l] for l in linhas]
+    t = Table(dados, colWidths=[LARG * w for w in larguras], repeatRows=1)
+    st = [("BACKGROUND", (0, 0), (-1, 0), cor), ("GRID", (0, 0), (-1, -1), 0.4, colors.HexColor("#D1D5DB")),
+          ("VALIGN", (0, 0), (-1, -1), "TOP"), ("TOPPADDING", (0, 0), (-1, -1), 3), ("BOTTOMPADDING", (0, 0), (-1, -1), 3)]
+    for r in range(2, len(dados), 2):
+        st.append(("BACKGROUND", (0, r), (-1, r), CLARO))
+    if col_situacao is not None:
+        for r, l in enumerate(linhas, 1):
+            st.append(("BACKGROUND", (col_situacao, r), (col_situacao, r), COR[l[col_situacao]][1]))
+    t.setStyle(TableStyle(st))
+    return t
+
+
+def cab_rod(c, doc):
+    c.saveState()
+    c.setFillColor(ESCURO)
+    c.rect(0, H - 1.7 * cm, W, 1.7 * cm, fill=1, stroke=0)
+    c.setFillColor(AMARELO)
+    c.rect(0, H - 1.82 * cm, W, 0.12 * cm, fill=1, stroke=0)
+    c.setFont("Arial-B", 15)
+    c.drawString(1.5 * cm, H - 1.1 * cm, "Relatório de atividades do Claude (diário de bordo) – blog comprenolink.net")
+    c.setFont("Arial", 9.5)
+    c.setFillColor(colors.white)
+    c.drawRightString(W - 1.5 * cm, H - 1.1 * cm, f"atualizado em {AGORA:%d/%m/%Y} às {AGORA:%H:%M}")
+    c.setFont("Arial", 8)
+    c.setFillColor(CINZA)
+    c.drawString(1.5 * cm, 0.8 * cm, "Blog comprenolink.net  •  Instagram @compre.no.link  •  WhatsApp (11) 99495-9657")
+    c.drawRightString(W - 1.5 * cm, 0.8 * cm, f"Página {doc.page}")
+    c.restoreState()
+
+
+def painel():
+    n = {k: sum(1 for a in ATIVIDADES if a[3] == k) for k in COR}
+
+    def c(v, rot, cor):
+        return Paragraph(f"<font size=20><b>{v}</b></font><br/><font size=9>{rot}</font>",
+                         ParagraphStyle("pn", parent=TXT, alignment=1, textColor=cor, leading=22))
+    t = Table([[c(n[EX], "executadas", VERDE), c(n[PA], "parciais", LARANJA), c(n[NE], "não executadas", VERMELHO),
+                c(len(FALTA_AGENDAR), "dias ainda sem agendar", AZUL)]], colWidths=[LARG / 4] * 4)
+    t.setStyle(TableStyle([("BOX", (0, 0), (-1, -1), 0.5, colors.HexColor("#D1D5DB")), ("INNERGRID", (0, 0), (-1, -1), 0.3, colors.HexColor("#D1D5DB")),
+                           ("BACKGROUND", (0, 0), (0, 0), VERDE_C), ("BACKGROUND", (1, 0), (1, 0), LARANJA_C), ("BACKGROUND", (2, 0), (2, 0), VERMELHO_C),
+                           ("BACKGROUND", (3, 0), (3, 0), AZUL_C), ("TOPPADDING", (0, 0), (-1, -1), 8), ("BOTTOMPADDING", (0, 0), (-1, -1), 8)]))
+    return t
+
+
+def abre(d):
+    dd, mm = d.split("/")
+    j = date(2026, int(mm), int(dd)) - timedelta(days=29)
+    return f"{j:%d/%m} ~20:00"
+
+
+def main():
+    doc = SimpleDocTemplate(SAIDA, pagesize=(W, H), leftMargin=1.5 * cm, rightMargin=1.5 * cm, topMargin=2.4 * cm, bottomMargin=1.5 * cm,
+                            title="Relatório de atividades do Claude – blog", author="comprenolink.net")
+    nao = [a for a in ATIVIDADES if a[3] in (NE, PA)]
+    dest = Table([[Paragraph(f"<b>{DESTAQUE_TITULO}</b>", ParagraphStyle("dt", parent=TXT, fontSize=12, leading=15, textColor=colors.white))]],
+                 colWidths=[LARG])
+    dest.setStyle(TableStyle([("BACKGROUND", (0, 0), (-1, -1), VERMELHO), ("TOPPADDING", (0, 0), (-1, -1), 7), ("BOTTOMPADDING", (0, 0), (-1, -1), 7)]))
+    st = [dest, tabela(["#", "O que fazer", "Prazo", "Por quê"], [list(d) for d in DESTAQUE], [0.04, 0.56, 0.12, 0.28], cor=VERMELHO),
+          Spacer(1, 10), Table([[Paragraph(f"<b>{PLANO_ANUNCIO_TITULO}</b>", ParagraphStyle("pa", parent=TXT, fontSize=11, leading=14, textColor=colors.white))]],
+                               colWidths=[LARG], style=[("BACKGROUND", (0, 0), (-1, -1), AZUL), ("TOPPADDING", (0, 0), (-1, -1), 6), ("BOTTOMPADDING", (0, 0), (-1, -1), 6)]),
+          tabela(["Data e hora", "Atividade", "Plano", "Quem executa", "Situação"], [list(p_) for p_ in PLANO_ANUNCIO], [0.13, 0.50, 0.12, 0.15, 0.10], cor=AZUL),
+          Spacer(1, 10), Table([[Paragraph(f"<b>{PREVISAO_TITULO}</b>", ParagraphStyle("pv", parent=TXT, fontSize=11, leading=14, textColor=colors.white))]],
+                               colWidths=[LARG], style=[("BACKGROUND", (0, 0), (-1, -1), LARANJA), ("TOPPADDING", (0, 0), (-1, -1), 6), ("BOTTOMPADDING", (0, 0), (-1, -1), 6)]),
+          Spacer(1, 4), Paragraph(PREVISAO_BASE, TXT), Spacer(1, 4),
+          tabela(["Cenário (saída para o ML)", "Pessoas que vão ao ML", "Vendas prováveis", "Comissão estimada"], [list(p_) for p_ in PREVISAO], [0.40, 0.20, 0.20, 0.20], cor=LARANJA),
+          Spacer(1, 6)] + [x for c_ in PREVISAO_CONCLUSAO for x in (Paragraph(c_, TXT), Spacer(1, 3))] + [
+          Spacer(1, 10), Table([[Paragraph(f"<b>{DIVULGACAO_TITULO}</b>", ParagraphStyle("dv", parent=TXT, fontSize=11, leading=14, textColor=colors.white))]],
+                               colWidths=[LARG], style=[("BACKGROUND", (0, 0), (-1, -1), VERDE), ("TOPPADDING", (0, 0), (-1, -1), 6), ("BOTTOMPADDING", (0, 0), (-1, -1), 6)]),
+          tabela(["Efeito", "Ponto", "Explicação"], [list(d_) for d_ in DIVULGACAO], [0.16, 0.22, 0.62], cor=VERDE),
+          Spacer(1, 6), Paragraph(DIVULGACAO_CONCLUSAO, TXT),
+          Spacer(1, 10), Table([[Paragraph(f"<b>{REFLEXO_TITULO}</b>", ParagraphStyle("rf", parent=TXT, fontSize=11, leading=14, textColor=colors.white))]],
+                               colWidths=[LARG], style=[("BACKGROUND", (0, 0), (-1, -1), ESCURO), ("TOPPADDING", (0, 0), (-1, -1), 6), ("BOTTOMPADDING", (0, 0), (-1, -1), 6)]),
+          tabela(["Quando", "O que deve acontecer"], [list(r_) for r_ in REFLEXO], [0.18, 0.82], cor=ESCURO),
+          Spacer(1, 6), Paragraph("<b>O que tudo isso vai refletir, no fundo:</b>", TXT), Spacer(1, 3)] + [x for r_ in REFLEXO_FUNDO for x in (Paragraph(r_, TXT), Spacer(1, 3))] + [
+          PageBreak(), painel(), Spacer(1, 8),
+          Paragraph("<b>Como ler.</b> Cada linha é uma atividade em ordem de data e hora. A coluna <b>Situação</b> diz se foi executada, parcial ou não executada; "
+                    "quando não foi, o <b>motivo</b> e a <b>nova data</b> aparecem na mesma linha. Nada espera um mês: a seção 3 mostra a data mais próxima possível "
+                    "de cada reexecução.", TXT),
+          Spacer(1, 8), P("1. Diário de bordo (cronológico)", "h2"),
+          tabela(["Data", "Hora", "Atividade", "Situação", "O que foi feito / evidência", "Motivo (se não executado)", "Reexecução"],
+                 [list(a) for a in ATIVIDADES], [0.05, 0.08, 0.20, 0.09, 0.25, 0.20, 0.13], col_situacao=3),
+          PageBreak(), P("2. O que não foi executado (ou ficou parcial): motivo e nova data", "h2"),
+          tabela(["Data", "Atividade", "Situação", "Motivo", "Nova data para reexecutar"],
+                 [[a[0], a[2], a[3], a[5], a[6]] for a in nao], [0.05, 0.28, 0.09, 0.32, 0.26], cor=VERMELHO, col_situacao=2),
+          PageBreak(), P("3. Plano de reexecução: a data mais cedo possível", "h2"),
+          tabela(["Quando", "Quem", "O que", "Ganho / observação"], [list(r) for r in REEXECUCAO], [0.17, 0.10, 0.38, 0.35], cor=LARANJA),
+          Spacer(1, 10), P("4. Dias de post sem agendamento: quando o Instagram libera (limite de 29 dias, vale também para o Business Suite)", "h2"),
+          Paragraph("O Business Suite tem o mesmo limite de 29 dias, então este é o caminho. Cada dia abre cerca de 1 hora depois das 19:00 do dia indicado (testado em 29/10: aceitou 18:00 e recusou 18:30 às 19:15); o Reels de 19:05 abre 5 minutos depois.", TXT),
+          Spacer(1, 4),
+          tabela(["Dia de post", "Produto", "Pode agendar a partir de", "Situação"],
+                 [[d, p_, abre(d), "pendente"] for d, p_ in FALTA_AGENDAR], [0.12, 0.46, 0.2, 0.22], cor=AZUL),
+          PageBreak(), P("5. Observações e riscos", "h2")]
+    for o in OBSERVACOES:
+        st += [Paragraph("• " + o, TXT), Spacer(1, 4)]
+    st += [Spacer(1, 6), P("6. Regra permanente", "h2"),
+           Paragraph("Por pedido do dono (29/10/2026), o Claude atualiza este relatório sempre que concluir uma sessão de trabalho ou de agendamento, "
+                     "com o nome <b>RELATORIO_ATIVIDADE_CLAUDE_BLOG_DD_MM_AAAA_HHhMM.pdf</b> em <b>D:\\Projeto_Blog_Comprenolink</b>: o que foi executado (data e hora), "
+                     "o que não foi, o motivo e a nova data. Gerador: D:\\Projeto_Blog_Comprenolink\\Programas_Diversos_Py\\gerar_relatorio_atividade.py.", TXT)]
+    doc.build(st, onFirstPage=cab_rod, onLaterPages=cab_rod)
+    print("PDF:", SAIDA)
+    # REGRA DO DONO (19/11/2026): na pasta fica só a versão mais nova; as anteriores vão para old_bkp (nada é apagado)
+    pasta = os.path.dirname(SAIDA)
+    bkp = os.path.join(pasta, "old_bkp")
+    os.makedirs(bkp, exist_ok=True)
+    for nome in os.listdir(pasta):
+        if nome.startswith("RELATORIO_ATIVIDADE_CLAUDE_BLOG_") and nome.endswith(".pdf") and nome != os.path.basename(SAIDA):
+            destino = os.path.join(bkp, nome)
+            if not os.path.exists(destino):
+                os.replace(os.path.join(pasta, nome), destino)
+                print("movido para old_bkp:", nome)
+
+
+if __name__ == "__main__":
+    main()

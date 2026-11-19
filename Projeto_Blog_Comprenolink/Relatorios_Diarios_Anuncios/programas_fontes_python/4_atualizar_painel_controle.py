@@ -869,6 +869,119 @@ def quadro_substituicao(ws, r):
     return r + 2
 
 
+# ---------------------------------------------------------------- origem e data das visitas (dados brutos do rastreador)
+ORDEM_CLASSE = ["Externo (divulgação)", "Anúncio pago", "Interno (botões do site)", "Direto / sem origem", "Teste"]
+
+
+def _classe_origem(o, camp, cont, meio):
+    txt = (camp + cont).lower()
+    if o in ("localhost", "127.0.0.1", "teste") or "teste_rastreio" in txt:
+        return "Teste"
+    if meio == "paid":
+        return "Anúncio pago"
+    if o == "site":
+        return "Interno (botões do site)"
+    if o == "":
+        return "Direto / sem origem"
+    return "Externo (divulgação)"
+
+
+def _rotulo_origem(o, meio, cont):
+    base = {"w": "WhatsApp (link l.wl.co)", "ig": "Instagram", "instagram": "Instagram", "whatsapp": "WhatsApp",
+            "facebook": "Facebook", "tiktok": "TikTok", "yahoo": "Yahoo (busca)", "site": "Site (botões da home)",
+            "": "Direto / sem origem"}.get(o, o.capitalize())
+    detalhe = {"stories": "Stories", "canal": "Canal", "perfil": "perfil", "dm": "Direct", "video": "vídeo",
+               "paid": "anúncio pago"}.get(meio, meio)
+    if cont == "link_in_bio":
+        detalhe = "link da bio"
+    return f"{base} · {detalhe}" if detalhe else base
+
+
+def ler_origens(fuso_h):
+    """De onde vieram as visitas e os cliques no ML e em que dia, direto do último acessos_*.csv (1 visita = 1 sessão;
+    o clique herda a origem da sessão dele; dia no fuso de Brasília).
+    Devolve (lista de grupos, índice (origem bruta, campanha, conteúdo) -> (primeiro, último))."""
+    arqs = sorted(glob.glob(os.path.join(RELAT, "dados_acessos", "acessos_*.csv")))
+    if not arqs:
+        return [], {}
+    with open(arqs[-1], encoding="utf-8-sig") as fh:
+        linhas = list(csv.DictReader(fh, delimiter=";"))
+
+    def quando(r):
+        try:
+            return datetime.strptime(r["criado_em"][:19], "%Y-%m-%d %H:%M:%S") + timedelta(hours=fuso_h)
+        except (ValueError, KeyError):
+            return None
+
+    def chave(r):
+        return ((r.get("origem") or "").strip().lower(), (r.get("campanha") or "").strip(),
+                (r.get("conteudo") or "").strip(), (r.get("meio") or "").strip().lower())
+    grupos, sessao_chave = {}, {}
+    for r in linhas:
+        if r.get("tipo") != "visita":
+            continue
+        t = quando(r)
+        if t is None:
+            continue
+        k = chave(r)
+        g = grupos.setdefault(k, {"sess": set(), "dias": {}, "cl": set(), "cl_dias": {}})
+        sess = r.get("sessao") or r.get("id")
+        g["sess"].add(sess)
+        g["dias"].setdefault(t.date(), set()).add(sess)
+        sessao_chave.setdefault(r.get("sessao") or "", k)
+    for r in linhas:  # cliques no ML: origem = a da sessão onde ocorreram
+        if r.get("tipo") != "clique":
+            continue
+        t = quando(r)
+        k = sessao_chave.get(r.get("sessao") or "") or chave(r)
+        if t is None or _classe_origem(k[0], k[1], k[2], k[3]) == "Teste":
+            continue
+        g = grupos.setdefault(k, {"sess": set(), "dias": {}, "cl": set(), "cl_dias": {}})
+        g["cl"].add(r["id"])
+        g["cl_dias"].setdefault(t.date(), set()).add(r["id"])
+    lista, indice = [], {}
+    for (o, camp, cont, meio), g in grupos.items():
+        corte = datetime.now().date() - timedelta(days=30)
+        dias_tudo = sorted((d, len(sv)) for d, sv in g["dias"].items())
+        dias_cl_tudo = sorted((d, len(sv)) for d, sv in g["cl_dias"].items())
+        antigas = sum(n for d, n in dias_tudo if d < corte)  # acima de 30 dias: só o total
+        antigas_cl = sum(n for d, n in dias_cl_tudo if d < corte)
+        dias = [(d, n) for d, n in dias_tudo if d >= corte]
+        dias_cl = [(d, n) for d, n in dias_cl_tudo if d >= corte]
+        todos = [d for d, _ in dias_tudo] + [d for d, _ in dias_cl_tudo]
+        if not todos:
+            continue
+        lista.append({"classe": _classe_origem(o, camp, cont, meio), "origem": _rotulo_origem(o, meio, cont),
+                      "campanha": camp or "—", "conteudo": cont or "—", "visitas": len(g["sess"]),
+                      "primeiro": dias_tudo[0][0] if dias_tudo else None, "ultimo": dias_tudo[-1][0] if dias_tudo else None,
+                      "dias": dias, "antigas": antigas,
+                      "cliques": len(g["cl"]), "primeiro_cl": dias_cl_tudo[0][0] if dias_cl_tudo else None,
+                      "ultimo_cl": dias_cl_tudo[-1][0] if dias_cl_tudo else None, "dias_cl": dias_cl, "antigas_cl": antigas_cl})
+        indice[(o, camp, cont)] = (min(todos), max(todos))
+    lista.sort(key=lambda x: (ORDEM_CLASSE.index(x["classe"]), x["primeiro"] or datetime.max.date(), -x["visitas"], x["origem"]))
+    return lista, indice
+
+
+def _datas_origem(indice, canal, camp, cont):
+    """Primeiro e último dia de uma linha da aba Campanhas (casa pelo começo do conteúdo, que o relatório pode cortar)."""
+    canal = (canal or "").strip().lower()
+    camp = "" if camp in (None, "—") else str(camp).strip()
+    cont = "" if cont in (None, "—") else str(cont).strip()
+    achados = [v for (o, c, ct), v in indice.items()
+               if o == canal and c == camp and (ct == cont or (cont and (ct.startswith(cont) or cont.startswith(ct))))]
+    if not achados:
+        return None, None
+    return min(a[0] for a in achados), max(a[1] for a in achados)
+
+
+def _dias_texto(dias, antigas=0):
+    """Dias dos últimos 30 dias, um a um; o que passou de 30 dias entra como um total só."""
+    t = "; ".join(f"{d:%d/%m} ({n})" for d, n in dias)
+    if antigas:
+        t = (t + "; " if t else "") + f"acima de 30 dias: {antigas} no total"
+    return t
+
+
 def montar(rels, vendas, preservado, avisos, anuncios=None, hist_anuncios=None):
     ult = rels[-1]
     metas = {nome: preservado["metas"].get(nome, val) for nome, val, _, _ in METAS_PADRAO}
@@ -878,6 +991,7 @@ def montar(rels, vendas, preservado, avisos, anuncios=None, hist_anuncios=None):
         if str(v.get("canal", "")).lower() == "teste":
             preservado["ignorar"].setdefault(v["id"], "S")
     compra_de, visitante_do_pedido = atribuir_vendas(ult["visitantes"], vendas, fuso_h, janela, preservado["ignorar"])
+    origens, indice_origens = ler_origens(fuso_h)
     wb = Workbook()
     wb.remove(wb.active)
     painel = wb.create_sheet("Painel")
@@ -932,8 +1046,8 @@ def montar(rels, vendas, preservado, avisos, anuncios=None, hist_anuncios=None):
     # ---------- Campanhas (último relatório)
     ws = wb.create_sheet("Campanhas")
     col = ["Tipo", "Canal", "Campanha", "Conteúdo", "Rótulo", "Visitas", "Visitantes", "Cliques", "Taxa de clique",
-           "Possíveis compras", "Vendas aprovadas", "Comissão aprovada", "Classificação"]
-    cabecalho(ws, col, [26, 10, 20, 20, 30, 8, 10, 8, 11, 11, 11, 12, 14])
+           "Possíveis compras", "Vendas aprovadas", "Comissão aprovada", "Classificação", "Primeiro dia", "Último dia"]
+    cabecalho(ws, col, [26, 10, 20, 20, 30, 8, 10, 8, 11, 11, 11, 12, 14, 12, 12])
     for i, c in enumerate(ult["campanhas"], start=2):
         rot = c["canal"] + (" · " + c["conteudo"] if c["conteudo"] and c["conteudo"] != "—" else "")
         for ci, v in enumerate([c["tipo"], c["canal"], c["campanha"], c["conteudo"], rot, c["visitas"],
@@ -946,14 +1060,54 @@ def montar(rels, vendas, preservado, avisos, anuncios=None, hist_anuncios=None):
         ws.cell(i, 13, f'=IF(B{i}="direto","Direto",IF(B{i}="site","Interno",'
                        f'IF(OR(ISNUMBER(SEARCH("teste",C{i}&D{i})),ISNUMBER(SEARCH("127.0.0.1",B{i})),'
                        f'ISNUMBER(SEARCH("localhost",B{i}))),"Teste","Externo")))')
+        d1, d2 = _datas_origem(indice_origens, c["canal"], c["campanha"], c["conteudo"])
+        ws.cell(i, 14, d1)
+        ws.cell(i, 15, d2)
     nc = len(ult["campanhas"]) + 1
-    corpo(ws, 2, nc, len(col), {9: "0%", 12: '"R$" #,##0.00'})
+    corpo(ws, 2, nc, len(col), {9: "0%", 12: '"R$" #,##0.00', 14: "dd/mm/yyyy", 15: "dd/mm/yyyy"})
     tabela(ws, "tbCampanhas", len(col), nc)
     ws.conditional_formatting.add(f"H2:H{nc}", DataBarRule(start_type="num", start_value=0, end_type="max", color="F4B183"))
     ws.cell(nc + 2, 1, "Classificação: Interno = botões da própria home (utm_source=site); Teste = campanha com 'teste' ou vinda de 127.0.0.1/localhost (painel local); "
                        "Externo = divulgação real (TikTok, Instagram, WhatsApp...); Direto = sem etiqueta.").font = F_SUB
 
     # ---------- Produtos
+    # ---------- Origem_Visitas: de onde vieram as visitas e em que dia (dados brutos do rastreador)
+    ws = wb.create_sheet("Origem_Visitas")
+    col = ["Classe", "Origem", "Campanha", "Conteúdo", "Visitas", "Primeiro dia", "Último dia", "Dias com visita (nº de visitas)",
+           "Cliques no ML", "Primeiro clique", "Último clique", "Dias com clique (nº de cliques)"]
+    cabecalho(ws, col, [24, 30, 18, 44, 8, 12, 12, 60, 10, 12, 12, 50])
+    for i, g in enumerate(origens, start=2):
+        for ci, v in enumerate([g["classe"], g["origem"], g["campanha"], g["conteudo"], g["visitas"], g["primeiro"],
+                                g["ultimo"], _dias_texto(g["dias"], g["antigas"]), g["cliques"], g["primeiro_cl"], g["ultimo_cl"],
+                                _dias_texto(g["dias_cl"], g["antigas_cl"])], start=1):
+            ws.cell(i, ci, v)
+    no = max(len(origens), 1) + 1
+    corpo(ws, 2, no, len(col), {6: "dd/mm/yyyy", 7: "dd/mm/yyyy", 10: "dd/mm/yyyy", 11: "dd/mm/yyyy"})
+    tabela(ws, "tbOrigens", len(col), no)
+    ws.cell(no + 2, 1, "1 visita = 1 sessão, contada nos dados brutos do rastreador (acessos_*.csv mais recente); dia no fuso de Brasília. "
+                       "Inclui origens sem etiqueta UTM (ex.: Facebook, link da bio). Teste = acessos do painel local.").font = F_SUB
+
+    ws = wb.create_sheet("Visitas_por_Dia")
+    col = ["Dia", "Classe", "Origem", "Campanha", "Conteúdo", "Visitas", "Cliques no ML"]
+    cabecalho(ws, col, [12, 24, 30, 18, 44, 8, 12])
+    por_dia = {}
+    for g in origens:
+        for d, n in g["dias"]:
+            por_dia.setdefault((d, g["classe"], g["origem"], g["campanha"], g["conteudo"]), [0, 0])[0] += n
+        for d, n in g["dias_cl"]:
+            por_dia.setdefault((d, g["classe"], g["origem"], g["campanha"], g["conteudo"]), [0, 0])[1] += n
+    linhas_dia = [(*k, v[0], v[1]) for k, v in por_dia.items()]
+    linhas_dia.sort(key=lambda x: (x[0], ORDEM_CLASSE.index(x[1]), -x[5]))  # cronológico: do mais antigo ao mais novo
+    for g in origens:  # acima de 30 dias: só o total
+        if g["antigas"] or g["antigas_cl"]:
+            linhas_dia.append(("Acima de 30 dias", g["classe"], g["origem"], g["campanha"], g["conteudo"], g["antigas"], g["antigas_cl"]))
+    for i, lin_d in enumerate(linhas_dia, start=2):
+        for ci, v in enumerate(lin_d, start=1):
+            ws.cell(i, ci, v)
+    nv = max(len(linhas_dia), 1) + 1
+    corpo(ws, 2, nv, len(col), {1: "dd/mm/yyyy"})  # linhas "Acima de 30 dias" ficam como texto
+    tabela(ws, "tbVisitasDia", len(col), nv)
+
     ws = wb.create_sheet("Produtos")
     col = ["#", "Produto", "Cliques", "% dos cliques", "Principais origens"]
     cabecalho(ws, col, [5, 70, 9, 12, 45])
@@ -1615,7 +1769,122 @@ def montar(rels, vendas, preservado, avisos, anuncios=None, hist_anuncios=None):
     g.set_categories(Reference(wb["Quadros"], min_col=4, min_row=2, max_row=nq))
     g.legend = None
     ws.add_chart(grafico(g, "Ritmo: visitas por hora entre relatórios"), f"B{lin}")
-    ws.print_area = f"A1:R{lin + 16}"
+    # ---------- quadro: de onde vieram as visitas e em que dia (vai no PDF do painel)
+    r0 = lin + 17
+    ws.row_breaks.append(Break(id=r0 - 1))
+    ws.cell(r0, 2, "DE ONDE VIERAM AS VISITAS E EM QUE DIA").font = F_SEC
+    ws.cell(r0 + 1, 2, "Dados brutos do rastreador do blog (1 visita = 1 sessão; dia no fuso de Brasília). Inclui origens sem etiqueta, "
+                       "por isso o total externo pode ser maior que o cartão 'Visitas externas' do alto. Teste não aparece.").font = F_SUB
+    r = r0 + 2
+    for (c1, c2, rot) in ((2, 6, "Origem · campanha"), (7, 7, "Visitas"), (8, 9, "Primeiro dia"), (10, 11, "Último dia"),
+                          (12, 18, "Dias (nº de visitas)")):
+        if c2 > c1:
+            ws.merge_cells(start_row=r, start_column=c1, end_row=r, end_column=c2)
+        for cc in range(c1, c2 + 1):
+            ws.cell(r, cc).fill, ws.cell(r, cc).border = FILL_H, BORDA
+        ws.cell(r, c1, rot).font = F_H
+        ws.cell(r, c1).alignment = CENTRO
+    def tabela_painel(r, itens, campo, campo_p, campo_u, campo_d, campo_a):
+        classe_ant = None
+        for g in itens:
+            r += 1
+            if g["classe"] != classe_ant:
+                classe_ant = g["classe"]
+                ws.merge_cells(start_row=r, start_column=2, end_row=r, end_column=18)
+                ws.cell(r, 2, classe_ant.upper()).font = Font(name=FONTE, size=9, bold=True, color=AZUL)
+                for cc in range(2, 19):
+                    ws.cell(r, cc).fill, ws.cell(r, cc).border = FILL_KPI, BORDA
+                r += 1
+            nome = g["origem"] + ("" if g["campanha"] == "—" else " · " + g["campanha"]) + \
+                ("" if g["conteudo"] in ("—", "link_in_bio") else " · " + g["conteudo"][:34])
+            texto = _dias_texto(g[campo_d], g[campo_a])
+            for (c1, c2) in ((2, 6), (8, 9), (10, 11), (12, 18)):
+                ws.merge_cells(start_row=r, start_column=c1, end_row=r, end_column=c2)
+            ws.cell(r, 2, nome).font = F_N
+            ws.cell(r, 7, g[campo]).font = F_B
+            ws.cell(r, 8, g[campo_p]).number_format = "dd/mm/yyyy"
+            ws.cell(r, 10, g[campo_u]).number_format = "dd/mm/yyyy"
+            ws.cell(r, 12, texto).font = Font(name=FONTE, size=9)
+            for cc in range(2, 19):
+                ws.cell(r, cc).border = BORDA
+            for cc in (2, 12):
+                ws.cell(r, cc).alignment = Alignment(wrap_text=True, vertical="center")
+            for cc in (7, 8, 10):
+                ws.cell(r, cc).alignment = CENTRO
+            linhas_txt = max(-(-len(texto) // 60), -(-len(nome) // 44), 1)  # linhas necessárias (texto quebrado)
+            ws.row_dimensions[r].height = max(15, 12 * linhas_txt + 3)
+        return r
+
+    def cabecalho_painel(r, c_visitas, rot_p, rot_u):
+        for (c1, c2, rot) in ((2, 6, "Origem · campanha"), (7, 7, c_visitas), (8, 9, rot_p), (10, 11, rot_u),
+                              (12, 18, "Dias (nº)")):
+            if c2 > c1:
+                ws.merge_cells(start_row=r, start_column=c1, end_row=r, end_column=c2)
+            for cc in range(c1, c2 + 1):
+                ws.cell(r, cc).fill, ws.cell(r, cc).border = FILL_H, BORDA
+            ws.cell(r, c1, rot).font = F_H
+            ws.cell(r, c1).alignment = CENTRO
+
+    sem_teste = [g for g in origens if g["classe"] != "Teste"]
+    topo = sorted([g for g in sem_teste if g["visitas"] > 0], key=lambda g: -g["visitas"])[:18]
+    topo.sort(key=lambda g: (ORDEM_CLASSE.index(g["classe"]), g["primeiro"] or datetime.max.date(), -g["visitas"]))
+    r = tabela_painel(r, topo, "visitas", "primeiro", "ultimo", "dias", "antigas")
+    tot_ext = sum(g["visitas"] for g in origens if g["classe"] == "Externo (divulgação)")
+    ws.cell(r + 1, 2, f"Total de visitas externas nos dados brutos: {tot_ext}. Detalhe completo nas abas Origem_Visitas e Visitas_por_Dia.").font = F_SUB
+    # ---- cliques no ML: quando e de onde
+    r += 3
+    ws.cell(r, 2, "CLIQUES NO ML: QUANDO E DE ONDE").font = F_SEC
+    ws.cell(r + 1, 2, "O clique herda a origem da visita (sessão) em que aconteceu. Cartão 'Cliques no ML' do alto = total do relatório; "
+                      "aqui o detalhe por origem e dia, sem testes.").font = F_SUB
+    r += 2
+    cabecalho_painel(r, "Cliques", "Primeiro clique", "Último clique")
+    com_cliques = sorted([g for g in sem_teste if g["cliques"] > 0], key=lambda g: (-g["cliques"], g["origem"]))[:14]
+    for g in com_cliques:
+        g["classe"] = g["classe"]
+    r = tabela_painel(r, sorted(com_cliques, key=lambda g: (ORDEM_CLASSE.index(g["classe"]), g["primeiro_cl"] or datetime.max.date(), -g["cliques"])), "cliques",
+                      "primeiro_cl", "ultimo_cl", "dias_cl", "antigas_cl")
+    # ---- cliques no ML dia a dia, só em ordem cronológica (do mais antigo ao mais novo)
+    r += 3
+    ws.cell(r, 2, "CLIQUES NO ML DIA A DIA (ORDEM CRONOLÓGICA)").font = F_SEC
+    ws.cell(r + 1, 2, "Do dia mais antigo ao mais novo; em cada dia, de onde vieram os cliques. Acima de 30 dias: só o total.").font = F_SUB
+    r += 2
+    for (c1, c2, rot) in ((2, 3, "Dia"), (4, 4, "Cliques"), (5, 18, "De onde vieram (origem: nº de cliques)")):
+        if c2 > c1:
+            ws.merge_cells(start_row=r, start_column=c1, end_row=r, end_column=c2)
+        for cc in range(c1, c2 + 1):
+            ws.cell(r, cc).fill, ws.cell(r, cc).border = FILL_H, BORDA
+        ws.cell(r, c1, rot).font = F_H
+        ws.cell(r, c1).alignment = CENTRO
+    por_dia_cl, antigos_cl = {}, {}
+    for g in sem_teste:
+        rotulo = g["origem"] + ("" if g["campanha"] in ("—", "") else " · " + g["campanha"])
+        for d, n in g["dias_cl"]:
+            por_dia_cl.setdefault(d, {})
+            por_dia_cl[d][rotulo] = por_dia_cl[d].get(rotulo, 0) + n
+        if g["antigas_cl"]:
+            antigos_cl[rotulo] = antigos_cl.get(rotulo, 0) + g["antigas_cl"]
+    linhas_cl = []
+    if antigos_cl:
+        linhas_cl.append(("Acima de 30 dias", antigos_cl))
+    linhas_cl += [(d.strftime("%d/%m/%Y"), por_dia_cl[d]) for d in sorted(por_dia_cl)]
+    for dia_txt, origens_dia in linhas_cl:
+        r += 1
+        ws.merge_cells(start_row=r, start_column=2, end_row=r, end_column=3)
+        ws.merge_cells(start_row=r, start_column=5, end_row=r, end_column=18)
+        total_dia = sum(origens_dia.values())
+        texto = "; ".join(f"{k}: {v}" for k, v in sorted(origens_dia.items(), key=lambda kv: -kv[1]))
+        ws.cell(r, 2, dia_txt).font = F_B
+        ws.cell(r, 4, total_dia).font = F_B
+        ws.cell(r, 5, texto).font = Font(name=FONTE, size=9)
+        for cc in range(2, 19):
+            ws.cell(r, cc).border = BORDA
+        for cc in (2, 4):
+            ws.cell(r, cc).alignment = CENTRO
+        ws.cell(r, 5).alignment = Alignment(wrap_text=True, vertical="center")
+        ws.row_dimensions[r].height = max(15, 12 * (-(-len(texto) // 120)) + 3)
+    ws.cell(r + 1, 2, f"Total de cliques no ML nos dados brutos (sem teste): {sum(g['cliques'] for g in sem_teste)}.").font = F_SUB
+    r += 1
+    ws.print_area = f"A1:R{r + 2}"
     ws.page_setup.orientation = "portrait"
     ws.page_setup.paperSize = ws.PAPERSIZE_A4
     ws.page_setup.fitToWidth, ws.page_setup.fitToHeight = 1, 0
