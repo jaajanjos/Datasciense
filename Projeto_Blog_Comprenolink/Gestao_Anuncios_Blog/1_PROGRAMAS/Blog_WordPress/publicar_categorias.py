@@ -347,7 +347,7 @@ def main():
     print(f"dia {dia:%d/%m/%Y} | campanha em destaque: {camp['rotulo'] if camp else 'nenhuma'} | menu: {camp_menu['rotulo']}"
           f" | Escolha rápida: {len(cats_com_itens)} linhas")
 
-    conteudos = {cat["slug"]: (f"{cat['nome']}: achados do Mercado Livre", conteudo_categoria(cat, por_sub, publicadas, camp),
+    conteudos = {cat["slug"]: (f"{cat['nome']}: ofertas selecionadas do Mercado Livre", conteudo_categoria(cat, por_sub, publicadas, camp),
                                cat.get("meta_descricao", "")) for cat, por_sub in paginas}
     for t in campanhas:
         conteudos[t["slug"]] = (t["titulo"], conteudo_tag(t, ys_de(t), cats_com_itens, aviso_bf if t is bf else ""), t.get("meta_descricao", ""))

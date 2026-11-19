@@ -1,0 +1,50 @@
+{
+  "gerado_em": "2026-11-18 11:04",
+  "ultima_verificacao_ml": "2026-11-18 10:57",
+  "anuncios_ativos": 211,
+  "anuncios_total": 213,
+  "requisitos_substituto": [
+    "Mesmo produto (mesmo código de catálogo, outro vendedor). Só se não houver: mesmo tipo de produto e mesma categoria do guia.",
+    "Anúncio ativo, produto novo e com estoque.",
+    "Melhor política de venda, nesta ordem: vendedor MercadoLíder (Platinum › Gold › Líder) ou reputação verde; envio Full; frete grátis; devolução grátis; garantia informada (de fábrica ou do vendedor).",
+    "Nota 4,5 ou mais, com muitas avaliações e muitas unidades vendidas.",
+    "Preço até 20% acima ou abaixo do anúncio anterior. Empate na política de venda: o de menor preço.",
+    "Gerar o link no ML Afiliados (Gerar link → copiar o meli.la) e trocar no item do guia, no botão e na foto."
+  ],
+  "pendentes": [
+    {
+      "item": 67,
+      "nome_no_blog": "Cabeceira Queen Adesiva 160 cm Dubai",
+      "titulo_no_ml": "Cabeceira Queen Modulada Adesiva Dubai – 160 cm, 8 Módulos",
+      "categoria": "🛋️ Casa, Cama & Decoração",
+      "situacao_ml": "Pausado",
+      "aviso_ml": "Anúncio em revisão",
+      "fora_do_ar_desde": "2026-11-18 10:57",
+      "link_antigo": "https://www.mercadolivre.com.br/social/r20250720181444?matt_word=r20250720181444&matt_tool=65808735&forceInApp=true&ref=BFJFipsMrQf99rYjGzaPchySYGdUTnqKJVLInoLP9XJ%2BFpL2Pe74IYw3en7RB%2BqO1rmCCAlJpCbv2eSjnoznQNC5vPh2sjyzWNlV2%2Bigi4xpnB1vWOD7pjw1RbKprwLT4KMdS%2BrdzJQq5GXU3DR4QMxXZfA8XNpPVqjMNcRBRPSVI04XA9%2FmAGb5K8nRKlgIr4y%2BFBeaMTM8AtHvbyx505kLkO6La5qup7NA0XiNbUvJkaLdtECRGt8HlBXqrYzuz%2BHH",
+      "catalogo_mlb": "",
+      "anuncio_mlb": "MLB4704733172",
+      "preco_antes": 54.9,
+      "preco_min": 43.92,
+      "preco_max": 65.88,
+      "busca_mesmo_produto": "",
+      "busca_mesmo_tipo": "https://lista.mercadolivre.com.br/cabeceira-queen-modulada-adesiva-dubai"
+    },
+    {
+      "item": 181,
+      "nome_no_blog": "Aspirador de Pó Vertical Sem Fio Electrolux Ergorapido 2 em 1 Bocal Pet até 45 min Dourado (ERG26) Bivolt .",
+      "titulo_no_ml": "Aspirador de Pó Vertical Sem Fio Electrolux Ergorapido 2 em 1 Bocal Pet até 45 min Dourado (ERG26) Bivolt.",
+      "categoria": "🏠 Casa & Eletrodomésticos",
+      "situacao_ml": "Pausado",
+      "aviso_ml": "Anúncio pausado",
+      "fora_do_ar_desde": "2026-11-18 10:57",
+      "link_antigo": "https://www.mercadolivre.com.br/social/r20250720181444?matt_word=r20250720181444&matt_tool=65808735&forceInApp=true&ref=BKOCBzC2nuxEGwq0zceci%2FdfteikxwfjjsX71CXwOdOBpMBt%2BBy3LbnOlKOGp3SB1i1EaTV80an2fSDk%2F9hH%2FLxaZ82mMjCrVieEheym3PME7Bexj2Qmm1tntvDPEIePZvdqTuTQFNxTxpnVS3TQKeVIxDAYhamY9nKV9Jf4uyBsnUvvCB7DXxjMo%2BxXD%2FNvVnr1bEmG47pfgae5mGICLGUKf54T8Q2MlAmCx31Gsav4rsi8Rke4kS9Rb8PyPLoRt%2BWD",
+      "catalogo_mlb": "MLB13775187",
+      "anuncio_mlb": "MLB4243220957",
+      "preco_antes": 1099.0,
+      "preco_min": 879.2,
+      "preco_max": 1318.8,
+      "busca_mesmo_produto": "https://www.mercadolivre.com.br/p/MLB13775187/s",
+      "busca_mesmo_tipo": "https://lista.mercadolivre.com.br/aspirador-de-po-vertical-sem-fio-electrolux"
+    }
+  ]
+}

@@ -381,10 +381,10 @@ FodyWeavers.xsd
 *.mp4
 security_top.txt
 # Manutencao do blog: credenciais, backups e temporarios
-Manutenção_Blog/wp_credenciais.json
-Manutenção_Blog/backups/
-Manutenção_Blog/ultimo_diff.txt
-Manutenção_Blog/saida_offline.html
-Manutenção_Blog/__pycache__/
-Manutenção_Blog/Pacote_Outro_PC/wp_credenciais.json
-Manutenção_Blog/Pacote_Outro_PC/backups/
+Gestao_Anuncios_Blog/2_DADOS/Blog_WordPress/wp_credenciais.json
+Gestao_Anuncios_Blog/2_DADOS/Blog_WordPress/backups/
+Gestao_Anuncios_Blog/2_DADOS/Blog_WordPress/ultimo_diff.txt
+Gestao_Anuncios_Blog/2_DADOS/Blog_WordPress/saida_offline.html
+Gestao_Anuncios_Blog/1_PROGRAMAS/Blog_WordPress/__pycache__/
+Gestao_Anuncios_Blog/4_PACOTE_OUTRO_PC/2_DADOS/Blog_WordPress/wp_credenciais.json
+Gestao_Anuncios_Blog/4_PACOTE_OUTRO_PC/2_DADOS/Blog_WordPress/backups/

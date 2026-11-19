@@ -231,7 +231,7 @@ H += [P(f"Parte 0 — Correções já feitas no site em {ATUALIZADO_EM}", "h1"),
       P("Teste automático do site", "h2"),
       P("Dê dois cliques em <b>D:\\Projeto_Blog_Comprenolink\\Planejamentos\\Andamento\\Verificar_Erros_Blog\\testar_site_de_novo.bat</b>. Em cerca de 1 minuto ele testa as "
         "5 páginas, os endereços antigos e os 26 links, procura textos indevidos (\"Hello world\", erros do plugin, "
-        "rodapé antigo) e abre um relatório HTML, que fica salvo em D:\\Projeto_Blog_Comprenolink\\Planejamentos\\Hold\\Dados_Tiktok. Rode depois de qualquer "
+        "rodapé antigo) e abre um relatório HTML, que fica salvo em D:\\Projeto_Blog_Comprenolink\\Planejamentos\\Hold. Rode depois de qualquer "
         "mudança no site."),
       tabela(["Resultado do teste de 21/10/2026", "Situação"], [
           ["5 páginas públicas", "Todas abrem (código 200)"],
@@ -620,7 +620,7 @@ H += [Spacer(1, 8), P("Glossário rápido", "h2"),
       ], [4, 13]),
       Spacer(1, 10),
       P("<i>Documento gerado em 21/10/2026 a partir dos dados do rastreador (110 eventos de 29/09 a 20/10/2026) e da "
-        "análise da página publicada. Para regerar: python D:\\Projeto_Blog_Comprenolink\\Planejamentos\\Hold\\Dados_Tiktok\\gerar_checklist_vendas_pdf.py</i>", "pq")]
+        "análise da página publicada. Para regerar: python D:\\Projeto_Blog_Comprenolink\\Planejamentos\\Hold\\gerar_checklist_vendas_pdf.py</i>", "pq")]
 
 
 def main():

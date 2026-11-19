@@ -65,15 +65,13 @@ def conteudo():
               "Item 14 (Motorola Moto G24): \"Melhor custo-benefício\" em \"Ideal para\" virou \"Uso no dia a dia\".",
               "Item 63 (Caixa Amplificada Mondial CM-700): selo \"Festa Garantida\" virou \"Som para Festas\".",
               "Páginas de categoria, Black Friday, Início e menu republicados. Backup do guia: pagina_2026-11-13_13h5819 e 13h5836.",
-              "Pacote do dia 23/11 (Smartwatch): o link #item-212 apontava para outro produto e foi trocado por #item-209. Os outros pacotes de 16/11 a 23/12 já estavam certos.",
-              "Títulos das páginas (Início, Guia e 9 categorias) e frase do site sem \"melhor\"; menu e botões trocados; textos dos itens 14 e 63 e introduções de 4 categorias ajustados, com backup. O endereço do guia não mudou.",
-              "Cópia de celular dos pacotes de 09/12, 11/12 e 14/12 sincronizada com a pasta de divulgação (produtos novos: Árvore de Natal, Perfume Khamrah e Pisca LED)."],
+              "Pacote do dia 23/11 (Smartwatch): o link #item-212 apontava para outro produto e foi trocado por #item-209. Os outros pacotes de 16/11 a 23/12 já estavam certos."],
                 VERDE, VERDE_C), Spacer(1, 6),
           bloco("Ainda falta (precisa da sua decisão)", [
-              (f"Títulos das páginas com \"melhor\" ou \"melhores\": {com_melhor} de {len(pg)}. Sugestão: trocar por algo neutro. Só altero com o seu OK." if com_melhor else
-               "Rodapé do tema Futurio ainda mostra \"Melhores Produtos 2026\": dono troca em Aparência > Personalizar > Rodapé para \"Guia de Produtos 2026\"."),
+              f"Títulos das páginas com \"melhor\" ou \"melhores\": {com_melhor} de {len(pg)}. Sugestão: trocar por algo neutro. Só altero com o seu OK.",
               "Descrições de Contato, Sobre e Privacidade com 336 a 385 caracteres (o Google corta em cerca de 160) e 2 títulos H1 na página inicial.",
               "Catálogo do WhatsApp: vocês trabalham só com categorias, mas o catálogo ainda tem 16 itens de produto (CNL), com links desatualizados e o Smartwatch já fora do blog. Apagar é com você.",
+              "Copia de celular dos pacotes de 09/12, 11/12 e 14/12 está desatualizada em relação à pasta de divulgação (produtos diferentes): sincronizar.",
               "A Black Friday é em 27/11: confira no Search Console se /black-friday/ e o guia estão indexados."], LARANJA, LARANJA_C),
           Spacer(1, 8), P("Resumo das consultas", "h2"),
           tabela(["Fonte", "O que consultei", "Resultado"],

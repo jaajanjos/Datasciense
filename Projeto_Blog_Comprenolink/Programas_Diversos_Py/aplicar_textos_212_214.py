@@ -10,7 +10,7 @@ import sys
 import types
 
 sys.stdout.reconfigure(encoding="utf-8")
-sys.path.insert(0, "D:/D:\Projeto_Blog_Comprenolink/Gestao_Anuncios_Blog/1_PROGRAMAS/Blog_WordPress")
+sys.path.insert(0, "D:/Projeto_Blog_Comprenolink/Gestao_Anuncios_Blog/1_PROGRAMAS/Blog_WordPress")
 import gerenciar_blog as g  # noqa: E402
 
 APLICAR = "--aplicar" in sys.argv

@@ -100,6 +100,8 @@ def fora_do_lugar(base, ignorar=()):
             dirnames[:] = []
             continue
         dirnames[:] = [d for d in dirnames if d != "__pycache__"]
+        if "snippets_novos" in rel_dir.split(os.sep):  # pasta prevista na estrutura aprovada (snippets do WordPress)
+            continue
         for f in files:
             for chave, pasta in SO_EM.items():
                 casa = f.endswith(chave) if chave.startswith(".") else f == chave

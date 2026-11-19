@@ -11,7 +11,7 @@ Uso:
     python 3_relatorio_acessos_anuncios.py --dias 7
     python 3_relatorio_acessos_anuncios.py --demo       # dados de exemplo (para ver o relatório antes de instalar)
     python 3_relatorio_acessos_anuncios.py --arquivo dados_acessos/acessos_20260929_1200.json
-    python 3_relatorio_acessos_anuncios.py --vendas "C:/Downloads/vendas_ml.xlsx"
+    python 3_relatorio_acessos_anuncios.py --vendas "D:/Projeto_Blog_Comprenolink/Relatorios_Diarios_Anuncios/vendas_afiliados/vendas_ml_AAAA-MM-DD.csv"
 
 COMPRAS:
   * Possível compra (estimativa): pontuação de intenção por visitante, calculada pelos cliques.
