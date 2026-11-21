@@ -15,18 +15,12 @@ HOJE = datetime.now()
 
 # (atividade, status, quem, data e horario)   status: Pendente | Concluido (concluido nao entra no PDF)
 ATIVIDADES = [
-    ("Sincronizar Reels: 11/11 e o Reel novo do dia",
-     "Pendente", "Claude publica (dono escolhe o video)", "20/11/2026 as 20h"),
-    ("Sincronizar Reels: 13/11 e o Reel novo do dia",
-     "Pendente", "Claude publica (dono escolhe o video)", "23/11/2026 as 20h"),
-    ("Sincronizar Reels: 16/11 e o Reel novo do dia",
-     "Pendente", "Claude publica (dono escolhe o video)", "24/11/2026 as 20h"),
-    ("Sincronizar Reels: 18/11 e o Reel novo do dia",
-     "Pendente", "Claude publica (dono escolhe o video)", "25/11/2026 as 20h"),
-    ("Sincronizar os Reels novos seguintes (ate 23/12, max. 2 por dia)",
-     "Pendente", "Claude publica (dono escolhe o video)", "Previsto: de 26/11/2026 a 23/12/2026, sempre as 20h"),
-    ("Reels sem video localizado (12/11 JBL e mais 2 do Instagram)",
-     "Pendente", "Dono indica onde esta o video", "Previsto: 20/11/2026 as 20h"),
+    ("<b>Publicar na Pagina, de uma vez, os 5 Reels que faltam: 13/11 (Cama Box Bau), 16/11 (Lavadora), 18/11, Smartwatch T900 e Caixa de Som Aiwa Boombox.</b> Mesma rotina de sempre (so a Pagina, legenda com comprenolink.net e #comprenolinkblog, conferir previa e lista). <b>Para que:</b> deixar a Pagina em dia com o Instagram em uma unica sessao.",
+     "Pendente", "Voce escolhe cada video; eu publico", "23/11/2026, das 11h as 12h30"),
+    ("<b>Publicar na Pagina os Reels novos que forem saindo no Instagram.</b> <b>Para que:</b> a Pagina acompanhar o Instagram dia a dia ate o fim de dezembro, sem acumular atraso.",
+     "Pendente", "Voce escolhe o video; eu publico", "Previsto: de 25/11/2026 a 23/12/2026, as 11h, so o que ja saiu no Instagram"),
+    ("<b>Reels sem video localizado</b> (12/11 da caixa JBL e mais 2 do Instagram): se voce achar o arquivo, me diga onde esta. <b>Para que:</b> so com o arquivo eu consigo levar esses Reels para a Pagina; se nao achar, eles ficam de fora e tudo bem, sem pressa.",
+     "Pendente", "Voce me diz onde esta o video (opcional)", "Previsto: sem prazo, quando voce achar (informar em 23/11/2026 as 11h)"),
 ]
 
 def validar():
@@ -50,13 +44,13 @@ def main():
     dados = [[Paragraph("<b>%s</b>" % c, st) for c in ("Atividade", "Status", "Quem", "Data e horario")]]
     for l in linhas:
         dados.append([Paragraph(x, st) for x in l])
-    t = Table(dados, colWidths=[200, 55, 150, 122], repeatRows=1)
+    t = Table(dados, colWidths=[250, 50, 125, 102], repeatRows=1)
     t.setStyle(TableStyle([("BACKGROUND", (0, 0), (-1, 0), colors.HexColor("#E8E8E8")),
                            ("GRID", (0, 0), (-1, -1), 0.4, colors.grey), ("VALIGN", (0, 0), (-1, -1), "TOP")]))
     doc = SimpleDocTemplate(caminho, pagesize=A4, leftMargin=36, rightMargin=36, topMargin=36, bottomMargin=36,
                             title="BLOG - Pendencia e ajustes em programas")
     doc.build([Paragraph("BLOG: Pendencia e ajustes em programas", ss["Title"]),
-               Paragraph("Gerado em %s as %s. So pendencias e atividades a realizar; concluida sai do quadro."
+               Paragraph("Gerado em %s as %s. Este quadro mostra so o que ainda falta fazer, para voce acompanhar o que esta pendente; o que for concluido sai daqui."
                          % (HOJE.strftime("%d/%m/%Y"), HOJE.strftime("%Hh%M")), ss["BodyText"]), t])
     print(caminho)
 

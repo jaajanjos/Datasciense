@@ -18,3 +18,19 @@ COMISSAO_5_ITENS: OK em 19/11 08:55 (barra Afiliados do ML, conta do dono logada
 PLANO_EM_EXECUCAO: A ANTECIPADO: página 752 publicada 19/11 (20h), anúncio 20/11 00:00 a 27/11 23:59 (dono cria hoje à noite; material em MATERIAL_ANUNCIO_BF_2026-11-19.md; CAMP dos gráficos = bf_26_entrada).
 
 ANUNCIO_CRIADO: 19/11/2026 20:26 - dono publicou (campanha bf_26_entrada, R$ 90 vitalicio, 20/11 00:00 a 27/11 23:59, evento SaidaML); Meta: Processando/em analise. Conferir aprovacao em 20/11 09:00.
+
+ANUNCIO_APROVADO: 20/11/2026 - campanha bf_26_entrada ATIVA (Meta). VERIFICACAO_ANUNCIANTE: dono enviou em 20/11 (modo 'Verifique voce mesmo'); aguardando resposta da Meta (ate ~2 dias uteis). Recomendacoes da Meta (Reels 9:16 e musica) NAO aplicadas - decidir juntos.
+
+ANUNCIO_ESTENDIDO: 20/11/2026 - a pedido do dono ("deixa direto emendando com campanha de natal e termina dia 22-12" / "pode faca"), Claude alterou na Meta: campanha bf_26_entrada orcamento vitalicio R$ 90 -> R$ 240 (BF R$ 90 + Natal R$ 150) e conjunto bf_26_entrada_amplo termino 27/11 23:59 -> 22/12/2026 23:59 (inicio confirmado 20/11 00:00). Sem pausa entre BF e Natal; a condicao "Natal so se BF passar" foi substituida pela decisao do dono. Meta: Processando (revisao). Limite de gastos da conta = R$ 150/mes (reinicia dia 1); nov: R$ 50,70 gastos, R$ 99,30 restantes. Dez previsto ~R$ 160 > R$ 150: decidir com o dono se sobe o limite. Arte/texto ainda de Black Friday: trocar por Natal ate ~28/11 (decidir juntos).
+
+LIMITE_META_ATUAL: 20/11/2026 - Claude subiu o limite de gastos mensal da conta de R$ 150 para R$ 200 (reinicia dia 1), com "Sim, suba para 200" do dono. Meta confirmou: "Your monthly account spending limit is now R$ 200.00". Cobre dez (~R$ 160).
+
+CONFERENCIA_20_11_20h40: campanha bf_26_entrada ATIVA, verba R$ 240 vitalicio; gasto de hoje R$ 4,24, alcance 353, frequencia 1,09; SaidaML ainda sem resultado na Meta (normal nas primeiras horas). Data de termino (22/12) NAO conferida na tela. Ha 1 RASCUNHO nao publicado no Meta: anuncio bf_26_entrada_v1 'Atualizado: Criativo' - origem desconhecida, nada foi publicado nem descartado; perguntar ao dono.
+
+TERMINO_22_12: dono informou em 20/11 ~22:50 que ele mesmo alterou o termino do anuncio pago para 22/12 (informacao do dono; Claude nao viu a data na tela, coluna Termina nao apareceu).
+
+TERMINO_CONFERIDO_20_11_23h: Claude leu no editor do conjunto bf_26_entrada_amplo: inicio 20/11/2026 12:00 AM, TERMINO 22/12/2026 11:59 PM (GMT-3), orcamento vitalicio R$ 240. Editor fechado sem publicar/descartar; rascunho 'Atualizado: Criativo' segue pendente.
+
+DATA_TERMINO_ENCERRADO: 20/11/2026 - dono encerrou o assunto da data de termino; fica 22/12/2026 23:59 (como esta no Meta). Nao voltar a perguntar sobre 24/12.
+
+RASCUNHO_DESCARTADO_20_11_23h: com o OK do dono, Claude descartou o rascunho 'Atualizado: Criativo' (bf_26_entrada_v1, gerado por autosave do Meta ao abrir o editor). Conferido: 'Revisar e publicar' sumiu; conjunto bf_26_entrada_amplo segue ATIVO.

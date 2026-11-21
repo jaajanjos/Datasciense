@@ -70,7 +70,7 @@ REEXECUCAO = [
 
 OBSERVACOES = [
     "As tarefas agendadas só rodam com o PC ligado e sem suspender e o app Claude aberto; as da noite precisam também do Chrome com a extensão e da Meta e do Instagram (@compre.no.link) logados.",
-    "Tudo que mexe no blog passa pelo gerenciador com backup antes; nada é alterado na conta de anúncios Meta (criar, publicar, pausar e verba são do dono).",
+    "Tudo que mexe no blog passa pelo gerenciador com backup antes. Na conta de anúncios Meta, o Claude só altera algo quando o dono pede na conversa (em 20/11: verba R$ 240, fim 22/12 e limite R$ 200). Pausar ou mudar o anúncio é sempre decidido junto com o dono.",
 ]
 
 # DESTAQUE do topo: o que o dono deve fazer amanhã de manhã para o anúncio (pedido do dono em 19/11/2026)
@@ -80,34 +80,29 @@ DESTAQUE = [
 ]
 
 # PLANO DO ANÚNCIO A e B em ordem cronológica (pedido do dono em 19/11/2026). Plano A = R$ 90 de 20 a 27/11; plano B = R$ 50 de 24 a 27/11
-PLANO_ANUNCIO_TITULO = "PLANO DO ANÚNCIO (A = R$ 90 de 20 a 27/11  |  B = R$ 50 de 24 a 27/11  |  NATAL = R$ 150 de 14 a 22/12): TODAS AS ATIVIDADES EM ORDEM CRONOLÓGICA"
+PLANO_ANUNCIO_TITULO = "PLANO DO ANÚNCIO (uma campanha só: Black Friday + Natal, R$ 240, de 20/11 00:00 a 22/12 23:59)"
 PLANO_ANUNCIO = [
-    ("qui 19/11 01:15", "Decisão: plano A com recuo automático para o B; Natal R$ 100 condicional", "A e B", "Dono", "FEITO"),
-    ("sex 20/11 09:00", "Aviso ao dono: conferir se a Meta aprovou o anúncio criado na noite anterior", "A e B", "Claude (tarefa agendada)", "Agendado"),
-    ("qui 19/11 08:50", "Limite de gastos da Meta subido para R$ 150 (gasto R$ 49,67; saldo R$ 100,33); forma de pagamento Visa 0442 válida", "A", "Claude, com o de acordo do dono", "FEITO 19/11"),
-    ("qui 19/11 08:55", "Comissão dos 4 itens da página 752 conferida no ML Afiliados: todos GANHOS 16% (os eletrônicos que saíram pagavam 5%)", "A e B", "Claude, com a conta do dono logada", "FEITO 19/11"),
-    ("qui 19/11 02:20", "Página 752 (rascunho) com 4 itens de moda e calçados: Tênis Olympikus, Kit 2 Bermudas Fem., Kit 3 Leggings e Kit 5 Conjuntos Infantil", "A e B", "Claude, a pedido do dono", "FEITO 19/11"),
-    ("qui 19/11 08:57", "\"Feito limite\" e \"feito comissão\": confirmados por mim na tela, o dono não precisa responder", "A", "Claude", "FEITO 19/11"),
-    ("sex 20/11 20:00", "BF/Natal 4: confere o anúncio no ar (aprovado? gastando?), os links e o rastreamento; se não foi criado, propõe o plano B", "A ou B", "Claude (tarefa agendada)", "Agendado"),
-    ("qui 19/11 após 20:00", "Criar e publicar o anúncio na Meta: Vendas + SaidaML, R$ 90 total, início sex 20/11 00:00, término 27/11 23:59", "A", "Dono (Claude orienta)", "Aguardando"),
-    ("qui 19/11 20:00", "BF/Natal 3 (antecipado): reverifica os 4 links, publica a página 752, entrega o material e troca a campanha no gerador de gráficos", "A", "Claude (tarefa agendada)", "Agendado"),
-    ("sáb 21/11 a sex 27/11 (Previsto: 10:00)", "Mandar a página 752 à mão para conhecidos e grupos permitidos", "A e B", "Dono", "Aguardando"),
-    ("seg 23/11 a sex 27/11, 10:06 e 10:22", "Gráficos do anúncio (retoma seg 23/11; sem sábado e domingo) e Pixel (PageView e SaidaML), com conferência dos 4 links", "A e B", "Claude (tarefa agendada)", "Agendado"),
-    ("seg 23/11 09:00", "Aviso. Plano A: números do anúncio no ar. Plano B: ÚLTIMO DIA, decisão até 12:00", "A ou B", "Claude (tarefa agendada)", "Agendado"),
-    ("seg 23/11 até 12:00", "Liberar o limite da Meta (pelo menos R$ 50), confirmar a comissão e decidir se o anúncio sai", "B", "Dono", "Só se for B"),
-    ("seg 23/11 20:30", "BF/Natal 5. Plano A: checagem de parada (pausar se saída < 3% ou custo por clique de saída > R$ 3). Plano B: publica a página 752, troca a campanha e entrega o checklist", "A ou B", "Claude (tarefa agendada)", "Agendado"),
-    ("seg 23/11 (Previsto: 21:00)", "Plano A: pausar se o Claude recomendar. Plano B: criar e publicar o anúncio de R$ 50 (início 24/11 00:00)", "A ou B", "Dono", "Aguardando"),
-    ("ter 24/11 00:00", "Início do anúncio do plano B", "B", "Meta", "Só se for B"),
-    ("qua 25/11 10:06", "Checagem de parada do plano B (mesma regra: saída < 3% ou custo por clique de saída > R$ 3); o Claude avisa e o dono pausa", "B", "Claude avisa, dono pausa", "Só se for B"),
-    ("sex 27/11 23:59", "Fim do anúncio da Black Friday", "A e B", "Meta", "Aguardando"),
-    ("seg 30/11 20:30", "BF/Natal 6: avaliar a Black Friday (aprova se saída ≥ 8% e custo por clique de saída < R$ 1) e recomendar o Natal", "A e B", "Claude analisa, dono decide", "Agendado"),
-    ("qui 19/11 01:45", "Natal alterado pelo dono: R$ 150 de 14 a 22/12 (substitui R$ 100 de 03 a 14/12; o fim foi antecipado de 24 para 22/12 pelo prazo de entrega); teto sobe para R$ 290", "Natal", "Dono", "FEITO"),
-    ("sex 11/12 20:30", "Natal: se aprovado, material final, links conferidos e aviso para segunda", "Natal", "Claude (tarefa agendada)", "Agendado"),
-    ("seg 14/12", "Subir o limite da Meta em + R$ 150 e criar/publicar o anúncio de Natal (R$ 150, 14/12 00:00 a 22/12 23:59, ≈ R$ 16,67/dia)", "Natal", "Dono (Claude orienta)", "Só se aprovado"),
-    ("seg 14/12 a ter 22/12, seg a sex 10:06", "Acompanhamento diário do Natal (gráficos, Pixel e links)", "Natal", "Claude (tarefa agendada)", "Só se aprovado"),
-    ("qui 17/12 20:00", "Checagem de parada do Natal (pausar se saída < 3% ou custo por clique de saída > R$ 3)", "Natal", "Claude avisa, dono pausa", "Agendado"),
-    ("ter 22/12 23:59", "Fim do anúncio de Natal (antecipado de 24/12 pelo prazo de entrega do ML; decisão do dono)", "Natal", "Meta", "Só se aprovado"),
-    ("seg 28/12 20:30", "BF/Natal 7: fechamento (resultado, custo total, vendas e o que aprendemos; comissão do ML cai em ~60 dias). Movido de 14/12", "A, B e Natal", "Claude (tarefa agendada)", "Agendado"),
+    ("qui 19/11 20:26", "Anúncio criado e publicado na Meta pelo dono (campanha bf_26_entrada), para levar pessoas à página do blog com 4 produtos de 16% de comissão", "BF", "Dono", "FEITO"),
+    ("sex 20/11 00:00", "Anúncio começou a rodar (a Meta aprovou). Para que serve: testar se quem chega pelo anúncio vai do blog para o Mercado Livre, que é o que gera comissão", "BF", "Meta", "FEITO"),
+    ("sex 20/11 15:00", "Anúncio emendado com o Natal, a pedido do dono: verba total de R$ 90 para R$ 240 e fim de 27/11 para 22/12 às 23:59, sem pausa entre Black Friday e Natal", "BF+Natal", "Claude, com o pode faça do dono", "FEITO 20/11"),
+    ("sex 20/11 15:05", "Limite de gastos mensal da conta Meta subido de R$ 150 para R$ 200 (volta a zero todo dia 1). Para que serve: o anúncio não parar sozinho em dezembro, quando deve gastar cerca de R$ 160", "BF+Natal", "Claude, com o sim do dono", "FEITO 20/11"),
+    ("sex 20/11 15:10", "Tarefas agendadas do anúncio ajustadas para a nova data e reescritas em linguagem simples, dizendo para que serve cada uma", "BF+Natal", "Claude, a pedido do dono", "FEITO 20/11"),
+    ("sex 20/11 12:30", "Conferido no Gerenciador de Anúncios: campanha e anúncio ATIVOS (aprovados pela Meta), verba R$ 90 então vigente. Para que serve: confirmar que o dinheiro está sendo usado como combinado", "BF", "Claude", "FEITO 20/11"),
+    ("sex 20/11 12:45", "Verificação do anunciante enviada à Meta pelo dono (opção Verifique você mesmo, com documento com foto). Para que serve: a Meta pode interromper anúncios de quem não se verificou; com isso o anúncio não corre esse risco até 22/12", "BF+Natal", "Dono", "FEITO 20/11"),
+    ("sáb 21/11 a ter 24/11 (Previsto: ter 24/11 09:00)", "Aguardar a resposta da Meta sobre a verificação (costuma levar até 2 dias úteis). Se pedir documento melhor, o Claude orienta; não envia dados pessoais por você", "BF+Natal", "Meta responde; dono envia, se pedirem", "Aguardando"),
+    ("sex 20/11 22:32", "Arquivo documento_verificacao_1000px.jpg conferido: já não está mais na pasta Downloads (apagado por você). Para que serve: seu documento não ficar solto no computador", "BF+Natal", "Dono", "FEITO 20/11"),
+    ("sex 20/11 23:05", "Rascunho \"Atualizado: Criativo\" do anúncio no Meta DESCARTADO, com o seu OK (foi gerado pelo salvamento automático). Conferido: o anúncio segue ativo. Para que serve: ninguém publicar sem querer uma mudança que ninguém decidiu", "BF+Natal", "Claude, com o OK do dono", "FEITO 20/11"),
+    ("seg 23/11 20:30 (Previsto)", "Decidir juntos sobre as 2 sugestões da Meta (vídeo vertical Reels com áudio e música automática). Claude recomenda não aplicar agora: pedem vídeo e hoje o anúncio usa imagem; artes novas ficam para janeiro", "BF+Natal", "Dono e Claude, juntos", "Aguardando"),
+    ("sex 20/11 20:35", "Conferência do anúncio feita pelo Claude (só leitura): ativo, R$ 240, gasto de hoje R$ 4,24, alcance de 353 pessoas. A repetição agendada para 21:10 não rodou: o limite de uso do Claude estourou (volta a funcionar a partir de 22:10) e não precisa ser refeita hoje. Para que serve: pegar cedo qualquer problema com o dinheiro", "BF+Natal", "Claude", "FEITO 20/11"),
+    ("seg 23/11 09:00", "Mensagem para o dono com o resumo do anúncio: quanto gastou, quantas pessoas chegaram ao blog e quantas foram ao Mercado Livre de sexta até segunda", "BF+Natal", "Claude (tarefa agendada)", "Agendado"),
+    ("seg 23/11 a ter 22/12, seg a sex 10:06 e 10:22", "Gráficos diários do anúncio e leitura do Pixel. Para que serve: acompanhar todo dia se o dinheiro está trazendo resultado", "BF+Natal", "Claude (tarefa agendada)", "Agendado"),
+    ("seg 23/11 20:30", "Checagem: está valendo a pena? Se menos de 3% das visitas forem ao ML ou cada ida custar mais de R$ 3, o Claude avisa com os números. Nada é pausado sozinho: decidimos juntos", "BF+Natal", "Claude avisa, dono e Claude decidem", "Agendado"),
+    ("qui 26/11 20:30", "Preparar a arte e o texto de Natal do anúncio. Para que serve: depois de 27/11 a palavra Black Friday fica velha e piora os cliques", "Natal", "Claude prepara, dono aprova", "Agendado"),
+    ("sáb 28/11 (Previsto: 10:00)", "Trocar a arte de Black Friday pela de Natal na Meta, só com o de acordo do dono", "Natal", "Dono (ou Claude, se o dono pedir)", "Aguardando"),
+    ("seg 30/11 20:30", "Resultado da semana da Black Friday (20 a 27/11) e recomendação: manter, ajustar ou pausar. Decisão junto com o dono", "BF+Natal", "Claude analisa, dono decide", "Agendado"),
+    ("qui 17/12 20:00", "Checagem de dezembro: está valendo a pena? Cinco dias antes do fim, os números de dezembro para decidir juntos se vai até 22/12", "Natal", "Claude avisa, dono e Claude decidem", "Agendado"),
+    ("ter 22/12 23:59", "Fim do anúncio (data escolhida pelo dono por causa do prazo de entrega do Mercado Livre antes do Natal)", "BF+Natal", "Meta", "Aguardando"),
+    ("seg 28/12 20:30", "Resultado final: gasto real, visitas, idas ao ML, custo de cada ida e comissão esperada (o ML paga cerca de 60 dias depois), separando Black Friday e Natal", "BF+Natal", "Claude (tarefa agendada)", "Agendado"),
 ]
 
 # PREVISÃO do anúncio da Black Friday (opinião do Claude em 19/11/2026, pedido do dono). Estimativa, não garantia.
@@ -281,28 +276,26 @@ def main():
         return [faixa, t]
 
     # 1) o que o dono ainda deve fazer no anúncio (destaque)
-    destaque = [("Criar e publicar o anúncio na Meta com o material que o Claude entrega (Vendas + SaidaML, R$ 90 total, AGENDADO para começar sex 20/11 00:00 e terminar 27/11 23:59). "
-                 "Criando hoje, a Meta revisa e ele já roda sexta de manhã", "Pendente", "Dono (Claude orienta)", "qui 19/11, depois das 20:00 (Previsto: 20:30)")]
-    # 2) plano do anúncio A / B / Natal: o feito fica em verde
+    destaque = [("Aprovar a arte e o texto de Natal do anúncio: APROVADO pelo dono, antecipadamente, em 20/11. O Claude prepara a arte e o texto em qui 26/11 20:30 e a troca na Meta fica para a partir de sáb 28/11. Para que serve: o anúncio continua no ar até 22/12 e a mensagem de Black Friday fica velha depois de 27/11",
+                 "Concluído", "Dono", "sex 20/11 23:10")]
+    # 2) plano do anúncio: o feito fica em verde
     plano = []
     for dat, atv, pl, quem, stt in PLANO_ANUNCIO:
         feito = stt.upper().startswith("FEITO")
-        extra = "" if feito or not stt.lower().startswith("só") else f" ({stt[0].lower() + stt[1:]})"
-        plano.append((f"[{pl}] {atv}{extra}", "Concluído" if feito else "Pendente", quem, dat))
+        plano.append((f"[{pl}] {atv}", "Concluído" if feito else "Pendente", quem, dat))
     # 3) demais pendências, cada uma com quem e quando (data prevista quando ainda não há)
     demais = [
-        ("Reconectar a extensão do Claude no Chrome (sem isso o Reels das 20:30 falha)", "Pendente", "Dono", "qui 19/11 antes de 20:30 (Previsto: 19:30)"),
-        ("Agendar no Instagram o Reels de 18/12 (Máquina de Cortar Cabelo Nixzen, 19:05)", "Pendente", "Claude (tarefa agendada)", "qui 19/11 20:30"),
-        ("Agendar no Instagram o Reels de 21/12 (Jogo de Lençol Percal 600 Fios, 19:05); janela abre 22/11 ~20:00", "Pendente", "Claude (rotina de segunda)", "seg 23/11 20:00"),
-        ("Agendar no Instagram o Reels de 23/12 (Cortina de LED 3x3 m, 19:05); janela abre 24/11 ~20:00", "Pendente", "Claude (rotina de segunda)", "seg 30/11 20:00 (Previsto)"),
-        ("\"De acordo\" do dono para corrigir as legendas dos Reels (tirar \"Comente BLACK... Direct\") e arquivar os posts repetidos de 11, 13, 16 e 18/11", "Pendente", "Dono aprova; Claude executa", "aprovar até sex 20/11 12:00 (Previsto); executar seg 23/11 20:00"),
-        ("Validar link e produto dos itens 67 (Suporte de TV) e 181 (Fone Soundcore P30i)", "Pendente", "Dono", "sex 20/11 12:00 (Previsto)"),
-        ("Decidir a frase \"dieta e alimentação leve\" da legenda da Air Fryer (11/11) e a foto da LG (26/11), que traz \"melhor\" na imagem do fabricante", "Pendente", "Dono", "ter 24/11 12:00 (Previsto)"),
+        ("Agendar no Instagram o Reels de 21/12 (Jogo de Lençol Percal 600 Fios, 19:05). Para que serve: manter um Reels por dia; a janela de agendamento abre 22/11", "Pendente", "Claude (rotina de segunda)", "seg 23/11 20:00"),
+        ("Agendar no Instagram o Reels de 23/12 (Cortina de LED 3x3 m, 19:05); a janela abre 24/11", "Pendente", "Claude (rotina de segunda)", "seg 30/11 20:00 (Previsto)"),
+        ("\"De acordo\" do dono para corrigir as legendas dos Reels e arquivar os posts repetidos de 11, 13, 16 e 18/11: APROVADO pelo dono", "Concluído", "Dono", "sex 20/11 15:15"),
+        ("Corrigir as legendas dos Reels (trocar \"Comente BLACK... Direct\", que promete uma resposta que ninguém manda, por \"Link na bio para ver o produto\" + hashtags) e arquivar, sem apagar, os posts repetidos de 11, 13, 16 e 18/11. Para que serve: não frustrar quem comenta e deixar o perfil limpo", "Pendente", "Claude (rotina de segunda)", "seg 23/11 20:00"),
+        ("Validar link e produto dos itens 67 (Suporte de TV) e 181 (Fone Soundcore P30i). Para que serve: não mandar visitante para anúncio errado", "Pendente", "Dono", "seg 23/11 12:00 (Previsto)"),
+        ("Decidir a frase \"dieta e alimentação leve\" da legenda da Air Fryer (11/11) e a foto da LG (26/11), que traz \"melhor\" na imagem do fabricante. Para que serve: seguir a política do blog", "Pendente", "Dono", "ter 24/11 12:00 (Previsto)"),
     ]
-    st = quadro("ANÚNCIO BLACK FRIDAY: O QUE VOCÊ AINDA DEVE FAZER (HOJE, qui 19/11, à noite)", VERMELHO, destaque)
-    st += [Spacer(1, 10)] + quadro("PLANO DO ANÚNCIO (A = R$ 90 de 20 a 27/11 | B = R$ 50 de 24 a 27/11 | NATAL = R$ 150 de 14 a 22/12), EM ORDEM DE DATA: EM VERDE, O QUE JÁ FOI FEITO", AZUL, plano)
+    st = quadro("ANÚNCIO: O QUE VOCÊ AINDA DEVE FAZER", VERMELHO, destaque)
+    st += [Spacer(1, 10)] + quadro("PLANO DO ANÚNCIO (UMA CAMPANHA SÓ: BLACK FRIDAY + NATAL, R$ 240, DE 20/11 A 22/12), EM ORDEM DE DATA: EM VERDE, O QUE JÁ FOI FEITO", AZUL, plano)
     from reportlab.platypus import KeepTogether
-    st += [Spacer(1, 10), KeepTogether(quadro("OUTRAS PENDÊNCIAS, CADA UMA COM QUEM E QUANDO", LARANJA, demais))]
+    st += [Spacer(1, 10), KeepTogether(quadro("OUTRAS PENDÊNCIAS, CADA UMA COM QUEM, QUANDO E PARA QUE SERVE", LARANJA, demais))]
     st += [Spacer(1, 10), P("Observações", "h2")]
     for o in OBSERVACOES:
         st += [Paragraph("• " + o, TXT), Spacer(1, 4)]
