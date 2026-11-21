@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Gera o PDF diario de graficos do anuncio Meta (teste_11a13_11_anuncio).
+"""Gera o PDF diario de graficos do anuncio Meta (bf_26_entrada).
 
 Fontes:
   - 4_Relatorio_Ativ_Claude_no_Blog\\LEITURA_ANUNCIO_META_historico.csv  (leituras acumuladas: data;hora;gasto;impressoes;alcance;resultados;status;observacao)
@@ -47,7 +47,7 @@ def ler_dias():
 
 
 SITE_DIR = r"D:\Projeto_Blog_Comprenolink\Relatorios_Diarios_Anuncios\dados_acessos"
-CAMP = "teste_11a13_11"
+CAMP = "bf_26_entrada"
 
 
 def ler_site():
@@ -273,7 +273,7 @@ def main():
     with PdfPages(destino) as pdf:
         # ---------- pagina 1: resumo
         fig = plt.figure(figsize=(8.27, 11.69))
-        fig.text(.07, .95, "Anúncio Meta teste_11a13_11_anuncio", fontsize=18, fontweight="bold", color=AZ)
+        fig.text(.07, .95, "Anúncio Meta bf_26_entrada", fontsize=18, fontweight="bold", color=AZ)
         fig.text(.07, .925, f"Gráficos diários · dados até {ult['t'].strftime('%d/%m/%Y %H:%M')} · gerado em {datetime.now().strftime('%d/%m/%Y %H:%M')}", fontsize=10, color=CZ)
         linhas = [
             ("Status", ult["status"]),
@@ -475,7 +475,7 @@ def main():
         yy = .195
         for c in ["Lê o Gerenciador de Anúncios (visão 'Acompanhamento Teste Campanha') no Chrome com a extensão Claude.",
                   "Acrescenta a leitura ao LEITURA_ANUNCIO_META_historico.csv e atualiza dados_por_dia.csv.",
-                  "Lê os acessos do blog (campanha teste_11a13_11) e junta visitas reais, cliques de saída e compras atribuídas.",
+                  "Lê os acessos do blog (campanha bf_26_entrada) e junta visitas reais, cliques de saída e compras atribuídas.",
                   "Gera este PDF Graficos_Metas_Anuncios_dd-mm-aa_HHhMM.pdf (5 páginas: resumo, gráficos, Meta x site e funil, leitura de cada gráfico, tabelas).",
                   "Não altera orçamento, entrega nem limite da conta de anúncios."]:
             fig.text(.07, yy, "• " + c, fontsize=9)

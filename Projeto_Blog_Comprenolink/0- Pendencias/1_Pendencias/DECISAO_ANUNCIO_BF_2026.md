@@ -15,4 +15,6 @@ Página 752 v3 (rascunho no WP): itens do guia 211 (Tênis Olympikus Veloz 3), 1
 ## Situação dos pré-requisitos do plano A (atualizar quando o dono disser "feito")
 LIMITE_META: OK em 19/11 08:50 (limite mensal da conta Meta subido de R$ 50 para R$ 150; gasto R$ 49,67; saldo R$ 100,33; reinicia dia 1º; feito pelo Claude com 'pode fazer' do dono)
 COMISSAO_5_ITENS: OK em 19/11 08:55 (barra Afiliados do ML, conta do dono logada: os 4 itens mostram GANHOS 16%: Tênis Olympikus, Kit 2 Bermudas Fem., Kit 3 Leggings, Kit 5 Conjuntos Infantil; itens que saíram: TV LG, soundbar JBL e fone QCY 5%, Kit 4 Bermudas Tactel 16%)
-PLANO_EM_EXECUCAO: A ANTECIPADO (dono aprovou em 19/11: página 752 publicada hoje 20:00 pela bfnatal-3; dono cria o anúncio hoje à noite, agendado para sex 20/11 00:00 até 27/11 23:59; bfnatal-4 de sex 20:00 só confere) (bfnatal-4, sex 20/11 20:00)
+PLANO_EM_EXECUCAO: A ANTECIPADO: página 752 publicada 19/11 (20h), anúncio 20/11 00:00 a 27/11 23:59 (dono cria hoje à noite; material em MATERIAL_ANUNCIO_BF_2026-11-19.md; CAMP dos gráficos = bf_26_entrada).
+
+ANUNCIO_CRIADO: 19/11/2026 20:26 - dono publicou (campanha bf_26_entrada, R$ 90 vitalicio, 20/11 00:00 a 27/11 23:59, evento SaidaML); Meta: Processando/em analise. Conferir aprovacao em 20/11 09:00.

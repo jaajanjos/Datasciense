@@ -15,8 +15,6 @@ HOJE = datetime.now()
 
 # (atividade, status, quem, data e horario)   status: Pendente | Concluido (concluido nao entra no PDF)
 ATIVIDADES = [
-    ("Sincronizar Reels do Instagram na Pagina Facebook Comprenolink: Reels de 06/11 e 09/11",
-     "Pendente", "Claude publica (dono escolhe o video; se travar, guia passo a passo)", "19/11/2026 as 20h"),
     ("Sincronizar Reels: 11/11 e o Reel novo do dia",
      "Pendente", "Claude publica (dono escolhe o video)", "20/11/2026 as 20h"),
     ("Sincronizar Reels: 13/11 e o Reel novo do dia",
