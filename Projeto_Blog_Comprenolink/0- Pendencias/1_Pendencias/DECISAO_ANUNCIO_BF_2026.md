@@ -34,3 +34,5 @@ TERMINO_CONFERIDO_20_11_23h: Claude leu no editor do conjunto bf_26_entrada_ampl
 DATA_TERMINO_ENCERRADO: 20/11/2026 - dono encerrou o assunto da data de termino; fica 22/12/2026 23:59 (como esta no Meta). Nao voltar a perguntar sobre 24/12.
 
 RASCUNHO_DESCARTADO_20_11_23h: com o OK do dono, Claude descartou o rascunho 'Atualizado: Criativo' (bf_26_entrada_v1, gerado por autosave do Meta ao abrir o editor). Conferido: 'Revisar e publicar' sumiu; conjunto bf_26_entrada_amplo segue ATIVO.
+
+CRIATIVO_TROCADO_21_11: conversa 'BLOG- Ajustes no WhatsApp e Instagram' informou que, com a autorizacao do dono ('pode troca vamos la'), publicou a troca da imagem do anuncio bf_26_entrada_v1 (1600x480 cortada -> 4 criativos 1080x1350, 1080x1080, 1080x1920, 1200x628; Original, sem Meta IA). Orcamento, publico, texto, link e datas NAO alterados. Status 'Processando' (revisao da Meta) - pode haver pausa na entrega por algumas horas. Arquivos: 0- Pendencias\5_Plano_turbinar_anuncio_instagram\Anuncio_BF_26_entrada_v2_21-11. Atencao: 'Resumos' aparece Ativado na config criativa (nao mexido). Claude (Execucao) NAO viu na tela; conferir aprovacao/entrega na seg 23/11 09:00 (resumo).
