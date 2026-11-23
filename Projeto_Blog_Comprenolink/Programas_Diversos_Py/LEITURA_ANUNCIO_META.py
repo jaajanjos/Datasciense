@@ -205,6 +205,7 @@ def main(argv=None):
     ap.add_argument("--campanha", help="numero da campanha (substitui o da config nesta execucao)")
     ap.add_argument("--csv", help="caminho do historico CSV")
     ap.add_argument("--pasta-saida", default=PASTA, help="pasta do PDF (padrao: 4_Relatorio_Ativ_Claude_no_Blog)")
+    ap.add_argument("--verba", type=float, help="verba total em reais (usada no --sem-meta)")
     a = ap.parse_args(argv)
     agora = datetime.datetime.now()
 
@@ -221,8 +222,8 @@ def main(argv=None):
             nome, verba, origem = "teste_11a13_11_anuncio", 50.0, "teste encerrado"
         else:
             nome = cfg.get("nome_campanha") or f"campanha {cid}"
-            verba = float(cfg.get("orcamento") or 0) or None
-            origem = "definida na configuracao" if verba else "sem leitura da Meta"
+            verba = a.verba or float(cfg.get("orcamento") or 0) or None
+            origem = ("informada na execucao" if a.verba else "definida na configuracao") if verba else "sem leitura da Meta"
         linhas = ler_historico(csv_path)
     else:
         cfg = ler_config()

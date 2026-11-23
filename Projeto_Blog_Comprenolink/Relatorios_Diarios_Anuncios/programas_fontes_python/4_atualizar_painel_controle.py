@@ -17,6 +17,7 @@ O que você digitar na planilha é preservado ao atualizar:
 Uso:  python 4_atualizar_painel_controle.py  [pasta_relatorios]
 """
 import csv
+import json
 import glob
 import html
 import os
@@ -962,6 +963,68 @@ def ler_origens(fuso_h):
     return lista, indice
 
 
+def visitas_acumuladas_distintas():
+    """Total de visitas (1 visita = 1 sessão DISTINTA) desde o início do rastreador. NUNCA DIMINUI:
+    junta as sessões de TODOS os acessos_*.csv (cada cópia pode cobrir um período diferente: 30 dias ou o histórico inteiro)
+    e, por garantia, guarda o maior valor já visto em dados_acessos/_acumulado_visitas.json (o total não pode cair).
+    Ignora sessões que só têm eventos de teste local."""
+    pasta = os.path.join(RELAT, "dados_acessos")
+    sess = set()
+    for arq in glob.glob(os.path.join(pasta, "acessos_*.csv")):
+        try:
+            with open(arq, encoding="utf-8-sig") as fh:
+                for r in csv.DictReader(fh, delimiter=";"):
+                    if r.get("tipo") != "visita":
+                        continue
+                    if _classe_origem((r.get("origem") or "").strip().lower(), (r.get("campanha") or "").strip(),
+                                      (r.get("conteudo") or "").strip(), (r.get("meio") or "").strip().lower()) == "Teste":
+                        continue
+                    sess.add(r.get("sessao") or r.get("id"))
+        except OSError:
+            continue
+    estado = os.path.join(pasta, "_acumulado_visitas.json")
+    anterior = 0
+    try:
+        with open(estado, encoding="utf-8") as fh:
+            anterior = int(json.load(fh).get("max", 0))
+    except (OSError, ValueError):
+        pass
+    total = max(len(sess), anterior)
+    try:
+        with open(estado, "w", encoding="utf-8") as fh:
+            json.dump({"max": total, "atualizado": datetime.now().strftime("%Y-%m-%d %H:%M")}, fh)
+    except OSError:
+        pass
+    return total
+
+
+def visitas_por_hora_24h():
+    """Ritmo de visitas: sessões distintas das últimas 24 h dos dados (a partir da visita mais recente do acessos_*.csv mais
+    novo) ÷ 24. Nunca é negativo. Ignora sessões de teste local."""
+    arqs = sorted(glob.glob(os.path.join(RELAT, "dados_acessos", "acessos_*.csv")))
+    if not arqs:
+        return 0.0
+    tempos = {}
+    with open(arqs[-1], encoding="utf-8-sig") as fh:
+        for r in csv.DictReader(fh, delimiter=";"):
+            if r.get("tipo") != "visita":
+                continue
+            if _classe_origem((r.get("origem") or "").strip().lower(), (r.get("campanha") or "").strip(),
+                              (r.get("conteudo") or "").strip(), (r.get("meio") or "").strip().lower()) == "Teste":
+                continue
+            try:
+                t = datetime.strptime(r["criado_em"][:19], "%Y-%m-%d %H:%M:%S")
+            except (ValueError, KeyError):
+                continue
+            k = r.get("sessao") or r.get("id")
+            tempos[k] = min(tempos.get(k, t), t)
+    if not tempos:
+        return 0.0
+    fim = max(tempos.values())
+    n = sum(1 for t in tempos.values() if t >= fim - timedelta(hours=24))
+    return round(n / 24.0, 1)
+
+
 def _datas_origem(indice, canal, camp, cont):
     """Primeiro e último dia de uma linha da aba Campanhas (casa pelo começo do conteúdo, que o relatório pode cortar)."""
     canal = (canal or "").strip().lower()
@@ -1476,15 +1539,17 @@ def montar(rels, vendas, preservado, avisos, anuncios=None, hist_anuncios=None):
         if nota:
             a.comment = Comment(nota, "Painel")
 
-    ws["B4"], ws["B4"].font = "TRÁFEGO E CLIQUES", F_SEC
-    k1 = [("Visitas", C["Visitas (último quadro)"], "0", "Páginas vistas no guia (inclui recargas)."),
+    ws["B4"], ws["B4"].font = "TRÁFEGO E CLIQUES  (janela móvel de 30 dias, exceto \"Visitas acumuladas\" e \"Visitas/hora\")", F_SEC
+    visitas_acum = visitas_acumuladas_distintas()  # TODAS as visitas desde o início, sessões distintas (nunca diminui)
+    k1 = [("Visitas (30 dias)", C["Visitas (último quadro)"], "0",
+           "Janela móvel de 30 dias: a cada dia o dia mais antigo sai da conta, por isso este número PODE DIMINUIR. O total que só cresce é o cartão 'Visitas acumuladas'."),
           ("Visitantes únicos", C["Visitantes únicos"], "0", None),
           ("Visitantes REAIS", C["Visitantes reais"], "0", "Únicos menos os marcados Ignorar = S na aba Visitantes."),
           ("Cliques no ML", C["Cliques em link de afiliado"], "0", None),
           ("Taxa de clique real", C["Taxa de clique real (visitantes)"], "0%", "Visitantes reais que clicaram ÷ visitantes reais."),
           ("Visitas externas", C["Visitas de divulgação externa"], "0", "TikTok/Instagram/WhatsApp etc. (sem botões internos e testes)."),
-          ("Δ visitas", C["Δ visitas desde o quadro anterior"], "+0;-0;0", "Diferença para o relatório anterior."),
-          ("Visitas/hora", C["Visitas por hora (último intervalo)"], "0.0", "Ritmo entre os dois últimos relatórios.")]
+          ("Visitas acumuladas", f"={visitas_acum}", "0", "TODAS as visitas desde o início do rastreador (20/10), sem testes. Só aumenta; é o total que não diminui."),
+          ("Visitas/hora", f"={visitas_por_hora_24h()}", "0.0", "Média das últimas 24 horas dos dados (sessões distintas ÷ 24). Não fica negativa.")]
     for i, (rot, ref, fmt, nota) in enumerate(k1):
         kpi(5, 2 + i * 2, rot, ref, fmt, nota)
     ws["B9"], ws["B9"].font = "CONVERSÃO E RESULTADO", F_SEC

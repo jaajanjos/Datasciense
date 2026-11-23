@@ -103,7 +103,7 @@
  [],
  False,
  False,
- 1794176200,
+ 1795350207,
  [('run.exe',
    'C:\\Users\\SVR_RYZEN_JAA\\AppData\\Local\\Python\\pythoncore-3.14-64\\Lib\\site-packages\\PyInstaller\\bootloader\\Windows-64bit-intel\\run.exe',
    'EXECUTABLE')],

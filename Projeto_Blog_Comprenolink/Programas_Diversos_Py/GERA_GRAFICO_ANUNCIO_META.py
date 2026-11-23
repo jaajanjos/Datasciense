@@ -30,6 +30,8 @@ USO (funciona de qualquer pasta):
       -> anúncio atual (bf_26_entrada), dados do momento
   ... GERA_GRAFICO_ANUNCIO_META.py --sem-baixar   -> não busca nada; só refaz com os dados já gravados
   ... GERA_GRAFICO_ANUNCIO_META.py --teste        -> refaz o gráfico do teste de 11 a 13/11 (dados antigos)
+  ... GERA_GRAFICO_ANUNCIO_META.py --meta-manual LEITURA_META_MANUAL.json
+      -> sem a chave da API: usa a leitura feita no Gerenciador (gravada nesse JSON)
   Outras opções: --campanha NUMERO  --utm NOME  --verba 240  --meta-custo 0.35  --dias 60  --saida PASTA
 """
 import argparse
@@ -60,8 +62,8 @@ CSV_TESTE = os.path.join(PASTA_REL, "LEITURA_ANUNCIO_META_historico.csv")
 
 AZUL, VERDE, CINZA, VERMELHO = "#2563eb", "#16a34a", "#9ca3af", "#dc2626"
 COL_DIA = ["data", "gasto_dia", "gasto_acumulado", "impressoes", "alcance", "frequencia", "cliques_link",
-           "visualizacoes_pagina", "visitas_reais", "visitantes_unicos", "cliques_saida", "custo_por_visita_dia"]
-COL_RESUMO = ["data", "hora", "fonte_meta", "status", "verba", "gasto", "pct_verba", "saldo", "visualizacoes_meta",
+           "resultados_meta", "visitas_reais", "visitantes_unicos", "cliques_saida", "custo_por_visita_dia"]
+COL_RESUMO = ["data", "hora", "fonte_meta", "status", "verba", "gasto", "pct_verba", "saldo", "resultados_meta",
               "visitas_reais", "visitantes_unicos", "cliques_saida", "taxa_saida_pct", "custo_por_visita",
               "custo_por_clique_saida", "criterio", "arquivo_acessos"]
 
@@ -102,7 +104,7 @@ def meta_por_dia(cfg):
         dias[d] = {"gasto_dia": num(i.get("spend")), "impressoes": num(i.get("impressions"), int),
                    "alcance": num(i.get("reach"), int), "frequencia": num(i.get("frequency")),
                    "cliques_link": num(i.get("inline_link_clicks"), int),
-                   "visualizacoes_pagina": int(acoes.get(cfg["acao_resultado"], 0))}
+                   "resultados_meta": int(acoes.get(cfg["acao_resultado"], 0))}
     return dias
 
 
@@ -137,6 +139,22 @@ def salvar_campaign_id(cid):
     c["campaign_id"] = str(cid)
     with open(LM.CONFIG, "w", encoding="utf-8") as fh:
         json.dump(c, fh, ensure_ascii=False, indent=2)
+
+
+def ler_meta_manual(caminho):
+    """Leitura feita à mão no Gerenciador (JSON): totais + dias. Mesmo formato que a API devolve."""
+    with open(caminho, encoding="utf-8-sig") as fh:
+        m = json.load(fh)
+    totais = {"gasto": float(m["gasto"]), "impressoes": int(m["impressoes"]), "alcance": int(m["alcance"]),
+              "resultados": int(m["resultados"]), "status": m.get("status", "Ativo"), "verba": m.get("verba"),
+              "origem_verba": "leitura manual", "observacao": m.get("observacao", "Leitura manual no Gerenciador")}
+    dias = {}
+    for d, v in m.get("dias", {}).items():
+        dias[dt.datetime.strptime(d, "%d/%m/%Y").date()] = {
+            "gasto_dia": float(v["gasto_dia"]), "impressoes": int(v["impressoes"]), "alcance": int(v["alcance"]),
+            "frequencia": round(v["impressoes"] / v["alcance"], 2) if v["alcance"] else 0,
+            "cliques_link": v.get("cliques_link", 0), "resultados_meta": int(v["resultados"])}
+    return totais, dias
 
 
 # ---------------------------------------------------------------- 2. blog
@@ -239,7 +257,7 @@ def guardar_anteriores(pasta):
             shutil.move(a, os.path.join(pasta, "old_bkp", os.path.basename(a)))
 
 
-def desenhar(nome, verba, meta_custo, dias, gasto, visualiz, total_vis, saida_png, agora, aviso_meta, leituras=()):
+def desenhar(nome, verba, meta_custo, dias, gasto, visualiz, total_vis, saida_png, agora, aviso_meta, leituras=(), rot="resultados"):
     custo_vis = gasto / total_vis if total_vis else 0
     custo_meta = gasto / visualiz if visualiz else 0
     fig, ax = plt.subplots(2, 2, figsize=(14, 9))
@@ -260,7 +278,7 @@ def desenhar(nome, verba, meta_custo, dias, gasto, visualiz, total_vis, saida_pn
 
     pos = list(range(len(dias)))
     larg = 0.4
-    b1 = ax[0][1].bar([p - larg / 2 for p in pos], [num(r["visualizacoes_pagina"], int) for r in dias], larg, color=AZUL, label="Meta: visualizacoes")
+    b1 = ax[0][1].bar([p - larg / 2 for p in pos], [num(r.get("resultados_meta") or r.get("visualizacoes_pagina"), int) for r in dias], larg, color=AZUL, label=f"Meta: {rot}")
     b2 = ax[0][1].bar([p + larg / 2 for p in pos], [num(r["visitas_reais"], int) for r in dias], larg, color=VERDE, label="Site: visitas reais")
     rotulos(ax[0][1], b1)
     rotulos(ax[0][1], b2)
@@ -268,11 +286,11 @@ def desenhar(nome, verba, meta_custo, dias, gasto, visualiz, total_vis, saida_pn
     ax[0][1].legend(fontsize=8)
     ax[0][1].set_title("Por dia: Meta x visitas reais do blog")
 
-    b = ax[1][0].bar(["Meta: visualizacoes", "Site: visitas reais"], [visualiz, total_vis], color=[AZUL, VERDE])
+    b = ax[1][0].bar([f"Meta: {rot}", "Site: visitas reais"], [visualiz, total_vis], color=[AZUL, VERDE])
     rotulos(ax[1][0], b)
     ax[1][0].set_title("Meta x blog (total)")
 
-    b = ax[1][1].bar(["Custo/visita real", "Custo/visualiz. Meta", "Meta de custo"], [custo_vis, custo_meta, meta_custo], color=[VERDE, AZUL, CINZA])
+    b = ax[1][1].bar(["Custo/visita real", f"Custo/{rot} Meta", "Meta de custo"], [custo_vis, custo_meta, meta_custo], color=[VERDE, AZUL, CINZA])
     rotulos(ax[1][1], b, "{:.2f}")
     ax[1][1].set_title("Custo por visita (R$)")
 
@@ -292,6 +310,7 @@ def main():
     ap.add_argument("--meta-custo", type=float, help="meta de custo por visita em reais (padrão 0,35)")
     ap.add_argument("--dias", type=int, default=60, help="quantos dias de acessos baixar do site (padrão 60)")
     ap.add_argument("--saida", default=PASTA_REL)
+    ap.add_argument("--meta-manual", help="JSON com a leitura feita no Gerenciador (usado quando a API nao responde)")
     a = ap.parse_args()
     agora = dt.datetime.now()
 
@@ -314,6 +333,13 @@ def main():
     else:
         print("Buscando os dados atuais na Meta...")
         totais, meta_dia, aviso = buscar_meta_agora(cfg, agora)
+    meta_api = bool(totais)
+    if not totais and a.meta_manual:
+        totais, meta_dia = ler_meta_manual(a.meta_manual)
+        hist_m = os.path.join(PASTA_REL, f"LEITURA_ANUNCIO_META_historico_{cfg.get('campaign_id')}.csv")
+        LM.gravar_linha(hist_m, agora, totais)
+        print(f"Meta (leitura manual do Gerenciador) usada: gasto {reais(totais['gasto'])} -> {hist_m}")
+        aviso = ""
     if aviso:
         print("AVISO META:", aviso)
 
@@ -343,9 +369,9 @@ def main():
     taxa = cliques / total_vis * 100 if total_vis else 0.0
     custo_cli = gasto / cliques if cliques else None
     crit = criterio(taxa, custo_cli) if gasto > 0 else "SEM AVALIAÇÃO (falta a leitura do gasto na Meta)"
-    resumo = {"data": f"{agora:%d/%m/%Y}", "hora": f"{agora:%Hh%M}", "fonte_meta": "API agora" if totais else "ultima leitura gravada",
+    resumo = {"data": f"{agora:%d/%m/%Y}", "hora": f"{agora:%Hh%M}", "fonte_meta": ("leitura manual Gerenciador" if a.meta_manual and not meta_api else "API agora") if totais else "ultima leitura gravada",
               "status": status, "verba": f"{verba:.2f}", "gasto": f"{gasto:.2f}", "pct_verba": f"{gasto / verba * 100:.1f}" if verba else "",
-              "saldo": f"{max(verba - gasto, 0):.2f}" if verba else "", "visualizacoes_meta": visualiz, "visitas_reais": total_vis,
+              "saldo": f"{max(verba - gasto, 0):.2f}" if verba else "", "resultados_meta": visualiz, "visitas_reais": total_vis,
               "visitantes_unicos": unicos, "cliques_saida": cliques, "taxa_saida_pct": f"{taxa:.1f}",
               "custo_por_visita": f"{gasto / total_vis:.2f}" if total_vis else "",
               "custo_por_clique_saida": f"{custo_cli:.2f}" if custo_cli else "", "criterio": crit,
@@ -356,7 +382,7 @@ def main():
     # 4. gráfico
     guardar_anteriores(a.saida)
     png = os.path.join(a.saida, f"GRAFICO_ANUNCIO_META_{agora:%d_%m_%Y_%Hh%M}.png")
-    desenhar(nome, verba, meta_custo, dias, gasto, visualiz, total_vis, png, agora, bool(aviso), leituras)
+    desenhar(nome, verba, meta_custo, dias, gasto, visualiz, total_vis, png, agora, bool(aviso), leituras, cfg.get("rotulo_resultado") or "resultados")
 
     print("=" * 70)
     print("GRAFICO:", png)

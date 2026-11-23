@@ -8,7 +8,7 @@ import sys
 import comum
 
 OPCOES = [
-    ("1", "Rodar TUDO (verificar ML, relatório, substituir com o Claude, trocar no blog, painel)", "0_executar_tudo.py", []),
+    ("1", "Rodar TUDO: (1) confere os anúncios do guia e troca os fora do ar pelo de MAIOR COMISSÃO; (2) atualiza os controles (planilha, histórico, resumo); (3) atualiza o painel (origem das visitas e cliques no ML, em ordem cronológica); (4) abre o PDF do painel no final", "0_executar_tudo.py", []),
     ("2", "Rodar TUDO usando a última verificação do ML (mais rápido)", "0_executar_tudo.py", ["--sem-verificar"]),
     ("3", "Só relatório + painel (sem substituição)", "0_executar_tudo.py", ["--sem-claude"]),
     ("4", "Só verificar no ML e gerar o relatório de acessos", "1_verificar_e_relatorio.py", []),

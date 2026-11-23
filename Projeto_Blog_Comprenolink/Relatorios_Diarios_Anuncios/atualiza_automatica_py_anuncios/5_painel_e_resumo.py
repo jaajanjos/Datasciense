@@ -31,6 +31,7 @@ def trocas_de_hoje():
 
 
 def main():
+    inicio = datetime.now().timestamp()
     simular = "--simular" in sys.argv
     c = comum.cfg()
     comum.abrir_log("atualiza")
@@ -66,7 +67,7 @@ def main():
         f"RESUMO DA ATUALIZAÇÃO AUTOMÁTICA DOS ANÚNCIOS - {datetime.now():%d/%m/%Y %H:%M}" + (" (SIMULAÇÃO)" if simular else ""),
         "",
         f"Última verificação no ML ......... {pend.get('ultima_verificacao_ml', '-')}",
-        f"Anúncios ativos ................. {pend.get('anuncios_ativos', '-')} de {pend.get('anuncios_total', '-')}",
+        f"Anúncios ativos (antes das trocas) {pend.get('anuncios_ativos', '-')} de {pend.get('anuncios_total', '-')}",
         f"Precisavam de substituto ........ {len(pend.get('pendentes') or [])}",
         f"Substituições válidas (IA) ...... {len(subs.get('substituicoes') or [])}",
         f"Não substituídos ................ {len(subs.get('nao_substituidos') or [])}",
@@ -110,6 +111,11 @@ def main():
     for l in linhas:
         comum.log(l)
     if "--nao-abrir" not in sys.argv and pdf and not simular:
+        if os.path.getmtime(pdf) < inicio:
+            comum.log("*** ATENÇÃO: o PDF do painel de HOJE não foi gerado nesta execução (veja o log do painel/Excel). "
+                      f"Abrindo o mais recente, de {datetime.fromtimestamp(os.path.getmtime(pdf)):%d/%m/%Y %H:%M}. ***")
+        else:
+            comum.log(f"Abrindo o PDF do painel: {pdf}")
         os.startfile(pdf)
     return 1 if codigo else 0
 

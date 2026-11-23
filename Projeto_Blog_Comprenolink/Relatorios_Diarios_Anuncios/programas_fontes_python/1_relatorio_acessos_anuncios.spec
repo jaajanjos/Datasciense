@@ -2,11 +2,11 @@
 
 
 a = Analysis(
-    ['D:/Projeto_Blog_Comprenolink/Relatorios_Diarios_Anuncios/programas_fontes_python/3_relatorio_acessos_anuncios.py'],
-    pathex=['.'],
+    ['3_relatorio_acessos_anuncios.py'],
+    pathex=[],
     binaries=[],
     datas=[],
-    hiddenimports=['6_verificar_anuncios'],
+    hiddenimports=[],
     hookspath=[],
     hooksconfig={},
     runtime_hooks=[],

@@ -1,0 +1,16 @@
+{
+  "_para_que": "Leitura feita no Gerenciador de Anuncios (Chrome) quando a chave da API nao existe. Usada com --meta-manual.",
+  "lido_em": "22/11/2026",
+  "status": "Ativo",
+  "verba": 240.0,
+  "gasto": 15.15,
+  "impressoes": 927,
+  "alcance": 800,
+  "resultados": 4,
+  "observacao": "Leitura manual no Gerenciador (Chrome), periodo 19/11 a 22/11. Resultado = SaidaML (clique para o ML). Custo por resultado R$ 3,79",
+  "dias": {
+    "20/11/2026": {"gasto_dia": 6.27, "impressoes": 574, "alcance": 513, "resultados": 1},
+    "21/11/2026": {"gasto_dia": 7.67, "impressoes": 321, "alcance": 278, "resultados": 3},
+    "22/11/2026": {"gasto_dia": 1.21, "impressoes": 32, "alcance": 28, "resultados": 0}
+  }
+}
