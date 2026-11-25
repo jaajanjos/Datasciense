@@ -25,8 +25,10 @@ from reportlab.platypus import Paragraph, SimpleDocTemplate, Spacer, Table, Tabl
 PASTA = r"D:\Projeto_Blog_Comprenolink\0- Pendencias\4_Relatorio_Ativ_Claude_no_Blog"
 PREFIXO = "1- PY- Prog gerador grafico de anuncio META - BLOG"
 
-# (data de ordenação AAAA-MM-DD HH:MM, atividade, para que serve, status, quem, data e horário)
-# Status: "Pendente", "Em andamento" ou "Concluída" (concluída não aparece no PDF).
+# (data de ordenação AAAA-MM-DD HH:MM, atividade, para que serve, status, quem, data e horário[, concluída em DD/MM/AAAA])
+# Status: "Pendente", "Em andamento" ou "Concluído". Concluído só depois de validado; fica no PDF NO DIA da conclusão
+# (7º item = data da conclusão) e sai no dia seguinte. Cores (ordem do dono 25/11): concluído = verde claro #DCFCE7,
+# status verde negrito; em andamento = amarelo #FEF08A, status âmbar negrito #A16207; pendente = sem cor.
 ATIVIDADES = [
     ("2026-11-28 10:00", "Fechamento do anúncio bf_26_entrada: somar 20/11 a 28/11 e conferir vendas no ML Afiliados; sem venda vinda do anúncio, só PAUSAR (sem mexer em verba nem pagamento). Resultado ao dono até 10h30 e 1 linha à Execução",
      "parar de gastar sem resultado", "Pendente", "Claude (1-PY), tarefa automática", "sáb 28/11 10:00"),
@@ -47,12 +49,27 @@ ATIVIDADES = [
 ]
 
 
+def concluida(a):
+    return a[3].lower().startswith("conclu")
+
+
+def mostrar(a, hoje):
+    if not concluida(a):
+        return True
+    return len(a) > 6 and a[6] == hoje   # concluída fica só no dia da conclusão
+
+
 def main():
     agora = dt.datetime.now()
-    ativas = sorted([a for a in ATIVIDADES if a[3] != "Concluída"], key=lambda a: a[0])
+    hoje = f"{agora:%d/%m/%Y}"
+    ativas = sorted([a for a in ATIVIDADES if mostrar(a, hoje)], key=lambda a: a[0])
     os.makedirs(os.path.join(PASTA, "old_bkp"), exist_ok=True)
+    travados = []
     for x in glob.glob(os.path.join(PASTA, PREFIXO + "_*.pdf")):
-        shutil.move(x, os.path.join(PASTA, "old_bkp", os.path.basename(x)))
+        try:
+            shutil.move(x, os.path.join(PASTA, "old_bkp", os.path.basename(x)))
+        except PermissionError:
+            travados.append(os.path.basename(x))
     saida = os.path.join(PASTA, f"{PREFIXO}_{agora:%d_%m_%Y_%Hh%M}.pdf")
 
     s = getSampleStyleSheet()
@@ -64,18 +81,33 @@ def main():
     doc = SimpleDocTemplate(saida, pagesize=landscape(A4), leftMargin=1.4 * cm, rightMargin=1.4 * cm,
                             topMargin=1.3 * cm, bottomMargin=1.3 * cm, title="Atividades da conversa 1-PY no novo plano")
     dados = [[Paragraph(x, cb) for x in ("Atividade", "Status", "Quem", "Data e horário")]]
-    for _, atv, para, st, quem, quando in ativas:
-        dados.append([Paragraph(f"{atv}. <b>Para que serve:</b> {para}", c), Paragraph(st, c), Paragraph(quem, c), Paragraph(quando, c)])
+    estilo = [("BACKGROUND", (0, 0), (-1, 0), colors.HexColor("#1f2937")), ("GRID", (0, 0), (-1, -1), 0.4, colors.grey),
+              ("VALIGN", (0, 0), (-1, -1), "MIDDLE"), ("PADDING", (0, 0), (-1, -1), 4)]
+    for n, a in enumerate(ativas, start=1):
+        _, atv, para, st, quem, quando = a[:6]
+        if concluida(a):
+            st_txt = '<font color="#15803d"><b>Concluído</b></font>'
+            estilo.append(("BACKGROUND", (0, n), (-1, n), colors.HexColor("#DCFCE7")))
+        elif st.lower().startswith("em andamento"):
+            st_txt = '<font color="#A16207"><b>Em andamento</b></font>'
+            estilo.append(("BACKGROUND", (0, n), (-1, n), colors.HexColor("#FEF08A")))
+        else:
+            st_txt = st
+        dados.append([Paragraph(f"{atv}. <b>Para que serve:</b> {para}", c), Paragraph(st_txt, c), Paragraph(quem, c), Paragraph(quando, c)])
     t = Table(dados, colWidths=[15.5 * cm, 2.4 * cm, 4.6 * cm, 4.4 * cm], repeatRows=1)
-    t.setStyle(TableStyle([("BACKGROUND", (0, 0), (-1, 0), colors.HexColor("#1f2937")), ("GRID", (0, 0), (-1, -1), 0.4, colors.grey),
-                           ("VALIGN", (0, 0), (-1, -1), "MIDDLE"), ("PADDING", (0, 0), (-1, -1), 4),
-                           ("ROWBACKGROUNDS", (0, 1), (-1, -1), [colors.white, colors.HexColor("#f3f4f6")])]))
+    t.setStyle(TableStyle(estilo))
     e = [Paragraph("Atividades da conversa 1- PY- Prog gerador gráfico de anúncio META - BLOG", h1),
          Paragraph(f"Atualizado em {agora:%d/%m/%Y às %H:%M}. Só as atividades que esta conversa vai executar no NOVO PLANO "
-                   f"(virada para o orgânico, 29/11), em ordem de data. Concluída sai; nova entra conforme o plano ou replanejamento.", p),
+                   f"(virada para o orgânico, 29/11), em ordem de data. Verde = concluída hoje (sai amanhã); amarelo = em andamento; "
+                   f"sem cor = pendente.", p),
          Spacer(1, 6), Paragraph("Atividades em ordem de data", h2), t]
     doc.build(e)
     print("PDF:", saida)
+    restantes = [os.path.basename(x) for x in glob.glob(os.path.join(PASTA, PREFIXO + "_*.pdf"))]
+    if travados:
+        print("ATENCAO: arquivo antigo travado (aberto no app/visualizador), feche a aba e rode de novo:", ", ".join(travados))
+    print("Na pasta ficou:", ", ".join(restantes))
+    print("Envie ao dono como ANEXO (SendUserFile display 'attach'), nao 'render'.")
 
 
 if __name__ == "__main__":

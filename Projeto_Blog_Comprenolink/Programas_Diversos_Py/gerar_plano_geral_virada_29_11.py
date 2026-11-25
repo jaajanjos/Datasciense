@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """Plano geral da virada para o organico (29/11/2026): atividades por conversa, com dia/hora de execucao e entrega.
-Gerado pela conversa BLOG - Ajustes no WhatsApp e Instagram. Uma unica versao na pasta (anterior -> old_bkp)."""
+Gerado pela conversa BLOG - Ajustes Instagram. Uma unica versao na pasta (anterior -> old_bkp)."""
 import os, shutil, glob
 from datetime import datetime
 from reportlab.lib.pagesizes import A4, landscape
@@ -16,13 +16,18 @@ CAB = ["Atividade", "Para que serve", "Execução (dia e hora)", "Entrega (dia e
 LARG = [210, 150, 120, 150, 70]
 
 SECOES = [
- ("1. BLOG - Ajustes no WhatsApp e Instagram (dona dos Reels)", [
+ ("1. BLOG - Ajustes Instagram (dona dos Reels)", [
+  ("MISSÃO DOS REELS: ser a dona de agendar todos os dias de Reels até fechar o ciclo (23/12), o mais cedo possível, em lotes semanais e com as guardas de uso (5h>75% ou semanal>80%)",
+   "Uma dona só, sem duplicar; Reels todos os dias", "Contínua, desde 25/11", "Até 23/12/2026", "Em andamento"),
+  ("Regra de agendamento: manter o que já está agendado; nos dias com Reel das 19h05, agendar só o novo das 13h30; nos demais, 13h30 e 20h00", "Não duplicar nem apagar sem o de acordo do dono", "Aprovada em 25/11", "—", "Concluído (25/11)"),
+  ("Pasta dos Reels novos criada: REELS_NOVO_BLOG (01_AMOSTRA e 02_LOTE_29-11_a_06-12); só esta conversa grava nela", "Tudo no lugar certo", "25/11", "—", "Concluído (25/11)"),
+  ("Trocar o link da bio do Instagram com etiqueta de rastreio (utm_medium=bio), com o sim do dono", "Medir os cliques que vêm dos Reels", "Sex 27/11, dentro da janela das 14h00 às 16h00", "Sex 27/11: link trocado e conferido", "Previsto"),
   ("Receber do dono o caminho da pasta nova dos Reels e confirmar o estilo visual agressivo para os Reels orgânicos",
-   "Produzir tudo no lugar certo, sem mexer em nada fora da estrutura", "Qua 25/11, até 20h00 (resposta do dono)", "Qua 25/11, 20h00", "Aguarda o dono"),
+   "Produzir tudo no lugar certo, sem mexer em nada fora da estrutura", "Qua 25/11, até 20h00 (resposta do dono)", "Qua 25/11, 20h00", "Concluído (25/11)"),
   ("Desenhar o estilo visual novo e mostrar 1 Reel de amostra", "O dono aprovar o visual antes de eu gerar em volume",
-   "Qua 25/11, 20h00 às 21h30", "Amostra enviada na conversa, qua 25/11 até 21h30; 'sim' do dono até 22h00", "Previsto"),
+   "Qua 25/11, 20h00 às 21h30", "Amostra enviada na conversa, qua 25/11 até 21h30; 'sim' do dono até 22h00", "Concluído (25/11)"),
   ("Gerar o 1º lote: 16 Reels (29/11 a 06/12, fase 1: 2 por dia, alternando estilo novo e atual), legenda só comprenolink.net, sem hashtag, sem preço e sem 'melhor', 'mais vendido' ou 'líder'",
-   "Domingo 29/11 já começar com os Reels", "Qui 26/11, 20h00 às 23h00", "Qui 26/11, 23h00: 16 vídeos e legendas prontos na pasta", "Previsto (depende do 'sim' na amostra)"),
+   "Domingo 29/11 já começar com os Reels", "Qui 26/11, 20h00 às 23h00", "Qui 26/11, 23h00: 16 vídeos e legendas prontos na pasta", "Concluído (antecipado, 25/11)"),
   ("Agendar o lote no Meta Business Suite com o dono (ele escolhe cada arquivo na janela do Windows)",
    "Reels no ar às 13h30 e 20h00 (fase 1)", "Sex 27/11, 14h00 às 16h00 (Chrome reservado pela Execução)", "Sex 27/11, até 16h00: 16 Reels agendados e conferidos na lista do Meta; uso do plano (%) informado à Execução antes e depois", "Confirmado (Chrome)"),
   ("Gerar o lote da semana seguinte (2 por dia na fase 1; 3 por dia na fase 2 se os critérios forem atendidos)", "Estoque sempre de 1 a 2 semanas à frente",
@@ -36,7 +41,7 @@ SECOES = [
   ("Atualizar e enviar o meu PDF (evolução e replanejamento)", "O dono acompanha tudo em um lugar só",
    "Só quando houver atividade", "Mesmo dia, na conversa", "Rotina"),
  ]),
- ("2. BLOG - Execução de atividades e planejamento (orquestradora)", [
+ ("2. BLOG - Planejamento e mentoria técnica (orquestradora e mentora)", [
   ("Distribuir as atividades da virada às conversas e cobrar prazos", "Cada conversa fazer só a sua parte, sem sobrecarga",
    "Qua 25/11 (primeira distribuição)", "Qua 25/11: todas as conversas cientes", "Aceito pela conversa"),
   ("Reservar o Chrome para a conversa dos Reels", "Evitar conflito de agenda", "Já feito", "Sex 27/11, 14h00 às 16h00 reservado", "Confirmado"),
@@ -49,7 +54,7 @@ SECOES = [
   ("Ajustar as tarefas que dependem do anúncio ligado (30/11, 17/12, 22/12, 28/12 e Pixel diário), com aprovação do dono",
    "Não rodar checagens de um anúncio pausado", "Seg 30/11, 20h30", "Seg 30/11, 21h30: proposta aprovada ou ajustada", "Previsto"),
   ("Ajustar a rotina de segunda para os Reels em rampa (hoje agenda 1 Reel às 19h05), com o 'de acordo' do dono",
-   "A rotina acompanhar a nova estratégia", "Seg 30/11, 20h00", "Seg 30/11, 21h00: rotina nova registrada", "Previsto"),
+   "A rotina acompanhar a nova estratégia", "Seg 30/11, 20h00", "Seg 30/11, 21h00: rotina nova registrada", "Concluído (25/11): rotina de segunda desativada; Reels com a conversa do Instagram"),
   ("Linha de base: cliques ao ML por dia dos 7 dias anteriores, separando o tráfego do anúncio pago (utm_medium=paid); comparar com 07/12 e 14/12", "Medir se os Reels aumentam os cliques, sem custo",
    "Seg 30/11, 07/12 e 14/12", "Segunda, 22h00, no relatório geral", "Previsto"),
   ("Juntar as linhas semanais de cada conversa no relatório geral", "O dono lê um lugar só",
@@ -65,18 +70,15 @@ SECOES = [
   ("Publicar a linha de confiança no topo das categorias e do guia: 'Você compra direto no site oficial do Mercado Livre. O CompreNoLink só indica os produtos: o pagamento e a entrega são feitos pelo próprio Mercado Livre.'",
    "Tirar o medo de golpe e fazer comprar pelo link (comissão conta)", "Dom 29/11, 09h00 (tarefa linha-confianca-blog-29-11)", "Dom 29/11, até 09h30: conferida no blog", "Agendada"),
  ]),
- ("4. BLOG- Pendencia e ajustes em programas", [
+ ("4. BLOG - Execução de atividades", [
   ("Sincronizar com a Página do Facebook só os Reels bons que o dono escolher", "Facebook com esforço mínimo, sem apagar a Página",
    "Sugestão: quartas, 20h00, depois do aviso da conversa dos Reels (sem prazo fixo)", "No mesmo dia da escolha do dono", "Previsto"),
+  ("Conferir no blog, só em leitura, as melhorias M1+M3+M7 e M2 (01 e 02/12) e o piloto M4 (08/12) e avisar a Execução em 1 linha", "Garantir que nada quebrou", "Qua 02/12 e qua 09/12, 20h30", "Mesmo dia: 1 linha à Execução", "Agendada"),
   ("Atualizar e enviar o PDF próprio da conversa", "Acompanhamento diário", "Todo dia útil", "Mesmo dia", "Rotina"),
  ]),
- ("5. BLOG- Day by Day e WhatsApp", [
-  ("Day by Day: nenhuma atividade da virada, só dúvidas do dono. WhatsApp: fora; só com venda comprovada e evidência, explicado antes ao dono.",
-   "Não sobrecarregar", "—", "—", "Sem atividade"),
- ]),
- ("6. O que depende do dono (José)", [
-  ("Passar o caminho completo da pasta nova dos Reels e confirmar o estilo visual", "Eu começar a amostra", "Qua 25/11", "Até 20h00", "Aguardado"),
-  ("Aprovar (ou pedir ajuste) a amostra do Reel", "Liberar o lote de 29 e 30/11", "Qua 25/11", "Até 22h00", "Aguardado"),
+ ("5. O que depende do dono (José)", [
+  ("Passar o caminho completo da pasta nova dos Reels e confirmar o estilo visual", "Eu começar a amostra", "Qua 25/11", "Até 20h00", "Concluído (25/11)"),
+  ("Aprovar (ou pedir ajuste) a amostra do Reel", "Liberar o lote de 29 e 30/11", "Qua 25/11", "Até 22h00", "Concluído (25/11)"),
   ("Estar no PC para escolher os arquivos dos vídeos no Meta", "Agendar os Reels", "Sex 27/11, 14h00 às 16h00 e toda sexta no mesmo horário", "Mesmo horário", "Combinar"),
   ("Deixar o PC acordado com o app do Claude e o Chrome abertos no fim de semana de 28 e 29/11", "Fechamento, linha de confiança e conferência rodarem", "Sáb 28/11 e dom 29/11", "—", "Combinar"),
  ]),
@@ -86,11 +88,23 @@ def tabela(linhas):
     st = getSampleStyleSheet()["BodyText"]; st.fontSize = 8; st.leading = 10
     dados = [[Paragraph("<b>%s</b>" % c, st) for c in CAB]]
     for l in linhas:
-        dados.append([Paragraph(x, st) for x in l])
+        cel = [Paragraph(x, st) for x in l]
+        sit = str(l[-1])
+        if sit.startswith("Concluído"):
+            cel[-1] = Paragraph('<font color="#166534"><b>%s</b></font>' % sit, st)
+        elif sit.startswith("Em andamento"):
+            cel[-1] = Paragraph('<font color="#A16207"><b>%s</b></font>' % sit, st)
+        dados.append(cel)
     t = Table(dados, colWidths=LARG, repeatRows=1)
     t.setStyle(TableStyle([("BACKGROUND", (0, 0), (-1, 0), colors.HexColor("#E8E8E8")),
                            ("GRID", (0, 0), (-1, -1), 0.4, colors.grey),
                            ("VALIGN", (0, 0), (-1, -1), "TOP")]))
+    for r_, l_ in enumerate(linhas, start=1):
+        sit = str(l_[-1])
+        if sit.startswith("Concluído"):
+            t.setStyle(TableStyle([("BACKGROUND", (0, r_), (-1, r_), colors.HexColor("#DCFCE7"))]))
+        elif sit.startswith("Em andamento"):
+            t.setStyle(TableStyle([("BACKGROUND", (0, r_), (-1, r_), colors.HexColor("#FEF08A"))]))
     return t
 
 def main():
@@ -105,7 +119,7 @@ def main():
     h2 = ParagraphStyle("h2", parent=ss["Heading2"], fontSize=11, spaceBefore=8, spaceAfter=4)
     p = ParagraphStyle("p", parent=ss["BodyText"], fontSize=9, leading=12)
     el = [Paragraph("Plano geral da virada para o orgânico (domingo 29/11/2026)", h1),
-          Paragraph("Gerado em %s às %s. Elaborado pela conversa BLOG - Ajustes no WhatsApp e Instagram; orquestração: BLOG - Execução de atividades e planejamento." %
+          Paragraph("Gerado em %s às %s. Elaborado pela conversa BLOG - Ajustes Instagram; orquestração: BLOG - Planejamento e mentoria técnica." %
                     (AGORA.strftime("%d/%m/%Y"), AGORA.strftime("%Hh%M")), p), Spacer(1, 6),
           Paragraph("<b>Objetivo:</b> tirar o medo de golpe e fazer o visitante comprar pelo link do blog, para a comissão contar, com persistência e custo zero. "
                     "Nunca mais anúncio pago.", p), Spacer(1, 3),

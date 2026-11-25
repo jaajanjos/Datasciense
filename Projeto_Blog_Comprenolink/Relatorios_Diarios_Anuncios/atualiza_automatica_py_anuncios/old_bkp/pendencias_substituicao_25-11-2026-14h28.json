@@ -1,0 +1,50 @@
+{
+  "gerado_em": "2026-11-25 14:02",
+  "ultima_verificacao_ml": "2026-11-25 13:56",
+  "anuncios_ativos": 211,
+  "anuncios_total": 213,
+  "requisitos_substituto": [
+    "Mesmo produto (mesmo código de catálogo, outro vendedor). Só se não houver: mesmo tipo de produto e mesma categoria do guia.",
+    "Anúncio ativo, produto novo e com estoque.",
+    "Melhor política de venda, nesta ordem: vendedor MercadoLíder (Platinum › Gold › Líder) ou reputação verde; envio Full; frete grátis; devolução grátis; garantia informada (de fábrica ou do vendedor).",
+    "Nota 4,5 ou mais, com muitas avaliações e muitas unidades vendidas.",
+    "Preço até 20% acima ou abaixo do anúncio anterior. Empate na política de venda: o de menor preço.",
+    "Gerar o link no ML Afiliados (Gerar link → copiar o meli.la) e trocar no item do guia, no botão e na foto."
+  ],
+  "pendentes": [
+    {
+      "item": 62,
+      "nome_no_blog": "Smart TV Samsung 55″ MiniLED 4K + Soundbar",
+      "titulo_no_ml": "Smart TV Samsung 55″ MiniLED 4K M75H + Soundbar HW-B450F",
+      "categoria": "🎧 Áudio & TV",
+      "situacao_ml": "Removido / indisponível",
+      "aviso_ml": "O link leva ao perfil de afiliado vazio (\"Este perfil ainda está vazio\"): o anúncio não existe mais.",
+      "fora_do_ar_desde": "2026-11-25 13:56",
+      "link_antigo": "https://www.mercadolivre.com.br/social/r20250720181444?matt_word=r20250720181444&matt_tool=65808735&forceInApp=true&ref=BFQQOip%2B3x2GRejIigD%2BFWzD27Oe54cDnHGwTFPLt4u%2BFe%2B6cygP8NTQCPEKrEhu7wAjqADy6hrDP8%2FWFnCgbGxguD%2FKG0qkcBjPJxg02Dg%2FgOmZDQCanHot4NAHAiJJ8yuEKUBgJmIWsT75swM%2Fg%2Fr9QdCNlx6oED2wLy%2Fvp4F1AaoJH87tBo%2BvSiUnFYQffU9SFfxXVPnr0VONQ91UhpoLHoPPQW5kReGNdrYwlKYCBIIKJAkLxcpc999tpoGCs1T2SA%3D%3D",
+      "catalogo_mlb": "",
+      "anuncio_mlb": "",
+      "preco_antes": 3229.0,
+      "preco_min": 2583.2,
+      "preco_max": 3874.8,
+      "busca_mesmo_produto": "",
+      "busca_mesmo_tipo": "https://lista.mercadolivre.com.br/smart-tv-samsung-55-miniled-4k-m75h"
+    },
+    {
+      "item": 79,
+      "nome_no_blog": "Impressora Multifuncional Epson EcoTank L3250 Wi-Fi",
+      "titulo_no_ml": "Impressora Multifuncional Epson EcoTank L3250 – Wi-Fi, Bivolt",
+      "categoria": "💻 Tecnologia & Informática",
+      "situacao_ml": "Removido / indisponível",
+      "aviso_ml": "O link leva ao perfil de afiliado vazio (\"Este perfil ainda está vazio\"): o anúncio não existe mais.",
+      "fora_do_ar_desde": "2026-11-25 13:56",
+      "link_antigo": "https://www.mercadolivre.com.br/social/r20250720181444?matt_word=r20250720181444&matt_tool=65808735&forceInApp=true&ref=BCBIOynADQlbEul9C7InHTt563HsvZ%2BLWevIGA7kOzRdwGvqN6g5fxhZB8q%2BNR7Qdam5cOUyQUBOcPas%2BEOIkiN1OQ5zIIPQW3SFYRG0slTQFPWCJE%2Fe5LVwYOYRZL0k%2F%2Bs2EtbsRR%2FFlES8ILSQs5BbQLHafGs4%2FamfIIXs0BBTS5fAMGTE2s9HfygSlI37VjZaXRg59RU%2Bj4e7fcPlm061iQopOLby9ZvdfSXXEVmG8aAvbqwVG%2FJTcrtQ3XHju9BvbA%3D%3D",
+      "catalogo_mlb": "",
+      "anuncio_mlb": "",
+      "preco_antes": 1039.0,
+      "preco_min": 831.2,
+      "preco_max": 1246.8,
+      "busca_mesmo_produto": "",
+      "busca_mesmo_tipo": "https://lista.mercadolivre.com.br/impressora-multifuncional-epson-ecotank-l3250"
+    }
+  ]
+}

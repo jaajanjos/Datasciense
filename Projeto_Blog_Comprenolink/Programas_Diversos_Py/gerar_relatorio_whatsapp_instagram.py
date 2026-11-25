@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-"""Relatorio diario da conversa BLOG - Ajustes no WhatsApp e Instagram.
+"""Relatorio diario da conversa BLOG - Ajustes Instagram.
 REGRA ATUAL (dono, 19/11/2026 noite): o PDF mostra SO pendencias e atividades a realizar.
 Concluido sai do relatorio (a lista EXECUTADO abaixo e apenas arquivo interno, nao e impressa). Uma unica versao na pasta (anterior -> old_bkp)."""
-import os, shutil, glob
+import os, re, shutil, glob
 from datetime import datetime
 from reportlab.lib.pagesizes import A4
 from reportlab.lib import colors
@@ -14,56 +14,75 @@ HOJE = datetime.now()
 HOJE_S = HOJE.strftime("%d/%m/%Y")
 
 # (data DD/MM/AAAA, atividade, situacao)  -> aparece so se data == hoje
+# EXECUTADO do novo plano (dono, 25/11/2026: o PDF mostra o que executamos e o que falta). (atividade, resultado, quem, data)
 EXECUTADO = [
-    ("19/11/2026", "Reels do Instagram de 02/11 e 04/11 publicados na Pagina Facebook Comprenolink",
-     "Feito por mim (dono escolheu o video). Depois disso a sincronizacao dos demais Reels passou para a conversa 'Pendencia e ajustes em programas'."),
-    ("19/11/2026", "Conferencia da planilha Base_Contatos_WhatsApp (abas Envios e Hoje)",
-     "Feito por mim, so leitura. Ultimo lote de convites: L5 em 12/11 (8 envios). Total 37 convites, 1 entrada no Canal."),
-    ("19/11/2026", "Corrigir na Base C007 (empresa), C331 (Lur) e C383 (Mercia): nao convidar",
-     "Feito por mim, com o 'de acordo' do dono. Consentimento mudado para Nao; os 3 sairam da fila (PODE ENVIAR = NAO). Backup em old_bkp da pasta da Base (19-11-2026-11h10)."),
-    ("19/11/2026", "Corrigir na Base o C010 (Baterias Moura, empresa): nao convidar",
-     "Feito por mim, de acordo do dono. Consentimento mudado para Nao; saiu da fila. Backup em old_bkp da pasta da Base (19-11-2026-18h45). Fila de hoje: C011 liberado e C009 aguardando aprovacao."),
-    ("19/11/2026", "Refazer a lista da aba Hoje da Base (N 1 a 9 estavam sem formula desde a limpeza de 12/11)",
-     "Feito por mim, com o dono fechando o Excel. A lista agora mostra C009 e C011 com o texto M1. Backup em old_bkp da pasta da Base (19-11-2026-18h47)."),
-    ("19/11/2026", "Convites do WhatsApp de hoje (lote L6-19/11): C009 Basilio e C011 Bruno",
-     "Enviados a mao pelo dono; registrados por mim na aba Envios (18h48 e 18h51, horario aproximado, conferencia OK). Total de convites: 39. Backup em old_bkp da pasta da Base (19-11-2026-18h53)."),
+    ("Plano geral da virada para o organico elaborado e distribuido as conversas (Execucao, 1- PY, Pendencia)",
+     "Aprovado pelo dono; versoes ajustadas ate a rampa de Reels (2, 3 e 5 por dia).", "Claude + dono", "24/11/2026"),
+    ("Regra de agendamento dos Reels definida",
+     "Aprovada pelo dono: manter o ja agendado; dias com Reel de 19h05 = so o novo das 13h30; demais 13h30 e 20h00.", "Claude + dono", "25/11/2026"),
+    ("Pasta REELS_NOVO_BLOG criada (01_AMOSTRA, 02_LOTE_29-11_a_06-12) e conversas avisadas",
+     "Pasta aprovada pelo dono; so esta conversa grava nela.", "Claude", "25/11/2026"),
+    ("Estilo visual dos Reels definido (limpo, igual ao blog) e amostra feita",
+     "Amostra aprovada pelo dono. Gerador novo: _fonte/gerar_reels_novo.py.", "Claude + dono", "25/11/2026"),
+    ("Lote 1 gerado: 16 Reels (29/11 a 06/12), legenda so comprenolink.net, sem hashtag e sem termos proibidos",
+     "Aprovado pelo dono ('nota 1000'); antecipado de qui 26/11. Uso do plano antes: 5h=49%, semanal=44%.", "Claude + dono", "25/11/2026"),
+    ("Link da bio do Instagram com rastreio (UTM)", "Dono deu o 'sim'; a troca fica para sex 27/11.", "Dono", "25/11/2026"),
+    ("PDFs renomeados para o prefixo 'BLOG- Ajustes Instagram' e geradores ajustados", "36 arquivos renomeados; backups em old_bkp.", "Claude", "25/11/2026"),
+    ("Conferencia dos Reels de ter 24/11 no Meta (so leitura)",
+     "Os 5 Reels (11h00, 13h30, 16h00, 18h00, 20h01) sairam no horario. Legenda conferida em 1 amostra (18h00): termina so em comprenolink.net, sem hashtag (e a legenda antiga, com 'Comente BLACK'). Feita as ~20h, 30 min depois do previsto.", "Claude", "25/11/2026"),
+    ("Calendario mensal do Instagram lido (nov, dez e jan) para saber os dias com Reel de 19h05",
+     "Ja agendado: 19h00+19h05 em 26 a 30/11, 02 e 04/12; so 19h05 em 07, 09, 11, 14, 16, 18, 21 e 23/12. Livres: 01, 03, 05, 06, 08, 10, 12, 13, 15, 17, 19, 20, 22 e 24 a 26/12; janeiro vazio. A lista semanal do Meta para em 02/12 (nao serve para isso); vale o calendario mensal.", "Claude", "25/11/2026"),
+    ("Distribuicao do lote 1 conferida com a orquestradora",
+     "12 dos 16 Reels: so 13h30 em 29/11, 30/11, 02/12 e 04/12; 13h30 e 20h00 em 01/12, 03/12, 05/12 e 06/12. Os 4 que sobram entram no lote seguinte.", "Claude + orquestradora", "25/11/2026"),
 ]
 
 # REGRA (dono): TODA linha tem O QUE E, PARA QUE SERVE, Status, Quem e QUANDO (data + horario). Linguagem simples.
 # (o que e, para que serve, status, quem, quando)  -- 'Previsto' = data/hora sugerida, vale ate o dono mudar.
 PENDENCIAS = [
-    ("Conferir no Meta (so leitura) se os 5 Reels de ter 24/11 (11h00, 13h30, 16h00, 18h00 e 20h00) sairam no horario e com a legenda certa (so comprenolink.net, sem #). Nao foi feita na terca a noite; passa para quarta, sem impacto no plano.",
-     "Garantir que os Reels ja agendados estao no ar e sem erro.",
-     "Pendente (adiada)", "Claude (so leitura)", "Qua 25/11/2026, 19h30 (aviso a Execucao antes e depois de usar o Chrome)"),
-    ("Receber do dono o caminho da pasta nova dos Reels e a confirmacao do estilo visual agressivo para os Reels organicos.",
-     "Produzir tudo no lugar certo, sem mexer fora da estrutura. Sem resposta, salvo a amostra na estrutura atual e o dono move depois.",
-     "Aguarda o dono", "Dono", "Qua 25/11/2026, ate 20h00"),
-    ("Desenhar o estilo visual novo e mostrar 1 Reel de amostra.",
-     "O dono aprovar o visual antes de gerar em volume.",
-     "Previsto", "Claude; aprovacao do dono ate 22h00", "Qua 25/11/2026, 20h00 as 21h30"),
-    ("Gerar o 1o lote: 16 Reels (29/11 a 06/12, 2 por dia, alternando estilo novo e atual), legenda so comprenolink.net, sem preco e sem 'melhor/mais vendido/lider'. Antes, conferir o uso do plano (parar se 5h>75% ou semanal>80%).",
-     "Domingo 29/11 comecar com Reels no ar (fase 1 da rampa).",
-     "Previsto (depende do 'sim' na amostra)", "Claude", "Qui 26/11/2026, 20h00 as 23h00"),
-    ("Agendar o lote no Meta Business Suite com o dono (ele escolhe os arquivos); informar a % de uso a Execucao antes e depois. Na mesma janela, trocar so o link da bio do Instagram por comprenolink.net/?utm_source=instagram&utm_medium=bio&utm_campaign=organico_reels, conferir que abre o blog e registrar antes/depois (aguarda o 'sim' do dono nesta conversa).",
-     "Reels no ar as 13h30 e 20h00; medir os cliques que vem do Instagram.",
+    ("MISSAO DOS REELS: ser a dona de agendar todos os dias de Reels ate fechar o ciclo (23/12), o mais cedo possivel, em lotes semanais, com as guardas de uso (5h>75% ou semanal>80% = adiar).",
+     "Uma dona so, sem duplicar; Reels todos os dias.",
+     "Em andamento", "Claude + dono", "Continua, desde 25/11 ate 23/12/2026"),
+    ("Agendar o lote 1 no Meta (12 dos 16 Reels, ja gerados e aprovados: 13h30 so em 29/11, 30/11, 02/12 e 04/12; 13h30 e 20h00 em 01/12, 03/12, 05/12 e 06/12; os 4 restantes vao para o lote seguinte) com o dono (ele escolhe os arquivos); informar a % de uso a Execucao antes e depois. Na mesma janela, trocar so o link da bio do Instagram por comprenolink.net/?utm_source=instagram&utm_medium=bio&utm_campaign=organico_reels (dono deu o 'sim'), conferir que abre o blog e registrar antes/depois.",
+     "Reels no ar a partir de 29/11; medir os cliques que vem do Instagram.",
      "Previsto (Chrome reservado)", "Claude + dono", "Sex 27/11/2026, 14h00 as 16h00"),
-    ("Conferir (so leitura) que os Reels de dom 29/11 sairam as 13h30 e 20h00, com a legenda certa.",
+    ("Conferir (so leitura) que os Reels de dom 29/11 sairam no horario, com a legenda certa.",
      "Garantir a virada sem falha.",
-     "Previsto", "Claude (so leitura)", "Dom 29/11/2026, 13h45 e 20h30 (fim de semana vale por decisao do dono)"),
-    ("Leitura dos numeros do Instagram (alcance, salvamentos, cliques), estilo novo x atual, com 1 linha a Execucao; decisao de continuar/reduzir em 14/12.",
+     "Previsto", "Claude (so leitura)", "Dom 29/11/2026, 13h45 e 20h30"),
+    ("Leitura dos numeros do Instagram (alcance, salvamentos, cliques) e 1 linha a Execucao; decisao de continuar/reduzir em 14/12.",
      "Aprender com o organico, sem custo.",
      "Previsto", "Claude", "Seg 30/11, 07/12 e 14/12/2026, 20h00"),
+    ("Gerar o lote 2 (07 a 13/12), conferindo o uso antes (parar se 5h>75% ou semanal>80%); fase 2 (3 por dia) decidida com a leitura parcial de qui 03/12, sem dado claro mantem 2 por dia.",
+     "Seguir completando o ciclo com lotes semanais.",
+     "Previsto", "Claude", "Qui 03/12/2026, 20h00 as 23h00"),
+    ("Agendar o lote 2 no Meta com o dono. Depois, lote 3 (14 a 20/12) e lote 4 (21 a 23/12): gerar toda quinta e agendar toda sexta, ate fechar o ciclo em 23/12.",
+     "Completar todos os dias de Reels, o mais cedo possivel, dentro da janela de 29 dias do Instagram.",
+     "Previsto", "Claude + dono", "Sex 04/12/2026, 14h00 as 16h00 (e sextas 11/12 e 18/12)"),
+    ("Avaliar com o dono as legendas antigas dos Reels agendados com 'Comente X que eu te mando o link no Direct': corrigir os mais proximos ou deixar rodar (sem editar antes do 'de acordo').",
+     "Nao contradizer a linha de confianca do blog.",
+     "Previsto", "Claude + dono", "Seg 07/12/2026"),
 ]
 
 def tabela(linhas, cab, larg):
+    """Cores (dono, 25/11): Concluido = linha #DCFCE7 + status verde negrito; Em andamento = #FEF08A + ambar negrito; pendente sem cor."""
     st = getSampleStyleSheet()["BodyText"]; st.fontSize = 9; st.leading = 11
     dados = [[Paragraph("<b>%s</b>" % c, st) for c in cab]]
-    for l in linhas:
-        dados.append([Paragraph(x, st) for x in l])
+    cores = []
+    for i, l in enumerate(linhas, start=1):
+        cel = [Paragraph(x, st) for x in l]
+        for k, c in enumerate(cab):
+            if c == "Status":
+                t_ = re.sub("<[^>]+>", "", str(l[k]))
+                if t_.startswith("Concluido") or t_.startswith("Concluído"):
+                    cel[k] = Paragraph('<font color="#166534"><b>%s</b></font>' % t_, st); cores.append((i, "#DCFCE7"))
+                elif t_.startswith("Em andamento"):
+                    cel[k] = Paragraph('<font color="#A16207"><b>%s</b></font>' % t_, st); cores.append((i, "#FEF08A"))
+        dados.append(cel)
     t = Table(dados, colWidths=larg, repeatRows=1)
     t.setStyle(TableStyle([("BACKGROUND", (0, 0), (-1, 0), colors.HexColor("#E8E8E8")),
                            ("GRID", (0, 0), (-1, -1), 0.4, colors.grey),
                            ("VALIGN", (0, 0), (-1, -1), "TOP")]))
+    for i, c in cores:
+        t.setStyle(TableStyle([("BACKGROUND", (0, i), (-1, i), colors.HexColor(c))]))
     return t
 
 def banner_urgente(ss):
@@ -89,32 +108,30 @@ def banner_urgente(ss):
 
 def main():
     os.makedirs(os.path.join(PASTA, "old_bkp"), exist_ok=True)
-    for padrao in ("BLOG- Ajustes no WhatsApp e Instagram_*.pdf", "RELATORIO_WHATSAPP_INSTAGRAM_*.pdf"):
+    for padrao in ("BLOG- Ajustes no WhatsApp e Instagram_*.pdf", "BLOG- Ajustes Instagram_*.pdf", "RELATORIO_WHATSAPP_INSTAGRAM_*.pdf"):
         for f in glob.glob(os.path.join(PASTA, padrao)):
             shutil.copy2(f, os.path.join(PASTA, "old_bkp", os.path.basename(f)))
             try:
                 os.remove(f)
             except PermissionError:
                 print("AVISO: feche o PDF anterior para ele sair da pasta (copia ja esta em old_bkp):", os.path.basename(f))
-    nome = "BLOG- Ajustes no WhatsApp e Instagram_%s.pdf" % HOJE.strftime("%d_%m_%Y_%Hh%M")
+    nome = "BLOG- Ajustes Instagram_%s.pdf" % HOJE.strftime("%d_%m_%Y_%Hh%M")
     caminho = os.path.join(PASTA, nome)
     ss = getSampleStyleSheet()
     h = ParagraphStyle("h", parent=ss["Heading2"], spaceBefore=10)
     doc = SimpleDocTemplate(caminho, pagesize=A4, leftMargin=36, rightMargin=36, topMargin=36, bottomMargin=36,
                             title="Relatorio WhatsApp e Instagram")
-    el = [Paragraph("Relatorio - BLOG: Ajustes no WhatsApp e Instagram", ss["Title"]),
-          Paragraph("Gerado em %s as %s. Mostra so pendencias e atividades a realizar; o que foi concluido sai." % (HOJE_S, HOJE.strftime("%Hh%M")), ss["BodyText"]),
-          Spacer(1, 6), banner_urgente(ss),
-          Paragraph("Pendencias e atividades a realizar", h)]
+    el = [Paragraph("Relatorio - BLOG: Ajustes Instagram", ss["Title"]),
+          Paragraph("Gerado em %s as %s. Mostra o que ja executamos e o que falta executar (pedido do dono, 25/11)." % (HOJE_S, HOJE.strftime("%Hh%M")), ss["BodyText"]),
+          Spacer(1, 6),
+          Paragraph("O que ja executamos", h),
+          tabela([(a_, r_, "Concluido", q_, d_) for a_, r_, q_, d_ in EXECUTADO], ["Atividade", "Resultado", "Status", "Quem", "Data"], [170, 165, 58, 70, 62]),
+          Paragraph("O que falta executar (em ordem de data)", h)]
     for l in PENDENCIAS:
         if len(l) != 5 or not all(str(x).strip() for x in l):
             raise SystemExit("ERRO: toda linha precisa de o que e, para que serve, status, quem e data+horario: %r" % (l,))
-    destaque = []
-    for o_que, serve, status, quem, quando in PENDENCIAS:
-        destaque.append(('<font color="#C00000"><b>URGENTE - EXECUCAO OBRIGATORIA</b></font><br/><font color="#C00000">' + o_que + '</font>',
-                         serve, '<font color="#C00000"><b>' + status + '</b></font>', quem,
-                         '<font color="#C00000"><b>' + quando + '</b></font>'))
-    el.append(tabela(destaque, ["O que e", "Para que serve", "Status", "Quem", "Data e horario"], [148, 120, 58, 90, 109]))
+    el.append(tabela([(o, sv, "<b>%s</b>" % st, q, "<b>%s</b>" % qd) for o, sv, st, q, qd in PENDENCIAS],
+                     ["Atividade", "Para que serve", "Status", "Quem", "Data e horario"], [165, 110, 62, 80, 108]))
     doc.build(el)
     print(caminho)
 

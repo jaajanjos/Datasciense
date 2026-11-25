@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """RELATÓRIO DE ATIVIDADES do Claude no blog comprenolink.net / Instagram @compre.no.link (formato diário de bordo).
 Rodar:  python -X utf8 gerar_relatorio_atividade.py
-Saida: D:/Projeto_Blog_Comprenolink/0- Pendencias/4_Relatorio_Ativ_Claude_no_Blog/BLOG - Execução de atividades e planejamento_DD_MM_AAAA_HHhMM.pdf
+Saida: D:/Projeto_Blog_Comprenolink/0- Pendencias/4_Relatorio_Ativ_Claude_no_Blog/BLOG - Planejamento e mentoria tecnica_DD_MM_AAAA_HHhMM.pdf
 (nome definido pelo dono em 19/11/2026; antes: RELATORIO_ATIVIDADE_CLAUDE_BLOG_DD_MM_AAAA_HHhMM.pdf)
 
 REGRA DO DONO (29/10/2026): gerar/atualizar SEMPRE ao fim de cada sessão/agendamento: o que foi EXECUTADO (data e hora),
@@ -22,7 +22,7 @@ from reportlab.lib.units import cm  # noqa: E402
 from reportlab.platypus import PageBreak, Paragraph, SimpleDocTemplate, Spacer, Table, TableStyle  # noqa: E402
 
 AGORA = datetime.now()
-SAIDA = rf"D:/Projeto_Blog_Comprenolink/0- Pendencias/4_Relatorio_Ativ_Claude_no_Blog/BLOG - Execução de atividades e planejamento_{AGORA:%d_%m_%Y_%Hh%M}.pdf"
+SAIDA = rf"D:/Projeto_Blog_Comprenolink/0- Pendencias/4_Relatorio_Ativ_Claude_no_Blog/BLOG - Planejamento e mentoria tecnica_{AGORA:%d_%m_%Y_%Hh%M}.pdf"
 W, H = landscape(A4)
 LARG = W - 3 * cm
 AZUL = colors.HexColor("#0369A1")
@@ -297,7 +297,7 @@ def main():
         """itens: (atividade, status, quem, data). Valida e ordena por data."""
         out = []
         for atv, stt, quem, dat in itens:
-            assert stt in ("Pendente", "Concluído"), f"Status inválido: {stt!r} ({atv[:40]})"
+            assert stt in ("Pendente", "Concluído", "Em andamento"), f"Status inválido: {stt!r} ({atv[:40]})"
             assert quem and atv and dat, f"Linha sem campo: {atv[:40]}"
             dat = _hora(dat, quem)
             assert _re.search(r"\d{1,2}:\d{2}", dat), f"Linha sem hora: {atv[:40]}"
@@ -307,11 +307,13 @@ def main():
     def quadro(titulo, cor, itens):
         linhas = _linhas_padrao(itens)
         verde = VERDE.hexval().replace("0x", "#")
-        dados = [[a_, f'<font color="{verde}"><b>{s_}</b></font>' if s_ == "Concluído" else s_, q_, d_] for a_, s_, q_, d_ in linhas]
+        dados = [[a_, f'<font color="{verde}"><b>{s_}</b></font>' if s_ == "Concluído" else (f'<font color="#A16207"><b>{s_}</b></font>' if s_ == "Em andamento" else s_), q_, d_] for a_, s_, q_, d_ in linhas]
         t = tabela(["Atividade", "Status", "Quem", "Data e horário"], dados, [0.52, 0.10, 0.18, 0.20], cor=cor)
         for r_, (_, s_, _, _) in enumerate(linhas, start=1):
             if s_ == "Concluído":
                 t.setStyle(TableStyle([("BACKGROUND", (0, r_), (-1, r_), VERDE_C)]))
+            elif s_ == "Em andamento":
+                t.setStyle(TableStyle([("BACKGROUND", (0, r_), (-1, r_), colors.HexColor("#FEF08A"))]))
         faixa = Table([[Paragraph(f"<b>{titulo}</b>", ParagraphStyle("fx", parent=TXT, fontSize=11, leading=14, textColor=colors.white))]],
                       colWidths=[LARG], style=[("BACKGROUND", (0, 0), (-1, -1), cor), ("TOPPADDING", (0, 0), (-1, -1), 6), ("BOTTOMPADDING", (0, 0), (-1, -1), 6)])
         return [faixa, t]
@@ -333,24 +335,39 @@ def main():
         ("Air Fryer (frase \"dieta e alimentação leve\") e foto da LG (\"melhor\" na imagem do fabricante): SOLUCIONADO, informado pelo dono em 24/11. Para que serve: seguir a política do blog", "Concluído", "Dono", "ter 24/11"),
     ]
     novo = [
-        ("Seu \"sim\" ao visual novo dos Reels (amostra enviada pela conversa do Instagram). Para que serve: ela só gera os Reels em volume depois do seu sim", "Pendente", "Dono", "qua 25/11, até 22h00"),
-        ("Seu \"sim\" na conversa do Instagram para colocar a etiqueta de rastreio no link da bio (utm_medium=bio). Para que serve: medir quantos cliques ao Mercado Livre vêm dos Reels", "Pendente", "Dono", "até sex 27/11"),
-        ("Distribuir as atividades da virada às 3 conversas e cobrar prazos. Para que serve: cada uma fazer só a sua parte, sem conflito de Chrome", "Pendente", "Claude (orquestradora)", "qua 25/11 20:30"),
-        ("Sync dos Reels bons do Instagram para a Página do Facebook, com os vídeos que você escolher. Para que serve: aproveitar o que já funciona, sem gastar à toa", "Pendente", "Pendência/programas", "qua 25/11 20:00–21:00"),
-        ("Gerar o 1º lote: 16 Reels (2 por dia, 29/11 a 06/12), legenda só comprenolink.net. Para que serve: domingo 29/11 já começar com Reels", "Pendente", "Instagram", "qui 26/11 até 23:00"),
-        ("Agendar o lote no Meta Business Suite com você (você escolhe os arquivos). Para que serve: Reels no ar às 13h30 e 20h00", "Pendente", "Instagram + dono", "sex 27/11 14:00–16:00"),
-        ("Fechamento do anúncio bf_26_entrada: sem venda, só pausar (sem mexer em verba nem pagamento). Para que serve: parar de gastar sem resultado", "Pendente", "Claude (1-PY)", "sáb 28/11 10:00"),
-        ("Linha de confiança no blog: \"Você compra direto no site oficial do Mercado Livre...\". Para que serve: tirar o medo de golpe e fazer comprar pelo link", "Pendente", "Claude (1-PY)", "dom 29/11 09:00"),
-        ("Começa o orgânico: 2 Reels por dia, conferidos só em leitura. Para que serve: constância na divulgação, custo zero", "Pendente", "Instagram", "dom 29/11, 13h30 e 20h00"),
-        ("Leitura do rastreador (cliques ao ML por origem) contra a linha de base de 16 a 28/11. Para que serve: saber se o orgânico traz cliques", "Pendente", "1-PY (acionada por mim)", "seg 30/11, 07/12 e 14/12, 20:35; parcial qui 03/12"),
-        ("Relatório geral da virada (1 linha de cada conversa + % de uso do plano). Para que serve: você ler um lugar só", "Pendente", "Claude (orquestradora)", "toda segunda 21:00"),
-        ("Decidir a fase 2 (3 Reels por dia) com a leitura parcial; 5 por dia só com evidência. Para que serve: não estourar o plano", "Pendente", "Instagram + Claude", "sex 04/12"),
-        ("Melhorias do blog: M1+M3+M7 (01/12), M2 (02/12), M4 piloto (08/12), M6 (11/12; texto seu até 10/12). Para que serve: mais cliques ao ML", "Pendente", "Claude", "01/12 a 11/12, 20:00"),
-        ("Decisão de continuar, reduzir ou aumentar o ritmo (3 semanas de orgânico). Para que serve: decidir com fato, não com hipótese", "Pendente", "Dono + Claude", "seg 14/12"),
+        ('Backup das conversas: rodízio mudou para 1 por dia nos últimos 31 dias (programa novo testado) e backup de hoje feito', 'Concluído', 'JOSE + C | BLOG - Planejamento e mentoria técnica', 'qua 25/11 08:13'),
+        ('Nomes dos PDFs de todas as conversas ajustados para os nomes novos (A, B e C)', 'Concluído', 'A/B/C | todas as conversas', 'qua 25/11 08:45'),
+        ('Pasta dos Reels novos definida e aprovada: REELS_NOVO_BLOG (01_AMOSTRA e 02_LOTE_29-11_a_06-12)', 'Concluído', 'B | JOSE + BLOG- Ajustes Instagram', 'qua 25/11 09:20'),
+        ('Visual novo dos Reels: amostra aprovada por você (estilo limpo, identidade própria do blog)', 'Concluído', 'B | JOSE + BLOG- Ajustes Instagram', 'qua 25/11 09:30'),
+        ('1º lote de 16 Reels (2 por dia, 29/11 a 06/12) gerado e aprovado por você', 'Concluído', 'B | BLOG- Ajustes Instagram', 'qua 25/11 09:40'),
+        ('MENTORIA TÉCNICA da Execução: orienta as conversas e revisa resultados quando pedirem; coordena Chrome e uso do plano (uma atividade por vez). Para que serve: cada conversa executar sem sobrecarregar ninguém', "Em andamento", 'C | BLOG - Planejamento e mentoria técnica', 'qua 25/11 09:00 (contínuo)'),
+        ('MISSÃO DOS REELS: a conversa do Instagram é a dona de todos os dias de Reels que faltam para completar o ciclo, o mais cedo possível, em lotes semanais. Você fala direto com ela e acompanha. Para que serve: uma dona só, sem duplicar', "Em andamento", 'B | JOSE + BLOG- Ajustes Instagram', 'qua 25/11 09:00 (contínuo)'),
+        ('Sync dos Reels bons do Instagram para a Página do Facebook, com os vídeos que você escolher. Para que serve: aproveitar o que já funciona, sem gastar à toa', "Pendente", 'A | JOSE + BLOG - Execução de atividades', 'qua 25/11 20:00 a 21:00'),
+        ('Distribuir as atividades às 3 conversas e cobrar prazos. Para que serve: cada uma fazer só a sua parte, sem conflito de Chrome', "Pendente", 'C | BLOG - Planejamento e mentoria técnica', 'qua 25/11 20:30'),
+        ('Agendar o lote no Meta Business Suite com você (você escolhe os arquivos) e colocar a etiqueta de rastreio na bio. Para que serve: Reels no ar às 13h30 e 20h00 e medir de onde vêm os cliques', "Pendente", 'B | JOSE + BLOG- Ajustes Instagram', 'sex 27/11 14:00 a 16:00'),
+        ('Fechamento do anúncio bf_26_entrada: sem venda, só pausar. A resposta começa com PAUSEI ou NÃO pausei. Para que serve: parar de gastar sem resultado', "Pendente", 'D | 1- PY- Prog gerador gráfico de anúncio META - BLOG', 'sáb 28/11 10:00'),
+        ('Conferir a pausa do anúncio na Meta (se a resposta disser NÃO CONSEGUI PAUSAR, pausar você mesmo). Para que serve: garantir que não gasta mais', "Pendente", 'JOSE (só lê a 1ª linha da resposta da 1- PY, sem conversar)', 'sáb 28/11 10:30'),
+        ('Linha de confiança no blog: "Você compra direto no site oficial do Mercado Livre...". Para que serve: tirar o medo de golpe e fazer comprar pelo link', "Pendente", 'D | 1- PY- Prog gerador gráfico de anúncio META - BLOG', 'dom 29/11 09:00'),
+        ('Começam os Reels do orgânico (2 por dia), conferidos só em leitura às 20:30. Para que serve: constância na divulgação, custo zero', "Pendente", 'B | BLOG- Ajustes Instagram', 'dom 29/11 13:30 (e 20:00)'),
+        ('Leitura do rastreador (cliques ao ML por origem) contra a linha de base de 16 a 28/11, acionada pela Execução. Para que serve: saber se o orgânico traz cliques', "Pendente", 'D | 1- PY- Prog gerador gráfico de anúncio META - BLOG', 'seg 30/11 20:35'),
+        ('Relatório geral semanal: 1 linha de cada conversa e % de uso do plano. Para que serve: você ler um lugar só', "Pendente", 'C | BLOG - Planejamento e mentoria técnica', 'seg 30/11 21:04 (toda segunda)'),
+        ('Melhorias M1+M3+M7 no blog: botão único, imagens com tamanho fixo, rótulo "Ver preço" trocado (roda sozinha, com backup). Para que serve: mais cliques ao Mercado Livre', "Pendente", 'Tarefa agendada (executa)', 'ter 01/12 20:00'),
+        ('Melhoria M2: "Links verificados em DD/MM" nas categorias e no guia (roda sozinha, com backup)', "Pendente", 'Tarefa agendada (executa)', 'qua 02/12 20:00'),
+        ('Conferir no blog as melhorias M1+M3+M7 e M2 (só leitura) e avisar a Execução em 1 linha. Para que serve: garantir que nada quebrou', "Pendente", 'A | BLOG - Execução de atividades', 'qua 02/12 20:30'),
+        ('Gerar o 2º lote de Reels (14, fase 1)', "Pendente", 'B | BLOG- Ajustes Instagram', 'qui 03/12 20:00'),
+        ('Leitura parcial do rastreador, acionada pela Execução. Para que serve: decidir a fase 2 sem hipótese', "Pendente", 'D | 1- PY- Prog gerador gráfico de anúncio META - BLOG', 'qui 03/12 20:35'),
+        ('Agendar o 2º lote com você e decidir a fase 2 (3 Reels por dia só se o uso do plano estiver abaixo de 60% e os cliques subirem)', "Pendente", 'B | JOSE + BLOG- Ajustes Instagram', 'sex 04/12 14:00 a 16:00'),
+        ('Avaliar com você as legendas antigas que prometem Direct nos Reels já agendados (corrigir os mais próximos ou deixar rodar)', "Pendente", 'B | JOSE + BLOG- Ajustes Instagram', 'seg 07/12 20:00'),
+        ('2ª leitura do rastreador, acionada pela Execução', "Pendente", 'D | 1- PY- Prog gerador gráfico de anúncio META - BLOG', 'seg 07/12 20:35'),
+        ('Melhoria M4: piloto de 3 a 5 destaques em Áudio e TV (roda sozinha; publica só com a sua prévia)', "Pendente", 'JOSE, na tarefa M4 (ela abre sozinha e pede a prévia)', 'ter 08/12 20:00'),
+        ('Conferir o piloto M4 no blog (só leitura) e avisar a Execução em 1 linha', "Pendente", 'A | BLOG - Execução de atividades', 'qua 09/12 20:30'),
+        ('Seu texto de "quem somos e como escolhemos" para a melhoria M6', "Pendente", 'C | JOSE + BLOG - Planejamento e mentoria técnica', 'qui 10/12 20:00'),
+        ('Gerar e agendar o 3º lote de Reels com você', "Pendente", 'B | JOSE + BLOG- Ajustes Instagram', 'sex 11/12 14:00 a 16:00'),
+        ('Melhoria M6: bloco de confiança nas categorias, com o seu texto (roda sozinha, com backup)', "Pendente", 'Tarefa agendada (executa)', 'sex 11/12 20:00'),
+        ('3ª leitura do rastreador (3 semanas, tendência), acionada pela Execução', "Pendente", 'D | 1- PY- Prog gerador gráfico de anúncio META - BLOG', 'seg 14/12 20:35'),
+        ('Decidir com você: continuar, reduzir ou ampliar o ritmo de Reels, com os números de 3 semanas. Para que serve: decidir com fato, não com hipótese', "Pendente", 'C | JOSE + BLOG - Planejamento e mentoria técnica', 'seg 14/12 21:00'),
     ]
-    # ORDEM DO DONO (24/11/2026): o relatório mostra APENAS as atividades que iremos executar no NOVO PLANO (virada orgânica).
-    # O histórico antigo (anúncio, destaque, demais, observações) continua neste arquivo, mas não é mais exibido.
-    st = quadro("NOVO PLANO (VIRADA PARA O ORGÂNICO, 29/11): ATIVIDADES QUE VAMOS EXECUTAR, EM ORDEM DE DATA", AZUL, novo)
+    st = quadro("NOVO PLANO (VIRADA PARA O ORGÂNICO, 29/11), EM ORDEM DE DATA. A = BLOG - Execução de atividades; B = BLOG- Ajustes Instagram; C = BLOG - Planejamento e mentoria técnica; D = 1- PY- Prog gerador gráfico de anúncio META - BLOG", AZUL, novo)
     doc.build(st, onFirstPage=cab_rod, onLaterPages=cab_rod)
     print("PDF:", SAIDA)
     # REGRA DO DONO (19/11/2026): na pasta fica só a versão mais nova; as anteriores vão para old_bkp (nada é apagado)
@@ -358,7 +375,7 @@ def main():
     bkp = os.path.join(pasta, "old_bkp")
     os.makedirs(bkp, exist_ok=True)
     for nome in os.listdir(pasta):
-        if nome.startswith(("BLOG - Execução de atividades e planejamento_", "RELATORIO_ATIVIDADE_CLAUDE_BLOG_")) and nome.endswith(".pdf") and nome != os.path.basename(SAIDA):
+        if nome.startswith(("BLOG - Planejamento e mentoria tecnica_", "BLOG - Execução de atividades e planejamento_", "RELATORIO_ATIVIDADE_CLAUDE_BLOG_")) and nome.endswith(".pdf") and nome != os.path.basename(SAIDA):
             destino = os.path.join(bkp, nome)
             if not os.path.exists(destino):
                 try:
