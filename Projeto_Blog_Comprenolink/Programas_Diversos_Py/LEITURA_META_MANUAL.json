@@ -1,16 +1,18 @@
 {
   "_para_que": "Leitura feita no Gerenciador de Anuncios (Chrome) quando a chave da API nao existe. Usada com --meta-manual.",
-  "lido_em": "22/11/2026",
+  "lido_em": "24/11/2026",
   "status": "Ativo",
   "verba": 240.0,
-  "gasto": 15.15,
-  "impressoes": 927,
-  "alcance": 800,
-  "resultados": 4,
-  "observacao": "Leitura manual no Gerenciador (Chrome), periodo 19/11 a 22/11. Resultado = SaidaML (clique para o ML). Custo por resultado R$ 3,79",
+  "gasto": 37.05,
+  "impressoes": 1765,
+  "alcance": 1432,
+  "resultados": 7,
+  "observacao": "Leitura manual no Gerenciador (Chrome) 24/11, periodo 19/11 a 24/11. Resultado = SaidaML. Cliques no link 73, CTR 4,14%, CPC R$ 0,51, CPM R$ 20,99, frequencia 1,23, visualizacoes da pagina 16. Dias 22 a 24/11 somados na linha de 24/11 (Meta nao carregou os dias separados)",
   "dias": {
     "20/11/2026": {"gasto_dia": 6.27, "impressoes": 574, "alcance": 513, "resultados": 1},
     "21/11/2026": {"gasto_dia": 7.67, "impressoes": 321, "alcance": 278, "resultados": 3},
-    "22/11/2026": {"gasto_dia": 1.21, "impressoes": 32, "alcance": 28, "resultados": 0}
+    "22/11/2026": {"gasto_dia": 0, "impressoes": 0, "alcance": 0, "resultados": 0},
+    "23/11/2026": {"gasto_dia": 0, "impressoes": 0, "alcance": 0, "resultados": 0},
+    "24/11/2026": {"gasto_dia": 23.11, "impressoes": 870, "alcance": 0, "resultados": 3}
   }
 }

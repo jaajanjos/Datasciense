@@ -70,8 +70,8 @@ def carrega_produtos():
 
 def hashtags(x, campanha):
     cat = TAGS_CAT.get(x["cat"]["slug"], []) if x.get("cat") else []
-    # 20/11/2026 (dono): so o blog; nada de hashtag de outros sites/marcas.
-    return "comprenolink.net\n#comprenolinkblog"
+    # 23/11/2026 (dono): SEM hashtag (a #comprenolinkblog mostra posts de terceiros); so comprenolink.net. 20/11: so o blog; nada de hashtag de outros sites/marcas.
+    return "comprenolink.net"
 
 
 def textos_produto(x, campanha, dia):

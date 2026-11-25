@@ -19,6 +19,7 @@ O QUE ELE FAZ, NESTA ORDEM (tudo só leitura na Meta e no site; não muda anúnc
      - LEITURA_ANUNCIO_META_historico_<campaign_id>.csv  -> 1 linha por execução (mesmo formato do LEITURA_ANUNCIO_META.py)
      - DADOS_GERENCIAIS_ANUNCIO_META_<nome>.csv          -> 1 linha por dia (Meta + blog), refeita a cada execução
      - RESUMO_GERENCIAL_ANUNCIO_META_<nome>.csv          -> 1 linha por execução com os indicadores e o critério
+  5. Visão geral de todo o anúncio pago (VISAO_GERAL_ANUNCIO_PAGO.py): PDF + CSV na mesma pasta.
   4. Gráfico GRAFICO_ANUNCIO_META_DD_MM_AAAA_HHhMM.png na mesma pasta. A versão anterior vai para old_bkp
      (fica só 1 versão na pasta).
 
@@ -393,6 +394,12 @@ def main():
     print("Critério:", crit)
     if aviso:
         print("ATENÇÃO: números da Meta SEM leitura nova ->", aviso)
+    if not a.teste:  # visão geral de todo o anúncio pago desde o início (PDF + CSV)
+        try:
+            import VISAO_GERAL_ANUNCIO_PAGO
+            print("VISAO GERAL:", VISAO_GERAL_ANUNCIO_PAGO.gerar_pdf(agora))
+        except Exception as e:
+            print("AVISO: a visão geral não foi gerada:", e)
     return 0
 
 

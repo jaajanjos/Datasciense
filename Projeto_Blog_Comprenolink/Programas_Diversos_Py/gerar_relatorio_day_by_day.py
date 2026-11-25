@@ -48,6 +48,11 @@ def main():
           Paragraph("Pendencias e atividades a realizar", h)]
     el.append(tabela(PENDENCIAS, ["Atividade", "Status", "Quem", "Data e horario"], [210, 70, 90, 157]) if PENDENCIAS
               else Paragraph("Nenhuma pendencia no momento.", ss["BodyText"]))
+    el.append(Paragraph("Plano vigente", h))
+    el.append(Paragraph("Plano geral da virada para o organico (versao 22h44 de 24/11/2026), orquestrado pela conversa "
+                        "BLOG - Execucao de atividades e planejamento. Item 5: Day by Day sem atividade da virada; "
+                        "so duvidas pontuais do dono, respondidas de forma curta. WhatsApp fora. "
+                        "Anuncio pago: nunca mais. Qualquer ajuste da Execucao e seguido.", ss["BodyText"]))
     doc.build(el)
     print(caminho)
 

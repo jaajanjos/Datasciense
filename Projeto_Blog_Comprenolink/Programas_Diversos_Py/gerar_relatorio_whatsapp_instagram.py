@@ -32,24 +32,27 @@ EXECUTADO = [
 # REGRA (dono): TODA linha tem O QUE E, PARA QUE SERVE, Status, Quem e QUANDO (data + horario). Linguagem simples.
 # (o que e, para que serve, status, quem, quando)  -- 'Previsto' = data/hora sugerida, vale ate o dono mudar.
 PENDENCIAS = [
-    ("Agendar os Reels novos de 24/11 e 25/11 (10 Reels, 5 por dia as 11h00, 13h30, 16h00, 18h00 e 20h00), juntos. Comecar pelo dia 24/11: os de 11h00 e 13h30 de terca so podem ser agendados na segunda. Os 20 videos ja estao prontos e conferidos dentro do projeto: 07_PACOTE_DO_DIA/2026-11-24_ter/reels_extra (e 25, 26 e 27/11); voce escolhe o arquivo, eu agendo.",
-     "Nao deixar o Instagram sem Reel a partir de terca 24/11, semana da Black Friday. Lista aprovada por voce em 20/11.",
-     "Pendente", "Claude agenda; dono escolhe os arquivos", "Seg 23/11/2026, 14h00 as 14h50"),
-    ("Agendar os Reels de 26/11 (5 Reels) e conferir no Meta tudo o que foi agendado na segunda.",
-     "Deixar a semana da Black Friday encaminhada e sem erro.",
-     "Pendente", "Claude agenda; dono escolhe os arquivos", "Seg 23/11/2026, 14h50 as 15h30"),
-    ("Agendar os Reels de 27/11 (5 Reels, Black Friday), mesmos horarios e mesma pasta.",
-     "Fechar a semana da Black Friday; ainda sobram quarta e quinta de margem para corrigir qualquer coisa.",
-     "Pendente", "Claude agenda; dono escolhe os arquivos", "Ter 24/11/2026, 14h00 as 14h30"),
-    ("Conferencia final de TODOS os posts (Facebook e Instagram) e do anuncio: lista sem nenhuma hashtag de concorrente. Em 20/11: 9 corrigidos no Facebook/Instagram agendados e 17 publicados no Instagram, conferidos ao vivo.",
-     "Garantir que nada divulgue outros sites enquanto voce paga anuncio.",
-     "Pendente", "Claude", "Ter 24/11/2026, 14h30 as 14h50"),
-    ("Convites do WhatsApp, proximo lote (so se voce aprovar contatos novos) e decisao dos pacotes do outro PC (4_PACOTE_OUTRO_PC.zip, 4_ATUALIZAR_OUTRO_PC.zip e CentralBlog.exe): 'refazer' ou 'deixar'.",
-     "Aumentar quem recebe os achados sem risco de bloqueio, e o outro computador usar a versao certa dos programas do blog.",
-     "Pendente", "Dono envia e decide; Claude monta a lista e registra", "Ter 24/11/2026, 14h50 as 15h10"),
-    ("Acompanhar o alcance dos Reels na Pagina Comprenolink do Facebook e definir o tema dos Reels novos para depois de 27/11 (os prontos acabam em 27/11).",
-     "Saber se vale continuar publicando na Pagina e nao deixar o Instagram sem Reel a partir de sabado 28/11.",
-     "Pendente", "Claude le os numeros; dono decide o tema", "Ter 24/11/2026, 15h10 as 15h30"),
+    ("Conferir no Meta (so leitura) se os 5 Reels de ter 24/11 (11h00, 13h30, 16h00, 18h00 e 20h00) sairam no horario e com a legenda certa (so comprenolink.net, sem #). Nao foi feita na terca a noite; passa para quarta, sem impacto no plano.",
+     "Garantir que os Reels ja agendados estao no ar e sem erro.",
+     "Pendente (adiada)", "Claude (so leitura)", "Qua 25/11/2026, 19h30 (aviso a Execucao antes e depois de usar o Chrome)"),
+    ("Receber do dono o caminho da pasta nova dos Reels e a confirmacao do estilo visual agressivo para os Reels organicos.",
+     "Produzir tudo no lugar certo, sem mexer fora da estrutura. Sem resposta, salvo a amostra na estrutura atual e o dono move depois.",
+     "Aguarda o dono", "Dono", "Qua 25/11/2026, ate 20h00"),
+    ("Desenhar o estilo visual novo e mostrar 1 Reel de amostra.",
+     "O dono aprovar o visual antes de gerar em volume.",
+     "Previsto", "Claude; aprovacao do dono ate 22h00", "Qua 25/11/2026, 20h00 as 21h30"),
+    ("Gerar o 1o lote: 16 Reels (29/11 a 06/12, 2 por dia, alternando estilo novo e atual), legenda so comprenolink.net, sem preco e sem 'melhor/mais vendido/lider'. Antes, conferir o uso do plano (parar se 5h>75% ou semanal>80%).",
+     "Domingo 29/11 comecar com Reels no ar (fase 1 da rampa).",
+     "Previsto (depende do 'sim' na amostra)", "Claude", "Qui 26/11/2026, 20h00 as 23h00"),
+    ("Agendar o lote no Meta Business Suite com o dono (ele escolhe os arquivos); informar a % de uso a Execucao antes e depois. Na mesma janela, trocar so o link da bio do Instagram por comprenolink.net/?utm_source=instagram&utm_medium=bio&utm_campaign=organico_reels, conferir que abre o blog e registrar antes/depois (aguarda o 'sim' do dono nesta conversa).",
+     "Reels no ar as 13h30 e 20h00; medir os cliques que vem do Instagram.",
+     "Previsto (Chrome reservado)", "Claude + dono", "Sex 27/11/2026, 14h00 as 16h00"),
+    ("Conferir (so leitura) que os Reels de dom 29/11 sairam as 13h30 e 20h00, com a legenda certa.",
+     "Garantir a virada sem falha.",
+     "Previsto", "Claude (so leitura)", "Dom 29/11/2026, 13h45 e 20h30 (fim de semana vale por decisao do dono)"),
+    ("Leitura dos numeros do Instagram (alcance, salvamentos, cliques), estilo novo x atual, com 1 linha a Execucao; decisao de continuar/reduzir em 14/12.",
+     "Aprender com o organico, sem custo.",
+     "Previsto", "Claude", "Seg 30/11, 07/12 e 14/12/2026, 20h00"),
 ]
 
 def tabela(linhas, cab, larg):
@@ -69,13 +72,12 @@ def banner_urgente(ss):
     st = ParagraphStyle("urg", parent=ss["BodyText"], fontSize=10.5, leading=14, textColor=verm)
     tit = ParagraphStyle("urgt", parent=ss["Heading2"], textColor=colors.white, alignment=1, spaceAfter=0, spaceBefore=0)
     topo = Paragraph("ATENCAO: EXECUCAO OBRIGATORIA E URGENTE", tit)
-    corpo = [Paragraph("<b>ESTAS ATIVIDADES TEM QUE SER EXECUTADAS nas duas janelas combinadas: SEGUNDA 23/11 e TERCA 24/11, das 14h00 as 15h30.</b>", st),
+    corpo = [Paragraph("<b>VIRADA PARA O ORGANICO EM DOMINGO 29/11. PROXIMO PASSO: QUARTA 25/11.</b>", st),
              Spacer(1, 4),
-             Paragraph("<b>O QUE IMPACTA se nao forem feitas:</b> o Instagram fica SEM REEL a partir de terca 24/11, na semana da Black Friday, "
-                       "justamente quando voce paga anuncio e quem clica nele pode entrar pelo perfil e pelo blog. "
-                       "<b>Os Reels de terca 24/11 as 11h00 e 13h30 so podem ser agendados na SEGUNDA</b> (na terca, as 14h00, esses horarios ja passaram).", st),
+             Paragraph("<b>Plano vigente (orquestracao: Execucao):</b> Reels em rampa, 2 por dia na fase 1 (29/11 a 06/12), 3 na fase 2 so se uso do plano < 60% e cliques subindo, 5 so com evidencia. "
+                       "Gerar toda quinta, agendar toda sexta 14h00 as 16h00. Plano geral: 0- Pendencias/1_Pendencias/PLANO_GERAL_VIRADA_ORGANICO_29_11_2026_*.pdf", st),
              Spacer(1, 4),
-             Paragraph("<b>Anuncios pagos:</b> o anuncio em si nao usa os Reels, e nada sera publicado nem alterado nele nas janelas; so leitura.", st)]
+             Paragraph("<b>Anuncio pago:</b> nunca mais; nada e alterado nele por esta conversa. WhatsApp fora; so com venda comprovada e evidencia.", st)]
     t = Table([[topo], [corpo]], colWidths=[525])
     t.setStyle(TableStyle([("BACKGROUND", (0, 0), (-1, 0), verm),
                            ("BACKGROUND", (0, 1), (-1, 1), colors.HexColor("#FDE7E9")),

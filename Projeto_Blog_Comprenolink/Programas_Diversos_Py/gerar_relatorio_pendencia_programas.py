@@ -15,12 +15,18 @@ HOJE = datetime.now()
 
 # (atividade, status, quem, data e horario)   status: Pendente | Concluido (concluido nao entra no PDF)
 ATIVIDADES = [
-    ("<b>Publicar na Pagina, de uma vez, os 5 Reels que faltam: 13/11 (Cama Box Bau), 16/11 (Lavadora), 18/11, Smartwatch T900 e Caixa de Som Aiwa Boombox.</b> Mesma rotina de sempre (so a Pagina, legenda com comprenolink.net e #comprenolinkblog, conferir previa e lista). <b>Para que:</b> deixar a Pagina em dia com o Instagram em uma unica sessao.",
-     "Pendente", "Voce escolhe cada video; eu publico", "23/11/2026, das 11h as 12h30"),
-    ("<b>Publicar na Pagina os Reels novos que forem saindo no Instagram.</b> <b>Para que:</b> a Pagina acompanhar o Instagram dia a dia ate o fim de dezembro, sem acumular atraso.",
-     "Pendente", "Voce escolhe o video; eu publico", "Previsto: de 25/11/2026 a 23/12/2026, as 11h, so o que ja saiu no Instagram"),
+    ("<b>Publicados na Pagina 5 Reels que ja estavam no Instagram: Pipoqueira Mondial 12h50, Maquina de Cortar Cabelo 12h51, Jogo de Lencol Percal 12h52, Cortina de LED 3x3 12h53 e Webcam Logitech C270 (em processamento pela Meta, conferir).</b> So na Pagina, legenda terminando em comprenolink.net (sem hashtag). O Smartwatch T900 (IG 23/11 19h05) nao foi repetido porque o mesmo video ja esta na Pagina desde 23/11 11h15. <b>Para que:</b> Pagina em dia com o Instagram.",
+     "Concluido", "Eu (adiantado a pedido do dono, sem janela do Windows)", "24/11/2026, das 12h50 as 12h55"),
+    ("<b>Sincronizar com a Pagina do Facebook so os Reels bons que voce escolher</b>, conforme o Plano Geral da Virada Organica (versao 22h20) e o Plano Reformulado, sem aumentar o volume e so apos o aviso da conversa dos Reels. <b>Para que:</b> Facebook com esforco minimo, sem apagar a Pagina e sem gastar uso a toa. Toda segunda mando 1 linha a conversa Execucao (fiz / pendente / preciso do dono).",
+     "Pendente", "Eu publico depois que voce escolher os Reels", "Previsto: quartas as 20h00, depois do aviso da conversa dos Reels (1a vez: 25/11/2026 as 20h00); sem prazo fixo"),
+    ("<b>Conferir na lista de publicados da Pagina o Reel da Webcam Logitech C270</b> (estava em processamento na Meta em 24/11). <b>Para que:</b> garantir que ele realmente foi publicado so na Pagina; se falhar, eu republico.",
+     "Pendente", "Eu (leitura rapida, junto com a sync da quarta)", "Previsto: 25/11/2026 as 20h00"),
+    ("<b>Mandar 1 linha a conversa Execucao toda segunda: o que fiz / o que esta pendente / o que preciso do dono.</b> Regra do plano reformulado: fora isso, so mensagem se eu ficar bloqueado. <b>Para que:</b> a Execucao juntar tudo no relatorio geral sem eu gastar uso a toa.",
+     "Pendente", "Eu envio a linha (sem precisar de voce)", "Previsto: toda segunda, 1a vez 30/11/2026 ate 21h00"),
+    ("<b>Acompanhar as leituras do plano:</b> 30/11, 07/12 e 14/12 (decisao em 14/12), feitas pela Execucao. Se o plano reduzir o esforco, ajusto a minha sync. <b>Para que:</b> manter so o que gera cliques para o Mercado Livre, com custo zero e dentro do limite do plano Pro (5h abaixo de 75%, semanal abaixo de 80%).",
+     "Pendente", "Execucao decide; eu sigo o ajuste", "Previsto: 30/11/2026, 07/12/2026 e 14/12/2026 as 21h00"),
     ("<b>Reels sem video localizado</b> (12/11 da caixa JBL e mais 2 do Instagram): se voce achar o arquivo, me diga onde esta. <b>Para que:</b> so com o arquivo eu consigo levar esses Reels para a Pagina; se nao achar, eles ficam de fora e tudo bem, sem pressa.",
-     "Pendente", "Voce me diz onde esta o video (opcional)", "Previsto: sem prazo, quando voce achar (informar em 23/11/2026 as 11h)"),
+     "Pendente", "Voce me diz onde esta o video (opcional)", "Previsto: sem prazo, quando voce achar (leitura de 24/11/2026 12h50 nao conseguiu listar os Reels antigos do Instagram; nomes dos 2 ainda nao identificados)"),
 ]
 
 def validar():
@@ -34,7 +40,7 @@ def validar():
 
 def main():
     validar()
-    linhas = [a for a in ATIVIDADES if a[1] == "Pendente"]
+    linhas = list(ATIVIDADES)  # concluido do dia fica; sai no dia seguinte (remover a linha)
     os.makedirs(os.path.join(PASTA, "old_bkp"), exist_ok=True)
     for f in glob.glob(os.path.join(PASTA, "BLOG- Pendencia e ajustes em programas_*.pdf")):
         shutil.move(f, os.path.join(PASTA, "old_bkp", os.path.basename(f)))
@@ -50,7 +56,7 @@ def main():
     doc = SimpleDocTemplate(caminho, pagesize=A4, leftMargin=36, rightMargin=36, topMargin=36, bottomMargin=36,
                             title="BLOG - Pendencia e ajustes em programas")
     doc.build([Paragraph("BLOG: Pendencia e ajustes em programas", ss["Title"]),
-               Paragraph("Gerado em %s as %s. Este quadro mostra so o que ainda falta fazer, para voce acompanhar o que esta pendente; o que for concluido sai daqui."
+               Paragraph("Gerado em %s as %s. Este quadro mostra o que foi concluido hoje e o que ainda falta; o concluido sai no dia seguinte."
                          % (HOJE.strftime("%d/%m/%Y"), HOJE.strftime("%Hh%M")), ss["BodyText"]), t])
     print(caminho)
 
