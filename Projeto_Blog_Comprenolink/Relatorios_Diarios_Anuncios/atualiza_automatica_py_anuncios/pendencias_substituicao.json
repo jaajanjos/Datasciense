@@ -1,7 +1,7 @@
 {
-  "gerado_em": "2026-11-25 14:45",
-  "ultima_verificacao_ml": "2026-11-25 14:39",
-  "anuncios_ativos": 213,
+  "gerado_em": "2026-11-26 10:00",
+  "ultima_verificacao_ml": "2026-11-26 09:54",
+  "anuncios_ativos": 212,
   "anuncios_total": 213,
   "requisitos_substituto": [
     "Mesmo produto (mesmo código de catálogo, outro vendedor). Só se não houver: mesmo tipo de produto e mesma categoria do guia.",
@@ -11,5 +11,23 @@
     "Preço até 20% acima ou abaixo do anúncio anterior. Empate na política de venda: o de menor preço.",
     "Gerar o link no ML Afiliados (Gerar link → copiar o meli.la) e trocar no item do guia, no botão e na foto."
   ],
-  "pendentes": []
+  "pendentes": [
+    {
+      "item": 63,
+      "nome_no_blog": "Caixa Amplificada Mondial CM-700 700 W",
+      "titulo_no_ml": "Caixa Amplificada Mondial Connect Lights Plus CM-700 – 700 W RMS",
+      "categoria": "🎧 Áudio & TV",
+      "situacao_ml": "Removido / indisponível",
+      "aviso_ml": "O link leva ao perfil de afiliado vazio (\"Este perfil ainda está vazio\"): o anúncio não existe mais.",
+      "fora_do_ar_desde": "2026-11-26 09:44",
+      "link_antigo": "https://www.mercadolivre.com.br/social/r20250720181444?matt_word=r20250720181444&matt_tool=65808735&forceInApp=true&ref=BK58BD%2Bb%2FHu3ThYxM%2FASm5z6iTeVQ0zv7qckseOGHGlYrs09N7b8p4e3ub6ZQkYlh%2BItfWlLIirWjO8jUtYsEZWbKGmbpMFMvs0bh60WrcPAIEC4%2Bqi7lyhjmUzDfdbr%2BJY3yGC1ZK%2BCxaD37nglYAc4Kn9J4nNe03m5mCAxNv1lfJMISj1h%2FS%2Bwh5KdIbkrNWdLFeqlv58MGh1KI1Lv86Z24PEgzYF8ZthZkH%2BNoEGkh0hehojEtRkMPmezrmZBoSSFnHfbjnyML9iVn9gcXEYJvXRpRtl7jBoY",
+      "catalogo_mlb": "",
+      "anuncio_mlb": "",
+      "preco_antes": 589.0,
+      "preco_min": 471.2,
+      "preco_max": 706.8,
+      "busca_mesmo_produto": "",
+      "busca_mesmo_tipo": "https://lista.mercadolivre.com.br/caixa-amplificada-mondial-connect-lights-plus-cm"
+    }
+  ]
 }

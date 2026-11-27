@@ -1,0 +1,33 @@
+{
+  "gerado_em": "2026-11-26 09:38",
+  "ultima_verificacao_ml": "2026-11-26 09:32",
+  "anuncios_ativos": 212,
+  "anuncios_total": 213,
+  "requisitos_substituto": [
+    "Mesmo produto (mesmo código de catálogo, outro vendedor). Só se não houver: mesmo tipo de produto e mesma categoria do guia.",
+    "Anúncio ativo, produto novo e com estoque.",
+    "Melhor política de venda, nesta ordem: vendedor MercadoLíder (Platinum › Gold › Líder) ou reputação verde; envio Full; frete grátis; devolução grátis; garantia informada (de fábrica ou do vendedor).",
+    "Nota 4,5 ou mais, com muitas avaliações e muitas unidades vendidas.",
+    "Preço até 20% acima ou abaixo do anúncio anterior. Empate na política de venda: o de menor preço.",
+    "Gerar o link no ML Afiliados (Gerar link → copiar o meli.la) e trocar no item do guia, no botão e na foto."
+  ],
+  "pendentes": [
+    {
+      "item": 13,
+      "nome_no_blog": "Fone JBL Tune 730 Bluetooth",
+      "titulo_no_ml": "Fone JBL Tune 730BT Bluetooth – até 76 h de bateria e Pure Bass",
+      "categoria": "🎧 Áudio & TV",
+      "situacao_ml": "Removido / indisponível",
+      "aviso_ml": "O link leva ao perfil de afiliado vazio (\"Este perfil ainda está vazio\"): o anúncio não existe mais.",
+      "fora_do_ar_desde": "2026-11-26 09:32",
+      "link_antigo": "https://www.mercadolivre.com.br/social/r20250720181444?matt_word=r20250720181444&matt_tool=65808735&forceInApp=true&ref=BAtkVCd0%2B8gtY1XtFP0edrlgeYuaYNGnkJoESqID4qr7FGCXqFYc7nuGyaiuhoBgzBq9K8EPczRsRBX7naUDZwEyg%2F%2F1Y7W3FPJeuy7VYn%2FxPio%2B9ZPTwZChlTnIPePVCEXh9G41OVdSk4ByaMdNqO3VeymGTKNXkge1PF6ZbaRWwvn1JHEiLfrbvglw5sUU8MQSiREW0ShZEdkP3ctxyg8SHLMTzyeg9XZJTL2xAcuWCWef%2BiLx2bt41nNYjOI6k35Fkw%3D%3D",
+      "catalogo_mlb": "",
+      "anuncio_mlb": "",
+      "preco_antes": 251.0,
+      "preco_min": 200.8,
+      "preco_max": 301.2,
+      "busca_mesmo_produto": "",
+      "busca_mesmo_tipo": "https://lista.mercadolivre.com.br/fone-jbl-tune-730bt-bluetooth"
+    }
+  ]
+}

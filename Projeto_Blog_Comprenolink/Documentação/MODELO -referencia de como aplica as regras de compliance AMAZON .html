@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Card de Produto - Compra Dupla</title>
+  <style>
+    :root {
+      --bg-page: #f4f6f8;
+      --bg-card: #ffffff;
+      --text-main: #1f2937;
+      --text-muted: #6b7280;
+      --border-color: #e5e7eb;
+      /* Cores inspiradas nas plataformas sem usar logotipos oficiais */
+      --btn-amazon-bg: #ff9900;
+      --btn-amazon-hover: #e68a00;
+      --btn-amazon-text: #111827;
+      --btn-ml-bg: #ffe600;
+      --btn-ml-hover: #f0d800;
+      --btn-ml-text: #2d3277;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      padding: 24px 16px;
+    }
+
+    /* Grade responsiva para múltiplos cards */
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 24px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    /* Estrutura do Card */
+    .product-card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .product-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    /* Área da Imagem */
+    .product-image-wrapper {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      background-color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .product-image-wrapper img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+
+    /* Conteúdo Editorial (Exigido para aprovação) */
+    .product-body {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .product-category {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .product-title {
+      font-size: 1.125rem;
+      font-weight: 700;
+      line-height: 1.35;
+      margin-bottom: 10px;
+      color: var(--text-main);
+    }
+
+    .product-description {
+      font-size: 0.9rem;
+      line-height: 1.5;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+      flex-grow: 1;
+    }
+
+    /* Grupo de Botões de Compra Dupla */
+    .cta-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: auto;
+    }
+
+    .btn-affiliate {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      text-decoration: none;
+      text-align: center;
+      transition: background-color 0.2s ease, transform 0.1s ease;
+    }
+
+    .btn-affiliate:active {
+      transform: scale(0.99);
+    }
+
+    .btn-amazon {
+      background-color: var(--btn-amazon-bg);
+      color: var(--btn-amazon-text);
+    }
+
+    .btn-amazon:hover {
+      background-color: var(--btn-amazon-hover);
+    }
+
+    .btn-mercadolivre {
+      background-color: var(--btn-ml-bg);
+      color: var(--btn-ml-text);
+    }
+
+    .btn-mercadolivre:hover {
+      background-color: var(--btn-ml-hover);
+    }
+
+    /* Aviso de Transparência no Card */
+    .card-disclosure {
+      margin-top: 12px;
+      font-size: 0.72rem;
+      line-height: 1.4;
+      color: var(--text-muted);
+      text-align: center;
+    }
+
+    /* Aviso Global Obrigatório no Rodapé */
+    .global-disclosure {
+      max-width: 1100px;
+      margin: 32px auto 0;
+      padding: 16px;
+      border-top: 1px solid var(--border-color);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <section class="product-grid">
+
+    <!-- Card de Exemplo -->
+    <article class="product-card">
+      <div class="product-image-wrapper">
+        <!-- Use imagem própria, de banco livre ou obtida via API oficial -->
+        <img src="https://via.placeholder.com/400x300?text=Foto+do+Produto" alt="Nome descritivo do produto" loading="lazy">
+      </div>
+
+      <div class="product-body">
+        <span class="product-category">Categoria do Produto</span>
+        <h2 class="product-title">Nome Completo do Produto e Modelo Principal</h2>
+        <p class="product-description">
+          Resumo objetivo dos principais diferenciais, especificações técnicas e para qual perfil de uso este item é indicado.
+        </p>
+
+        <div class="cta-group">
+          <!-- Substitua pelo link gerado no SiteStripe (amzn.to) ou com ?tag=seuid-20 -->
+          <a href="https://amzn.to/SEU_LINK_AQUI"
+             class="btn-affiliate btn-amazon"
+             target="_blank"
+             rel="nofollow sponsored noopener">
+            Ver oferta na Amazon
+          </a>
+
+          <!-- Substitua pelo link gerado no painel Afiliados Mercado Livre -->
+          <a href="https://mercadolivre.com/sec/SEU_LINK_AQUI"
+             class="btn-affiliate btn-mercadolivre"
+             target="_blank"
+             rel="nofollow sponsored noopener">
+            Ver oferta no Mercado Livre
+          </a>
+        </div>
+
+        <p class="card-disclosure">
+          Preços e disponibilidade sujeitos a alteração nas lojas oficiais.
+        </p>
+      </div>
+    </article>
+
+  </section>
+
+  <!-- Declaração obrigatória do programa Associados Amazon -->
+  <footer class="global-disclosure">
+    Como associado da Amazon e afiliado do Mercado Livre, eu ganho com compras qualificadas realizadas através dos links desta página, sem custo adicional para você.
+  </footer>
+
+</body>
+</html>

@@ -16,13 +16,9 @@ HOJE = datetime.now()
 # (atividade, status, quem, data e horario)   status: Pendente | Concluido (concluido nao entra no PDF)
 ATIVIDADES = [
     ("<b>Sincronizar com a Pagina do Facebook so os Reels bons que voce escolher</b>, conforme o Plano Geral da Virada Organica (versao 22h20) e o Plano Reformulado, sem aumentar o volume e so apos o aviso da conversa dos Reels. <b>Para que:</b> Facebook com esforco minimo, sem apagar a Pagina e sem gastar uso a toa. Toda segunda mando 1 linha a conversa Execucao (fiz / pendente / preciso do dono).",
-     "Pendente", "Eu publico depois que voce escolher os Reels", "Previsto: quartas as 20h00, depois do aviso da conversa dos Reels (1a vez: 25/11/2026 as 20h00); sem prazo fixo"),
-    ("<b>Conferir na lista de publicados da Pagina o Reel da Webcam Logitech C270</b> (estava em processamento na Meta em 24/11). <b>Para que:</b> garantir que ele realmente foi publicado so na Pagina; se falhar, eu republico.",
-     "Pendente", "Eu (leitura rapida, junto com a sync da quarta)", "Previsto: 25/11/2026 as 20h00"),
-    ("<b>Conferir no blog, so em leitura, o resultado das melhorias M1+M3+M7 (01/12) e M2 (02/12).</b> Paginas abrem (200), botoes e imagens sem quebra, sem texto de preco nem 'melhor/mais vendido'. Aviso a Execucao em 1 linha; se achar problema, aviso a Execucao e voce na hora (restauracao pelo backup do gerenciar_blog). <b>Para que:</b> garantir que as melhorias agendadas nao quebraram nada e respeitam a politica do blog.",
-     "Pendente", "Eu (so leitura; as melhorias rodam sozinhas)", "Previsto: 02/12/2026 as 20h30"),
-    ("<b>Conferir no blog, so em leitura, o piloto M4 (08/12).</b> Mesmos testes: paginas 200, sem quebra, sem preco nem 'melhor/mais vendido'. Aviso a Execucao em 1 linha. <b>Para que:</b> validar o piloto antes de ele valer para o resto do blog.",
-     "Pendente", "Eu (so leitura)", "Previsto: 09/12/2026 as 20h30"),
+     "Pendente", "Eu publico depois que voce escolher os Reels", "Previsto: sex 27/11/2026 das 15h20 as 16h00 (logo apos a conversa dos Reels terminar o Chrome, com voce no PC escolhendo os arquivos); se nao der, qua 02/12/2026 das 20h00 as 21h00"),
+    ("<b>Conferido o Reel da Webcam Logitech C270 na lista de publicados:</b> publicado so na Pagina Comprenolink (24/11 12h53) e no Instagram (24/11 11h00), sem duplicata. <b>Para que:</b> garantir que a Meta concluiu a publicacao. Nada a corrigir.",
+     "Concluido", "Eu (leitura)", "25/11/2026 as 20h20"),
     ("<b>Mandar 1 linha a conversa Execucao toda segunda: o que fiz / o que esta pendente / o que preciso do dono.</b> Regra do plano reformulado: fora isso, so mensagem se eu ficar bloqueado. <b>Para que:</b> a Execucao juntar tudo no relatorio geral sem eu gastar uso a toa.",
      "Em andamento", "Eu envio a linha (sem precisar de voce)", "Previsto: toda segunda, 1a vez 30/11/2026 ate 21h00"),
     ("<b>Acompanhar as leituras do plano:</b> 30/11, 07/12 e 14/12 (decisao em 14/12), feitas pela Execucao. Se o plano reduzir o esforco, ajusto a minha sync. <b>Para que:</b> manter so o que gera cliques para o Mercado Livre, com custo zero e dentro do limite do plano Pro (5h abaixo de 75%, semanal abaixo de 80%).",
